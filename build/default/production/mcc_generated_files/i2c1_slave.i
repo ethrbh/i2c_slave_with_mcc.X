@@ -10878,25 +10878,36 @@ static void I2C1_Isr()
 {
 I2C1_SlaveClearIrq();
 
+
 if(I2C1_SlaveIsAddr())
 {
 if(I2C1_SlaveIsRead())
 {
+
+# 179
 i2c1SlaveState = I2C1_ADDR_TX;
 }
 else
 {
+
+# 190
 i2c1SlaveState = I2C1_ADDR_RX;
 }
 }
+
+
 else
 {
 if(I2C1_SlaveIsRead())
 {
+
+# 204
 i2c1SlaveState = I2C1_DATA_TX;
 }
 else
 {
+
+# 213
 i2c1SlaveState = I2C1_DATA_RX;
 }
 }
@@ -10968,6 +10979,11 @@ I2C1_SlaveWrInterruptHandler();
 }
 
 static void I2C1_SlaveDefWrInterruptHandler() {
+
+
+
+
+i2c1WrData = i2c1RdData;
 I2C1_SlaveSendTxData(i2c1WrData);
 }
 
@@ -10984,7 +11000,9 @@ I2C1_SlaveAddrInterruptHandler();
 }
 
 static void I2C1_SlaveDefAddrInterruptHandler() {
-i2c1SlaveAddr = I2C1_SlaveGetRxData();
+
+# 311
+i2c1SlaveAddr = I2C1_SlaveGetRxData() >> 1;
 }
 
 

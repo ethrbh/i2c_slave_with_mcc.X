@@ -281,7 +281,11 @@ static void I2C1_SlaveWrCallBack() {
 }
 
 static void I2C1_SlaveDefWrInterruptHandler() {
-    i2c1WrData = i2c1SlaveAddr+1;
+    //i2c1WrData = i2c1SlaveAddr + 1;
+    // Note: In this example SLAVE returns with the
+    //       memory address value to be read.
+    //       This value is stored in i2c1RdData variable.
+    i2c1WrData = i2c1RdData;
     I2C1_SlaveSendTxData(i2c1WrData);
 }
 
@@ -298,7 +302,13 @@ static void I2C1_SlaveAddrCallBack() {
 }
 
 static void I2C1_SlaveDefAddrInterruptHandler() {
-    i2c1SlaveAddr = I2C1_SlaveGetRxData();
+    /*
+     * Note: Getting the address of Slave device is done by reading
+     *       SSP1BUF and shifting the value with 1 to right.
+     *       The 7 bit slave address is represented by the 7 bits
+     *       from left hand side.
+     */
+    i2c1SlaveAddr = I2C1_SlaveGetRxData() >> 1;
 }
 
 // Write Collision Event Interrupt Handlers

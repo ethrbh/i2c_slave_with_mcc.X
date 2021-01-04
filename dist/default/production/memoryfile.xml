@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production/i2c_slave_1.X.production.hex">
+  <executable name="dist/default/production/i2c_slave_with_mcc_core_5.0.2.X.production.hex">
     <memory name="program">
       <units>words</units>
       <length>8192</length>
-      <used>493</used>
-      <free>7699</free>
+      <used>499</used>
+      <free>7693</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>1024</length>
-      <used>22</used>
-      <free>1002</free>
+      <used>23</used>
+      <free>1001</free>
     </memory>
   </executable>
 </project>
