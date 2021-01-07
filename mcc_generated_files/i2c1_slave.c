@@ -167,6 +167,7 @@ static void I2C1_Isr()
     I2C1_SlaveClearIrq();
     
     // SSP1STATbits.D_nA == 0
+    // Address byte has been received
     if(I2C1_SlaveIsAddr())
     {   
         if(I2C1_SlaveIsRead())
@@ -175,6 +176,9 @@ static void I2C1_Isr()
              * 
              * The I2C1_ADDR_TX equals with I2C_SLAVE_READ_REQUEST
              * in the older version of MCC generated code.
+             * The SSPBUF register contains the SLAVE address, plus the 
+             * SSP1STATbits.R_nW bit, which is 1 in this case, so MASTER
+             * is going to be READ a register from SLAVE.
              */
             i2c1SlaveState = I2C1_ADDR_TX;
         }
@@ -186,20 +190,29 @@ static void I2C1_Isr()
              * I2C address has been received
              * The I2C1_ADDR_RX equals with I2C_SLAVE_WRITE_REQUEST
              * in the older version of MCC generated code.
+             * The SSPBUF register contains the SLAVE address, plus the 
+             * SSP1STATbits.R_nW bit, which is 0 in this case, so MASTER
+             * is going to be WRITE a register into SLAVE.
+             * MASTER will send another byte as the register to be write
+             * in the next step.
              */
             i2c1SlaveState = I2C1_ADDR_RX;
         }
     }
     
     // SSP1STATbits.D_nA == 1
+    // Data byte has been received
     else
     {
         if(I2C1_SlaveIsRead())
         {
             /* case for SSP1STATbits.D_nA == 1 & SSP1STATbits.R_nW == 1
              * 
-             * The I2C1_DATA_TX equals with I2C_SLAVE_READ_COMPLETE
+             * The I2C1_DATA_TX equals with I2C_SLAVE_READ_COMPLETED
              * in the older version of MCC generated code.
+             * The SSPBUF register contains the register address to be 
+             * read.
+             * SSPBUF register contains the address of register to be read.
              */
             i2c1SlaveState = I2C1_DATA_TX;
         }
@@ -207,7 +220,7 @@ static void I2C1_Isr()
         {
             /* case for SSP1STATbits.D_nA == 1 & SSP1STATbits.R_nW == 0
              * 
-             * The I2C1_DATA_RX equals with I2C_SLAVE_WRITE_COMPLETE
+             * The I2C1_DATA_RX equals with I2C_SLAVE_WRITE_COMPLETED
              * in the older version of MCC generated code.
              */
             i2c1SlaveState = I2C1_DATA_RX;
@@ -219,11 +232,20 @@ static void I2C1_Isr()
         case I2C1_ADDR_TX:
             I2C1_SlaveAddrCallBack();
             if(I2C1_SlaveIsTxBufEmpty())
-            {
+            {                
+                /*
+                 * SLAVE address for READ has been received and no other byte  
+                 * sent by MASTER. This means the REGISTER ADDRESS to be read
+                 * was sent earlier already. Thus SLAVE should take the REGISTER
+                 * address, and read its value, than send back to MASTER.
+                 */
                 I2C1_SlaveWrCallBack();
             }
             break;
         case I2C1_ADDR_RX:
+            /*
+             * SLAVE address for WRITE has been received.
+             */
             I2C1_SlaveAddrCallBack();
             break;
         case I2C1_DATA_TX:
@@ -235,6 +257,9 @@ static void I2C1_Isr()
         case I2C1_DATA_RX:
             if(I2C1_SlaveIsRxBufFull())
             {
+                /*
+                 * SLAVE has been received a DATA byte for WRITE from MASTER.
+                 */
                 I2C1_SlaveRdCallBack();
             }
             break;
@@ -281,11 +306,6 @@ static void I2C1_SlaveWrCallBack() {
 }
 
 static void I2C1_SlaveDefWrInterruptHandler() {
-    //i2c1WrData = i2c1SlaveAddr + 1;
-    // Note: In this example SLAVE returns with the
-    //       memory address value to be read.
-    //       This value is stored in i2c1RdData variable.
-    i2c1WrData = i2c1RdData;
     I2C1_SlaveSendTxData(i2c1WrData);
 }
 
@@ -302,13 +322,7 @@ static void I2C1_SlaveAddrCallBack() {
 }
 
 static void I2C1_SlaveDefAddrInterruptHandler() {
-    /*
-     * Note: Getting the address of Slave device is done by reading
-     *       SSP1BUF and shifting the value with 1 to right.
-     *       The 7 bit slave address is represented by the 7 bits
-     *       from left hand side.
-     */
-    i2c1SlaveAddr = I2C1_SlaveGetRxData() >> 1;
+    i2c1SlaveAddr = I2C1_SlaveGetRxData();
 }
 
 // Write Collision Event Interrupt Handlers
