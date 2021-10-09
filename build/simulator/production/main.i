@@ -7,11 +7,11 @@ extern const char __xc8_OPTIM_SPEED;
 extern double __fpnormalize(double);
 
 
-# 13 "/home/ethrbh/tools/microchip/xc8/v2.31/pic/include/c90/xc8debug.h"
+# 13 "/opt/microchip/xc8/v2.32/pic/include/c90/xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 13 "/home/ethrbh/tools/microchip/xc8/v2.31/pic/include/c90/stdint.h"
+# 13 "/opt/microchip/xc8/v2.32/pic/include/c90/stdint.h"
 typedef signed char int8_t;
 
 # 20
@@ -10717,19 +10717,19 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 
-# 102 "mcc_generated_files/pin_manager.h"
+# 122 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 114
+# 134
 void PIN_MANAGER_IOC(void);
 
-# 15 "/home/ethrbh/tools/microchip/xc8/v2.31/pic/include/c90/stdbool.h"
+# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
 typedef unsigned char bool;
 
-# 29 "/home/ethrbh/tools/microchip/xc8/v2.31/pic/include/c90/errno.h"
+# 29 "/opt/microchip/xc8/v2.32/pic/include/c90/errno.h"
 extern int errno;
 
-# 12 "/home/ethrbh/tools/microchip/xc8/v2.31/pic/include/c90/conio.h"
+# 12 "/opt/microchip/xc8/v2.32/pic/include/c90/conio.h"
 extern void init_uart(void);
 
 extern char getch(void);
@@ -10743,7 +10743,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 15 "/home/ethrbh/tools/microchip/xc8/v2.31/pic/include/c90/stdbool.h"
+# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
 typedef unsigned char bool;
 
 # 53 "mcc_generated_files/i2c1_slave.h"
@@ -10791,35 +10791,140 @@ void (*I2C1_SlaveAddrInterruptHandler)(void);
 void (*I2C1_SlaveBusColInterruptHandler)(void);
 void (*I2C1_SlaveWrColInterruptHandler)(void);
 
-# 71 "mcc_generated_files/mcc.h"
+# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
+typedef unsigned char bool;
+
+# 99 "mcc_generated_files/memory.h"
+uint16_t FLASH_ReadWord(uint16_t flashAddr);
+
+# 128
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+
+# 164
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+
+# 189
+void FLASH_EraseBlock(uint16_t startAddr);
+
+# 222
+void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
+
+# 248
+uint8_t DATAEE_ReadByte(uint16_t bAdd);
+
+# 72 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 84
+# 85
 void OSCILLATOR_Initialize(void);
 
-# 96
+# 97
 void WDT_Initialize(void);
 
-# 108
+# 109
 void PMD_Initialize(void);
 
-# 49 "main.c"
-void main(void)
-{
+# 50 "main.c"
+volatile uint8_t SLAVE_EEPROM_SIZE = 128;
+static uint8_t EEPROM_Buffer[] = {
+0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
+0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
+0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c, 0x4d, 0x4e, 0x4f,
+0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5a, 0x5b, 0x5c, 0x5d, 0x5e, 0x5f,
+0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f,
+0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7a, 0x7b, 0x7c, 0x7d, 0x7e, 0x7f
+};
+
+volatile uint8_t i2c1SlaveAddr = 0x00;
+uint8_t i2c1EEMemAddr = 0x00;
+volatile bool isEEMemoryAddr = 0;
+
+# 70
+static void EEPROM_I2C1_SlaveSetAddrIntHandler(void);
+
+static void EEPROM_SlaveRdDataFromSlave(void);
+
+static void EEPROM_SlaveRdDataFromMaster(void);
+
+# 81
+static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
+
+# 88
+i2c1SlaveAddr = I2C1_Read() >> 1;
+
+# 94
+if (!I2C1_IsRead()) {
+isEEMemoryAddr = 1;
+}
+}
+
+# 103
+static void EEPROM_SlaveRdDataFromSlave(void) {
+if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
+i2c1EEMemAddr = 0x00;
+}
+
+uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
+
+
+
+I2C1_Write(i2c1EEMemValue);
+}
+
+# 118
+static void EEPROM_SlaveRdDataFromMaster(void) {
+
+# 123
+if (isEEMemoryAddr) {
+
+
+i2c1EEMemAddr = I2C1_Read();
+
+
+
+if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
+i2c1EEMemAddr = 0x00;
+}
+
+
+isEEMemoryAddr = 0;
+return;
+}
+
+
+uint8_t i2c1EEMemValue = I2C1_Read();
+
+
+DATAEE_WriteByte(i2c1EEMemAddr, i2c1EEMemValue);
+
+
+EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
+}
+
+# 152
+void main(void) {
 
 SYSTEM_Initialize();
 
-# 58
+# 160
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 69
+# 172
 I2C1_Open();
 
-while (1)
-{
+
+
+I2C1_SlaveSetAddrIntHandler(EEPROM_I2C1_SlaveSetAddrIntHandler);
+I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveRdDataFromSlave);
+I2C1_SlaveSetReadIntHandler(EEPROM_SlaveRdDataFromMaster);
+
+while (1) {
+
 
 }
 }

@@ -42,6 +42,7 @@
  */
 
 #include "mcc_generated_files/mcc.h"
+#include "mcc_generated_files/memory.h"
 
 /*
  * Define "internal" EEPROM to be read/write via I2C
@@ -106,6 +107,8 @@ static void EEPROM_SlaveRdDataFromSlave(void) {
     }
 
     uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
+    //uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr];
+    //i2c1EEMemAddr++;
 
     I2C1_Write(i2c1EEMemValue);
 }
@@ -136,6 +139,10 @@ static void EEPROM_SlaveRdDataFromMaster(void) {
 
     // Read value to be write into EEPROM at the address
     uint8_t i2c1EEMemValue = I2C1_Read();
+
+    // Save the data into the internal EE too, just for test purpose
+    //DATAEE_WriteByte(i2c1EEMemAddr, i2c1EEMemValue);
+    eeprom_write(i2c1EEMemAddr, i2c1EEMemAddr);
 
     // Write the value into the EEPROM
     EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;

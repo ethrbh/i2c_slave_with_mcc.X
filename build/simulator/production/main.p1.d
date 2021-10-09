@@ -9,6 +9,7 @@ mcc_generated_files/mcc.h  \
 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic_chip_select.h  \
 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/__null.h  \
 mcc_generated_files/device_config.h  \
+mcc_generated_files/memory.h  \
 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h  \
 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/htc.h  \
 mcc_generated_files/i2c1_slave.h  \

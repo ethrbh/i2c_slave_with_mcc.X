@@ -1,0 +1,503 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PIC14E ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F18325 ]
+[d frameptr 6 ]
+"67 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.c
+[e E6228 . `uc
+I2C1_IDLE 0
+I2C1_ADDR_TX 1
+I2C1_ADDR_RX 2
+I2C1_DATA_TX 3
+I2C1_DATA_RX 4
+]
+"10 /opt/microchip/xc8/v2.32/pic/sources/c90/common/sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 /opt/microchip/xc8/v2.32/pic/sources/c90/common/Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 /opt/microchip/xc8/v2.32/pic/sources/c90/pic/__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"81 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/main.c
+[v _EEPROM_I2C1_SlaveSetAddrIntHandler EEPROM_I2C1_SlaveSetAddrIntHandler `(v  1 s 1 EEPROM_I2C1_SlaveSetAddrIntHandler ]
+"103
+[v _EEPROM_SlaveRdDataFromSlave EEPROM_SlaveRdDataFromSlave `(v  1 s 1 EEPROM_SlaveRdDataFromSlave ]
+"118
+[v _EEPROM_SlaveRdDataFromMaster EEPROM_SlaveRdDataFromMaster `(v  1 s 1 EEPROM_SlaveRdDataFromMaster ]
+"152
+[v _main main `(v  1 e 1 0 ]
+"107 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.c
+[v _I2C1_Initialize I2C1_Initialize `(v  1 e 1 0 ]
+"114
+[v _I2C1_Open I2C1_Open `(v  1 e 1 0 ]
+"131
+[v _I2C1_Read I2C1_Read `(uc  1 e 1 0 ]
+"135
+[v _I2C1_Write I2C1_Write `(v  1 e 1 0 ]
+"139
+[v _I2C1_IsRead I2C1_IsRead `(uc  1 e 1 0 ]
+"155
+[v _I2C1_Isr I2C1_Isr `(v  1 s 1 I2C1_Isr ]
+"200
+[v _I2C1_SlaveSetIsrHandler I2C1_SlaveSetIsrHandler `(v  1 e 1 0 ]
+"206
+[v _I2C1_SlaveSetReadIntHandler I2C1_SlaveSetReadIntHandler `(v  1 e 1 0 ]
+"210
+[v _I2C1_SlaveRdCallBack I2C1_SlaveRdCallBack `(v  1 s 1 I2C1_SlaveRdCallBack ]
+"217
+[v _I2C1_SlaveDefRdInterruptHandler I2C1_SlaveDefRdInterruptHandler `(v  1 s 1 I2C1_SlaveDefRdInterruptHandler ]
+"223
+[v _I2C1_SlaveSetWriteIntHandler I2C1_SlaveSetWriteIntHandler `(v  1 e 1 0 ]
+"227
+[v _I2C1_SlaveWrCallBack I2C1_SlaveWrCallBack `(v  1 s 1 I2C1_SlaveWrCallBack ]
+"234
+[v _I2C1_SlaveDefWrInterruptHandler I2C1_SlaveDefWrInterruptHandler `(v  1 s 1 I2C1_SlaveDefWrInterruptHandler ]
+"240
+[v _I2C1_SlaveSetAddrIntHandler I2C1_SlaveSetAddrIntHandler `(v  1 e 1 0 ]
+"244
+[v _I2C1_SlaveAddrCallBack I2C1_SlaveAddrCallBack `(v  1 s 1 I2C1_SlaveAddrCallBack ]
+"251
+[v _I2C1_SlaveDefAddrInterruptHandler I2C1_SlaveDefAddrInterruptHandler `(v  1 s 1 I2C1_SlaveDefAddrInterruptHandler ]
+"257
+[v _I2C1_SlaveSetWrColIntHandler I2C1_SlaveSetWrColIntHandler `(v  1 e 1 0 ]
+"268
+[v _I2C1_SlaveDefWrColInterruptHandler I2C1_SlaveDefWrColInterruptHandler `(v  1 s 1 I2C1_SlaveDefWrColInterruptHandler ]
+"273
+[v _I2C1_SlaveSetBusColIntHandler I2C1_SlaveSetBusColIntHandler `(v  1 e 1 0 ]
+"284
+[v _I2C1_SlaveDefBusColInterruptHandler I2C1_SlaveDefBusColInterruptHandler `(v  1 s 1 I2C1_SlaveDefBusColInterruptHandler ]
+"287
+[v _I2C1_SlaveOpen I2C1_SlaveOpen `T(uc  1 s 1 I2C1_SlaveOpen ]
+"298
+[v _I2C1_SlaveClose I2C1_SlaveClose `T(v  1 s 1 I2C1_SlaveClose ]
+"305
+[v _I2C1_SlaveSetSlaveAddr I2C1_SlaveSetSlaveAddr `T(v  1 s 1 I2C1_SlaveSetSlaveAddr ]
+"309
+[v _I2C1_SlaveSetSlaveMask I2C1_SlaveSetSlaveMask `T(v  1 s 1 I2C1_SlaveSetSlaveMask ]
+"313
+[v _I2C1_SlaveEnableIrq I2C1_SlaveEnableIrq `T(v  1 s 1 I2C1_SlaveEnableIrq ]
+"317
+[v _I2C1_SlaveIsAddr I2C1_SlaveIsAddr `T(uc  1 s 1 I2C1_SlaveIsAddr ]
+"321
+[v _I2C1_SlaveIsRead I2C1_SlaveIsRead `T(uc  1 s 1 I2C1_SlaveIsRead ]
+"325
+[v _I2C1_SlaveClearIrq I2C1_SlaveClearIrq `T(v  1 s 1 I2C1_SlaveClearIrq ]
+"329
+[v _I2C1_SlaveReleaseClock I2C1_SlaveReleaseClock `T(v  1 s 1 I2C1_SlaveReleaseClock ]
+"345
+[v _I2C1_SlaveIsTxBufEmpty I2C1_SlaveIsTxBufEmpty `T(uc  1 s 1 I2C1_SlaveIsTxBufEmpty ]
+"349
+[v _I2C1_SlaveIsRxBufFull I2C1_SlaveIsRxBufFull `T(uc  1 s 1 I2C1_SlaveIsRxBufFull ]
+"353
+[v _I2C1_SlaveSendTxData I2C1_SlaveSendTxData `T(v  1 s 1 I2C1_SlaveSendTxData ]
+"357
+[v _I2C1_SlaveGetRxData I2C1_SlaveGetRxData `T(uc  1 s 1 I2C1_SlaveGetRxData ]
+"365
+[v _I2C1_SlaveSendAck I2C1_SlaveSendAck `T(v  1 s 1 I2C1_SlaveSendAck ]
+"370
+[v _I2C1_SlaveSendNack I2C1_SlaveSendNack `T(v  1 s 1 I2C1_SlaveSendNack ]
+"52 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
+"50 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/mcc.c
+[v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
+"60
+[v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 1 0 ]
+"74
+[v _WDT_Initialize WDT_Initialize `(v  1 e 1 0 ]
+"80
+[v _PMD_Initialize PMD_Initialize `(v  1 e 1 0 ]
+"55 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
+[s S486 . 1 `uc 1 INTEDG 1 0 :1:0 
+`uc 1 . 1 0 :5:1 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"365 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
+[u S491 . 1 `S486 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES491  1 e 1 @11 ]
+[s S320 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 BCL1IF 1 0 :1:2 
+`uc 1 SSP1IF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+`uc 1 TMR1GIF 1 0 :1:7 
+]
+"535
+[u S329 . 1 `S320 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES329  1 e 1 @17 ]
+"1500
+[v _TRISA TRISA `VEuc  1 e 1 @140 ]
+"1545
+[v _TRISC TRISC `VEuc  1 e 1 @142 ]
+[s S278 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 BCL1IE 1 0 :1:2 
+`uc 1 SSP1IE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+`uc 1 ADIE 1 0 :1:6 
+`uc 1 TMR1GIE 1 0 :1:7 
+]
+"1645
+[u S287 . 1 `S278 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES287  1 e 1 @145 ]
+"1876
+[v _WDTCON WDTCON `VEuc  1 e 1 @151 ]
+"2192
+[v _LATA LATA `VEuc  1 e 1 @268 ]
+"2237
+[v _LATC LATC `VEuc  1 e 1 @270 ]
+"2780
+[v _ANSELA ANSELA `VEuc  1 e 1 @396 ]
+"2825
+[v _ANSELC ANSELC `VEuc  1 e 1 @398 ]
+"3741
+[v _WPUA WPUA `VEuc  1 e 1 @524 ]
+"3791
+[v _WPUC WPUC `VEuc  1 e 1 @526 ]
+"3841
+[v _SSP1BUF SSP1BUF `VEuc  1 e 1 @529 ]
+"4095
+[v _SSP1ADD SSP1ADD `VEuc  1 e 1 @530 ]
+"4349
+[v _SSP1MSK SSP1MSK `VEuc  1 e 1 @531 ]
+"4603
+[v _SSP1STAT SSP1STAT `VEuc  1 e 1 @532 ]
+[s S299 . 1 `uc 1 BF 1 0 :1:0 
+`uc 1 UA 1 0 :1:1 
+`uc 1 R_nW 1 0 :1:2 
+`uc 1 S 1 0 :1:3 
+`uc 1 P 1 0 :1:4 
+`uc 1 D_nA 1 0 :1:5 
+`uc 1 CKE 1 0 :1:6 
+`uc 1 SMP 1 0 :1:7 
+]
+"4625
+[u S308 . 1 `S299 1 . 1 0 ]
+[v _SSP1STATbits SSP1STATbits `VES308  1 e 1 @532 ]
+"4725
+[v _SSP1CON1 SSP1CON1 `VEuc  1 e 1 @533 ]
+[s S105 . 1 `uc 1 SSPM 1 0 :4:0 
+`uc 1 CKP 1 0 :1:4 
+`uc 1 SSPEN 1 0 :1:5 
+`uc 1 SSPOV 1 0 :1:6 
+`uc 1 WCOL 1 0 :1:7 
+]
+"4758
+[s S111 . 1 `uc 1 SSPM0 1 0 :1:0 
+`uc 1 SSPM1 1 0 :1:1 
+`uc 1 SSPM2 1 0 :1:2 
+`uc 1 SSPM3 1 0 :1:3 
+]
+[u S116 . 1 `S105 1 . 1 0 `S111 1 . 1 0 ]
+[v _SSP1CON1bits SSP1CON1bits `VES116  1 e 1 @533 ]
+"4995
+[v _SSP1CON2 SSP1CON2 `VEuc  1 e 1 @534 ]
+[s S341 . 1 `uc 1 SEN 1 0 :1:0 
+`uc 1 RSEN 1 0 :1:1 
+`uc 1 PEN 1 0 :1:2 
+`uc 1 RCEN 1 0 :1:3 
+`uc 1 ACKEN 1 0 :1:4 
+`uc 1 ACKDT 1 0 :1:5 
+`uc 1 ACKSTAT 1 0 :1:6 
+`uc 1 GCEN 1 0 :1:7 
+]
+"5017
+[u S350 . 1 `S341 1 . 1 0 ]
+[v _SSP1CON2bits SSP1CON2bits `VES350  1 e 1 @534 ]
+"5947
+[v _ODCONA ODCONA `VEuc  1 e 1 @652 ]
+"5992
+[v _ODCONC ODCONC `VEuc  1 e 1 @654 ]
+"6446
+[v _SLRCONA SLRCONA `VEuc  1 e 1 @780 ]
+"6491
+[v _SLRCONC SLRCONC `VEuc  1 e 1 @782 ]
+"6857
+[v _INLVLA INLVLA `VEuc  1 e 1 @908 ]
+"6907
+[v _INLVLC INLVLC `VEuc  1 e 1 @910 ]
+"11576
+[v _PMD0 PMD0 `VEuc  1 e 1 @2321 ]
+"11621
+[v _PMD1 PMD1 `VEuc  1 e 1 @2322 ]
+"11683
+[v _PMD2 PMD2 `VEuc  1 e 1 @2323 ]
+"11723
+[v _PMD3 PMD3 `VEuc  1 e 1 @2324 ]
+"11785
+[v _PMD4 PMD4 `VEuc  1 e 1 @2325 ]
+"11819
+[v _PMD5 PMD5 `VEuc  1 e 1 @2326 ]
+"11928
+[v _OSCCON1 OSCCON1 `VEuc  1 e 1 @2329 ]
+"12068
+[v _OSCCON3 OSCCON3 `VEuc  1 e 1 @2331 ]
+"12165
+[v _OSCEN OSCEN `VEuc  1 e 1 @2333 ]
+"12211
+[v _OSCTUNE OSCTUNE `VEuc  1 e 1 @2334 ]
+"12269
+[v _OSCFRQ OSCFRQ `VEuc  1 e 1 @2335 ]
+"13167
+[v _SSP1CLKPPS SSP1CLKPPS `VEuc  1 e 1 @3616 ]
+"13219
+[v _SSP1DATPPS SSP1DATPPS `VEuc  1 e 1 @3617 ]
+"14079
+[v _RC2PPS RC2PPS `VEuc  1 e 1 @3746 ]
+"14131
+[v _RC3PPS RC3PPS `VEuc  1 e 1 @3747 ]
+"50 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/main.c
+[v _SLAVE_EEPROM_SIZE SLAVE_EEPROM_SIZE `VEuc  1 e 1 0 ]
+"51
+[v _EEPROM_Buffer EEPROM_Buffer `[128]uc  1 s 128 EEPROM_Buffer ]
+"62
+[v _i2c1SlaveAddr i2c1SlaveAddr `VEuc  1 e 1 0 ]
+"63
+[v _i2c1EEMemAddr i2c1EEMemAddr `uc  1 e 1 0 ]
+"64
+[v _isEEMemoryAddr isEEMemoryAddr `VEuc  1 e 1 0 ]
+"64 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.c
+[v _i2c1WrData i2c1WrData `VEuc  1 e 1 0 ]
+"65
+[v _i2c1RdData i2c1RdData `VEuc  1 e 1 0 ]
+"67
+[v _i2c1SlaveState i2c1SlaveState `VEE6228  1 s 1 i2c1SlaveState ]
+"135 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.h
+[v _MSSP1_InterruptHandler MSSP1_InterruptHandler `*.37(v  1 e 2 0 ]
+"136
+[v _I2C1_SlaveRdInterruptHandler I2C1_SlaveRdInterruptHandler `*.37(v  1 e 2 0 ]
+"137
+[v _I2C1_SlaveWrInterruptHandler I2C1_SlaveWrInterruptHandler `*.37(v  1 e 2 0 ]
+"138
+[v _I2C1_SlaveAddrInterruptHandler I2C1_SlaveAddrInterruptHandler `*.37(v  1 e 2 0 ]
+"139
+[v _I2C1_SlaveBusColInterruptHandler I2C1_SlaveBusColInterruptHandler `*.37(v  1 e 2 0 ]
+"140
+[v _I2C1_SlaveWrColInterruptHandler I2C1_SlaveWrColInterruptHandler `*.37(v  1 e 2 0 ]
+"152 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"184
+} 0
+"50 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/mcc.c
+[v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
+{
+"58
+} 0
+"74
+[v _WDT_Initialize WDT_Initialize `(v  1 e 1 0 ]
+{
+"78
+} 0
+"80
+[v _PMD_Initialize PMD_Initialize `(v  1 e 1 0 ]
+{
+"94
+} 0
+"55 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
+{
+"110
+} 0
+"60 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/mcc.c
+[v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 1 0 ]
+{
+"72
+} 0
+"107 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.c
+[v _I2C1_Initialize I2C1_Initialize `(v  1 e 1 0 ]
+{
+"112
+} 0
+"114
+[v _I2C1_Open I2C1_Open `(v  1 e 1 0 ]
+{
+"125
+} 0
+"223
+[v _I2C1_SlaveSetWriteIntHandler I2C1_SlaveSetWriteIntHandler `(v  1 e 1 0 ]
+{
+[v I2C1_SlaveSetWriteIntHandler@handler handler `*.37(v  1 p 2 0 ]
+"225
+} 0
+"257
+[v _I2C1_SlaveSetWrColIntHandler I2C1_SlaveSetWrColIntHandler `(v  1 e 1 0 ]
+{
+[v I2C1_SlaveSetWrColIntHandler@handler handler `*.37(v  1 p 2 0 ]
+"259
+} 0
+"309
+[v _I2C1_SlaveSetSlaveMask I2C1_SlaveSetSlaveMask `T(v  1 s 1 I2C1_SlaveSetSlaveMask ]
+{
+[v I2C1_SlaveSetSlaveMask@maskAddr maskAddr `uc  1 a 1 wreg ]
+[v I2C1_SlaveSetSlaveMask@maskAddr maskAddr `uc  1 a 1 wreg ]
+[v I2C1_SlaveSetSlaveMask@maskAddr maskAddr `uc  1 a 1 0 ]
+"311
+} 0
+"305
+[v _I2C1_SlaveSetSlaveAddr I2C1_SlaveSetSlaveAddr `T(v  1 s 1 I2C1_SlaveSetSlaveAddr ]
+{
+[v I2C1_SlaveSetSlaveAddr@slaveAddr slaveAddr `uc  1 a 1 wreg ]
+[v I2C1_SlaveSetSlaveAddr@slaveAddr slaveAddr `uc  1 a 1 wreg ]
+[v I2C1_SlaveSetSlaveAddr@slaveAddr slaveAddr `uc  1 a 1 0 ]
+"307
+} 0
+"206
+[v _I2C1_SlaveSetReadIntHandler I2C1_SlaveSetReadIntHandler `(v  1 e 1 0 ]
+{
+[v I2C1_SlaveSetReadIntHandler@handler handler `*.37(v  1 p 2 0 ]
+"208
+} 0
+"200
+[v _I2C1_SlaveSetIsrHandler I2C1_SlaveSetIsrHandler `(v  1 e 1 0 ]
+{
+[v I2C1_SlaveSetIsrHandler@handler handler `*.37(v  1 p 2 0 ]
+"202
+} 0
+"273
+[v _I2C1_SlaveSetBusColIntHandler I2C1_SlaveSetBusColIntHandler `(v  1 e 1 0 ]
+{
+[v I2C1_SlaveSetBusColIntHandler@handler handler `*.37(v  1 p 2 0 ]
+"275
+} 0
+"240
+[v _I2C1_SlaveSetAddrIntHandler I2C1_SlaveSetAddrIntHandler `(v  1 e 1 0 ]
+{
+[v I2C1_SlaveSetAddrIntHandler@handler handler `*.37(v  1 p 2 0 ]
+"242
+} 0
+"287
+[v _I2C1_SlaveOpen I2C1_SlaveOpen `T(uc  1 s 1 I2C1_SlaveOpen ]
+{
+"296
+} 0
+"313
+[v _I2C1_SlaveEnableIrq I2C1_SlaveEnableIrq `T(v  1 s 1 I2C1_SlaveEnableIrq ]
+{
+"315
+} 0
+"52 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
+{
+"74
+} 0
+"155 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.c
+[v _I2C1_Isr I2C1_Isr `(v  1 s 1 I2C1_Isr ]
+{
+"196
+} 0
+"227
+[v _I2C1_SlaveWrCallBack I2C1_SlaveWrCallBack `(v  1 s 1 I2C1_SlaveWrCallBack ]
+{
+"232
+} 0
+"103 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/main.c
+[v _EEPROM_SlaveRdDataFromSlave EEPROM_SlaveRdDataFromSlave `(v  1 s 1 EEPROM_SlaveRdDataFromSlave ]
+{
+"108
+[v EEPROM_SlaveRdDataFromSlave@i2c1EEMemValue i2c1EEMemValue `uc  1 a 1 3 ]
+"113
+} 0
+"234 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.c
+[v _I2C1_SlaveDefWrInterruptHandler I2C1_SlaveDefWrInterruptHandler `(v  1 s 1 I2C1_SlaveDefWrInterruptHandler ]
+{
+"236
+} 0
+"135
+[v _I2C1_Write I2C1_Write `(v  1 e 1 0 ]
+{
+[v I2C1_Write@data data `uc  1 a 1 wreg ]
+[v I2C1_Write@data data `uc  1 a 1 wreg ]
+[v I2C1_Write@data data `uc  1 a 1 1 ]
+"137
+} 0
+"353
+[v _I2C1_SlaveSendTxData I2C1_SlaveSendTxData `T(v  1 s 1 I2C1_SlaveSendTxData ]
+{
+[v I2C1_SlaveSendTxData@data data `uc  1 a 1 wreg ]
+[v I2C1_SlaveSendTxData@data data `uc  1 a 1 wreg ]
+[v I2C1_SlaveSendTxData@data data `uc  1 a 1 0 ]
+"355
+} 0
+"329
+[v _I2C1_SlaveReleaseClock I2C1_SlaveReleaseClock `T(v  1 s 1 I2C1_SlaveReleaseClock ]
+{
+"331
+} 0
+"210
+[v _I2C1_SlaveRdCallBack I2C1_SlaveRdCallBack `(v  1 s 1 I2C1_SlaveRdCallBack ]
+{
+"215
+} 0
+"118 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/main.c
+[v _EEPROM_SlaveRdDataFromMaster EEPROM_SlaveRdDataFromMaster `(v  1 s 1 EEPROM_SlaveRdDataFromMaster ]
+{
+"140
+[v EEPROM_SlaveRdDataFromMaster@i2c1EEMemValue i2c1EEMemValue `uc  1 a 1 3 ]
+"147
+} 0
+"217 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.c
+[v _I2C1_SlaveDefRdInterruptHandler I2C1_SlaveDefRdInterruptHandler `(v  1 s 1 I2C1_SlaveDefRdInterruptHandler ]
+{
+"219
+} 0
+"345
+[v _I2C1_SlaveIsTxBufEmpty I2C1_SlaveIsTxBufEmpty `T(uc  1 s 1 I2C1_SlaveIsTxBufEmpty ]
+{
+"347
+} 0
+"349
+[v _I2C1_SlaveIsRxBufFull I2C1_SlaveIsRxBufFull `T(uc  1 s 1 I2C1_SlaveIsRxBufFull ]
+{
+"351
+} 0
+"317
+[v _I2C1_SlaveIsAddr I2C1_SlaveIsAddr `T(uc  1 s 1 I2C1_SlaveIsAddr ]
+{
+"319
+} 0
+"325
+[v _I2C1_SlaveClearIrq I2C1_SlaveClearIrq `T(v  1 s 1 I2C1_SlaveClearIrq ]
+{
+"327
+} 0
+"244
+[v _I2C1_SlaveAddrCallBack I2C1_SlaveAddrCallBack `(v  1 s 1 I2C1_SlaveAddrCallBack ]
+{
+"249
+} 0
+"81 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/main.c
+[v _EEPROM_I2C1_SlaveSetAddrIntHandler EEPROM_I2C1_SlaveSetAddrIntHandler `(v  1 s 1 EEPROM_I2C1_SlaveSetAddrIntHandler ]
+{
+"97
+} 0
+"251 /home/ethrbh/projects/github/i2c_slave_with_mcc_core_5.0.2.X/mcc_generated_files/i2c1_slave.c
+[v _I2C1_SlaveDefAddrInterruptHandler I2C1_SlaveDefAddrInterruptHandler `(v  1 s 1 I2C1_SlaveDefAddrInterruptHandler ]
+{
+"253
+} 0
+"131
+[v _I2C1_Read I2C1_Read `(uc  1 e 1 0 ]
+{
+"133
+} 0
+"357
+[v _I2C1_SlaveGetRxData I2C1_SlaveGetRxData `T(uc  1 s 1 I2C1_SlaveGetRxData ]
+{
+"359
+} 0
+"139
+[v _I2C1_IsRead I2C1_IsRead `(uc  1 e 1 0 ]
+{
+"141
+} 0
+"321
+[v _I2C1_SlaveIsRead I2C1_SlaveIsRead `T(uc  1 s 1 I2C1_SlaveIsRead ]
+{
+"323
+} 0
