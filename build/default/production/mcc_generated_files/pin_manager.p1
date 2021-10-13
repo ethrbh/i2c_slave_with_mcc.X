@@ -7227,12 +7227,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pin_manager.c: 72: ANSELC = 0x33;
 "72
 [e = _ANSELC -> -> 51 `i `uc ]
-[; ;pin_manager.c: 73: ANSELA = 0x37;
+[; ;pin_manager.c: 73: ANSELA = 0x33;
 "73
-[e = _ANSELA -> -> 55 `i `uc ]
-[; ;pin_manager.c: 78: WPUA = 0x00;
+[e = _ANSELA -> -> 51 `i `uc ]
+[; ;pin_manager.c: 78: WPUA = 0x04;
 "78
-[e = _WPUA -> -> 0 `i `uc ]
+[e = _WPUA -> -> 4 `i `uc ]
 [; ;pin_manager.c: 79: WPUC = 0x00;
 "79
 [e = _WPUC -> -> 0 `i `uc ]

@@ -155,6 +155,7 @@ void I2C1_SendNack() {
 static void I2C1_Isr() {
     I2C1_SlaveClearIrq();
 
+    // Orig
     if (I2C1_SlaveIsAddr()) {
         if (I2C1_SlaveIsRead()) {
             i2c1SlaveState = I2C1_ADDR_TX;
@@ -163,11 +164,38 @@ static void I2C1_Isr() {
         }
     } else {
         if (I2C1_SlaveIsRead()) {
-            i2c1SlaveState = I2C1_DATA_TX;
-        } else {
+            //i2c1SlaveState = I2C1_DATA_TX;
             i2c1SlaveState = I2C1_DATA_RX;
+        } else {
+            //i2c1SlaveState = I2C1_DATA_RX;
+            i2c1SlaveState = I2C1_DATA_TX;
         }
     }
+
+    //    // My version
+    //    if (I2C1_SlaveIsRead()) {
+    //        // Read from SLAVE device case
+    //        if ((I2C1_SlaveIsData()) && (SSP1CON2bits.ACKSTAT)) {
+    //            // state: I2C1_SLAVE_READ_COMPLETED
+    //            // The register address has been received to be read out.
+    //            i2c1SlaveState = I2C1_DATA_TX; //ok
+    //        } else {
+    //            // state: I2C1_SLAVE_READ_REQUEST
+    //            // I2C slave address has been received.
+    //            // The next byte should be the register address to be read out.
+    //            i2c1SlaveState = I2C1_ADDR_TX; //ok
+    //        }
+    //    } else {
+    //        // Write into the SLAVE device case
+    //        if (I2C1_SlaveIsAddr()) {
+    //            // state: I2C1_SLAVE_WRITE_REQUEST
+    //            i2c1SlaveState = I2C1_ADDR_RX; //ok
+    //        } else {
+    //            // state: I2C1_SLAVE_WRITE_COMPLETED
+    //            i2c1SlaveState = I2C1_DATA_RX;
+    //        }
+    //    }
+    //    // End of my version
 
     switch (i2c1SlaveState) {
         case I2C1_ADDR_TX:

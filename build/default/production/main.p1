@@ -9,10 +9,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _I2C1_Read `(uc ~T0 @X0 0 ef ]
 "99
 [v _I2C1_IsRead `(uc ~T0 @X0 0 ef ]
-"90
-[v _I2C1_Write `(v ~T0 @X0 0 ef1`uc ]
 "114 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/eeprom_routines.h
 [v _eeprom_write `(v ~T0 @X0 0 ef2`uc`uc ]
+"90 mcc_generated_files/i2c1_slave.h
+[v _I2C1_Write `(v ~T0 @X0 0 ef1`uc ]
 [p mainexit ]
 "72 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
@@ -7436,8 +7436,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;main.c: 65: volatile bool isEEMemoryAddr = 0;
 [; ;main.c: 71: static void EEPROM_I2C1_SlaveSetAddrIntHandler(void);
-[; ;main.c: 73: static void EEPROM_SlaveRdDataFromSlave(void);
-[; ;main.c: 75: static void EEPROM_SlaveRdDataFromMaster(void);
+[; ;main.c: 73: static void EEPROM_SlaveSetWriteIntHandler(void);
+[; ;main.c: 75: static void EEPROM_SlaveSetReadIntHandler(void);
 "82
 [v _EEPROM_I2C1_SlaveSetAddrIntHandler `(v ~T0 @X0 1 sf ]
 {
@@ -7458,126 +7458,154 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 919 ]
 [; ;main.c: 97: }
-[; ;main.c: 98: }
-"98
+[; ;main.c: 99: return;
+"99
+[e $UE 918  ]
+[; ;main.c: 100: }
+"100
 [e :UE 918 ]
 }
-"104
-[v _EEPROM_SlaveRdDataFromSlave `(v ~T0 @X0 1 sf ]
+"106
+[v _EEPROM_SlaveSetWriteIntHandler `(v ~T0 @X0 1 sf ]
 {
-[; ;main.c: 104: static void EEPROM_SlaveRdDataFromSlave(void) {
-[e :U _EEPROM_SlaveRdDataFromSlave ]
+[; ;main.c: 106: static void EEPROM_SlaveSetWriteIntHandler(void) {
+[e :U _EEPROM_SlaveSetWriteIntHandler ]
 [f ]
-[; ;main.c: 105: if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
-"105
+[; ;main.c: 107: if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
+"107
 [e $ ! >= -> _i2c1EEMemAddr `i -> _SLAVE_EEPROM_SIZE `i 921  ]
 {
-[; ;main.c: 106: i2c1EEMemAddr = 0x00;
-"106
+[; ;main.c: 108: i2c1EEMemAddr = 0x00;
+"108
 [e = _i2c1EEMemAddr -> -> 0 `i `uc ]
-"107
+"109
 }
 [e :U 921 ]
-"109
-[v _i2c1EEMemValue `uc ~T0 @X0 1 a ]
-[; ;main.c: 107: }
-[; ;main.c: 109: uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
-[e = _i2c1EEMemValue *U + &U _EEPROM_Buffer * -> ++ _i2c1EEMemAddr -> -> 1 `i `uc `ux -> -> # *U &U _EEPROM_Buffer `ui `ux ]
-[; ;main.c: 113: I2C1_Write(i2c1EEMemValue);
+[; ;main.c: 109: }
+[; ;main.c: 111: eeprom_write(0x20, i2c1EEMemAddr);
+"111
+[e ( _eeprom_write (2 , -> -> 32 `i `uc _i2c1EEMemAddr ]
 "113
+[v _i2c1EEMemValue `uc ~T0 @X0 1 a ]
+[; ;main.c: 113: uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
+[e = _i2c1EEMemValue *U + &U _EEPROM_Buffer * -> ++ _i2c1EEMemAddr -> -> 1 `i `uc `ux -> -> # *U &U _EEPROM_Buffer `ui `ux ]
+[; ;main.c: 115: eeprom_write(0x21, i2c1EEMemValue);
+"115
+[e ( _eeprom_write (2 , -> -> 33 `i `uc _i2c1EEMemValue ]
+[; ;main.c: 117: I2C1_Write(i2c1EEMemValue);
+"117
 [e ( _I2C1_Write (1 _i2c1EEMemValue ]
-[; ;main.c: 114: }
-"114
+[; ;main.c: 119: return;
+"119
+[e $UE 920  ]
+[; ;main.c: 120: }
+"120
 [e :UE 920 ]
 }
-"119
-[v _EEPROM_SlaveRdDataFromMaster `(v ~T0 @X0 1 sf ]
+"127
+[v _EEPROM_SlaveSetReadIntHandler `(v ~T0 @X0 1 sf ]
 {
-[; ;main.c: 119: static void EEPROM_SlaveRdDataFromMaster(void) {
-[e :U _EEPROM_SlaveRdDataFromMaster ]
+[; ;main.c: 127: static void EEPROM_SlaveSetReadIntHandler(void) {
+[e :U _EEPROM_SlaveSetReadIntHandler ]
 [f ]
-[; ;main.c: 124: if (isEEMemoryAddr) {
-"124
+[; ;main.c: 132: if (isEEMemoryAddr) {
+"132
 [e $ ! != -> _isEEMemoryAddr `i -> -> -> 0 `i `Vuc `i 923  ]
 {
-[; ;main.c: 127: i2c1EEMemAddr = I2C1_Read();
-"127
+[; ;main.c: 135: i2c1EEMemAddr = I2C1_Read();
+"135
 [e = _i2c1EEMemAddr ( _I2C1_Read ..  ]
-[; ;main.c: 131: if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
-"131
+[; ;main.c: 139: if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
+"139
 [e $ ! >= -> _i2c1EEMemAddr `i -> _SLAVE_EEPROM_SIZE `i 924  ]
 {
-[; ;main.c: 132: i2c1EEMemAddr = 0x00;
-"132
+[; ;main.c: 140: i2c1EEMemAddr = 0x00;
+"140
 [e = _i2c1EEMemAddr -> -> 0 `i `uc ]
-"133
+"141
 }
 [e :U 924 ]
-[; ;main.c: 133: }
-[; ;main.c: 136: isEEMemoryAddr = 0;
-"136
+[; ;main.c: 141: }
+[; ;main.c: 144: isEEMemoryAddr = 0;
+"144
 [e = _isEEMemoryAddr -> -> 0 `i `uc ]
-[; ;main.c: 137: return;
-"137
-[e $UE 922  ]
-"138
-}
-[e :U 923 ]
-"141
-[v _i2c1EEMemValue `uc ~T0 @X0 1 a ]
-[; ;main.c: 138: }
-[; ;main.c: 141: uint8_t i2c1EEMemValue = I2C1_Read();
-[e = _i2c1EEMemValue ( _I2C1_Read ..  ]
-[; ;main.c: 145: eeprom_write(i2c1EEMemAddr, i2c1EEMemAddr);
+[; ;main.c: 145: return;
 "145
-[e ( _eeprom_write (2 , _i2c1EEMemAddr _i2c1EEMemAddr ]
-[; ;main.c: 148: EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
+[e $UE 922  ]
+"146
+}
+[; ;main.c: 146: } else {
+[e $U 925  ]
+[e :U 923 ]
+{
 "148
+[v _i2c1EEMemValue `uc ~T0 @X0 1 a ]
+[; ;main.c: 148: uint8_t i2c1EEMemValue = I2C1_Read();
+[e = _i2c1EEMemValue ( _I2C1_Read ..  ]
+[; ;main.c: 151: eeprom_write(i2c1EEMemAddr, i2c1EEMemAddr);
+"151
+[e ( _eeprom_write (2 , _i2c1EEMemAddr _i2c1EEMemAddr ]
+"152
+[v _i2c1EEMemAddrTmp `uc ~T0 @X0 1 a ]
+[; ;main.c: 152: uint8_t i2c1EEMemAddrTmp = i2c1EEMemAddr + 16;
+[e = _i2c1EEMemAddrTmp -> + -> _i2c1EEMemAddr `i -> 16 `i `uc ]
+[; ;main.c: 153: eeprom_write(i2c1EEMemAddrTmp, i2c1EEMemValue);
+"153
+[e ( _eeprom_write (2 , _i2c1EEMemAddrTmp _i2c1EEMemValue ]
+[; ;main.c: 156: EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
+"156
 [e = *U + &U _EEPROM_Buffer * -> ++ _i2c1EEMemAddr -> -> 1 `i `uc `ux -> -> # *U &U _EEPROM_Buffer `ui `ux _i2c1EEMemValue ]
-[; ;main.c: 149: }
-"149
+[; ;main.c: 158: return;
+"158
+[e $UE 922  ]
+"159
+}
+[e :U 925 ]
+[; ;main.c: 159: }
+[; ;main.c: 160: }
+"160
 [e :UE 922 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"154
+"165
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 154: void main(void) {
+[; ;main.c: 165: void main(void) {
 [e :U _main ]
 [f ]
-[; ;main.c: 156: SYSTEM_Initialize();
-"156
+[; ;main.c: 167: SYSTEM_Initialize();
+"167
 [e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 162: (INTCONbits.GIE = 1);
-"162
+[; ;main.c: 173: (INTCONbits.GIE = 1);
+"173
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;main.c: 165: (INTCONbits.PEIE = 1);
-"165
+[; ;main.c: 176: (INTCONbits.PEIE = 1);
+"176
 [e = . . _INTCONbits 0 2 -> -> 1 `i `uc ]
-[; ;main.c: 174: I2C1_Open();
-"174
-[e ( _I2C1_Open ..  ]
-[; ;main.c: 178: I2C1_SlaveSetAddrIntHandler(EEPROM_I2C1_SlaveSetAddrIntHandler);
-"178
-[e ( _I2C1_SlaveSetAddrIntHandler (1 &U _EEPROM_I2C1_SlaveSetAddrIntHandler ]
-[; ;main.c: 179: I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveRdDataFromSlave);
-"179
-[e ( _I2C1_SlaveSetWriteIntHandler (1 &U _EEPROM_SlaveRdDataFromSlave ]
-[; ;main.c: 180: I2C1_SlaveSetReadIntHandler(EEPROM_SlaveRdDataFromMaster);
-"180
-[e ( _I2C1_SlaveSetReadIntHandler (1 &U _EEPROM_SlaveRdDataFromMaster ]
-[; ;main.c: 182: while (1) {
-"182
-[e :U 927 ]
-{
+[; ;main.c: 185: I2C1_Open();
 "185
-}
-[e :U 926 ]
-"182
-[e $U 927  ]
+[e ( _I2C1_Open ..  ]
+[; ;main.c: 189: I2C1_SlaveSetAddrIntHandler(EEPROM_I2C1_SlaveSetAddrIntHandler);
+"189
+[e ( _I2C1_SlaveSetAddrIntHandler (1 &U _EEPROM_I2C1_SlaveSetAddrIntHandler ]
+[; ;main.c: 190: I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveSetWriteIntHandler);
+"190
+[e ( _I2C1_SlaveSetWriteIntHandler (1 &U _EEPROM_SlaveSetWriteIntHandler ]
+[; ;main.c: 191: I2C1_SlaveSetReadIntHandler(EEPROM_SlaveSetReadIntHandler);
+"191
+[e ( _I2C1_SlaveSetReadIntHandler (1 &U _EEPROM_SlaveSetReadIntHandler ]
+[; ;main.c: 193: while (1) {
+"193
 [e :U 928 ]
-[; ;main.c: 185: }
-[; ;main.c: 186: }
-"186
-[e :UE 925 ]
+{
+"196
+}
+[e :U 927 ]
+"193
+[e $U 928  ]
+[e :U 929 ]
+[; ;main.c: 196: }
+[; ;main.c: 197: }
+"197
+[e :UE 926 ]
 }

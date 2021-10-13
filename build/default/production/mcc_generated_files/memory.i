@@ -1,8 +1,15 @@
 
-# 1 "mcc_generated_files/i2c1_slave.c"
+# 1 "mcc_generated_files/memory.c"
 
-# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
-typedef unsigned char bool;
+# 18 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h"
+extern const char __xc8_OPTIM_SPEED;
+
+extern double __fpnormalize(double);
+
+
+# 13 "/opt/microchip/xc8/v2.32/pic/include/c90/xc8debug.h"
+#pragma intrinsic(__builtin_software_breakpoint)
+extern void __builtin_software_breakpoint(void);
 
 # 13 "/opt/microchip/xc8/v2.32/pic/include/c90/stdint.h"
 typedef signed char int8_t;
@@ -89,61 +96,6 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-
-# 53 "mcc_generated_files/i2c1_slave.h"
-typedef void (*i2c1InterruptHandler)(void);
-
-# 61
-void I2C1_Initialize(void);
-
-# 68
-void I2C1_Open(void);
-
-# 76
-void I2C1_Close(void);
-
-# 83
-uint8_t I2C1_Read(void);
-
-# 90
-void I2C1_Write(uint8_t data);
-
-# 99
-bool I2C1_IsRead(void);
-
-# 106
-void I2C1_Enable(void);
-
-# 113
-void I2C1_SendAck(void);
-
-# 120
-void I2C1_SendNack(void);
-
-# 128
-void I2C1_SlaveSetIsrHandler(i2c1InterruptHandler handler);
-void I2C1_SlaveSetAddrIntHandler(i2c1InterruptHandler handler);
-void I2C1_SlaveSetReadIntHandler(i2c1InterruptHandler handler);
-void I2C1_SlaveSetWriteIntHandler(i2c1InterruptHandler handler);
-void I2C1_SlaveSetBusColIntHandler(i2c1InterruptHandler handler);
-void I2C1_SlaveSetWrColIntHandler(i2c1InterruptHandler handler);
-
-void (*MSSP1_InterruptHandler)(void);
-void (*I2C1_SlaveRdInterruptHandler)(void);
-void (*I2C1_SlaveWrInterruptHandler)(void);
-void (*I2C1_SlaveAddrInterruptHandler)(void);
-void (*I2C1_SlaveBusColInterruptHandler)(void);
-void (*I2C1_SlaveWrColInterruptHandler)(void);
-
-# 18 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h"
-extern const char __xc8_OPTIM_SPEED;
-
-extern double __fpnormalize(double);
-
-
-# 13 "/opt/microchip/xc8/v2.32/pic/include/c90/xc8debug.h"
-#pragma intrinsic(__builtin_software_breakpoint)
-extern void __builtin_software_breakpoint(void);
 
 
 # 7 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h"
@@ -10765,329 +10717,178 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 
-# 53 "mcc_generated_files/i2c1_slave.c"
-typedef enum {
-I2C1_IDLE,
-I2C1_ADDR_TX,
-I2C1_ADDR_RX,
-I2C1_DATA_TX,
-I2C1_DATA_RX
-} i2c1_slave_state_t;
+# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
+typedef unsigned char bool;
 
-# 64
-volatile uint8_t i2c1WrData;
-volatile uint8_t i2c1RdData;
-volatile uint8_t i2c1SlaveAddr;
-static volatile i2c1_slave_state_t i2c1SlaveState = I2C1_IDLE;
+# 99 "mcc_generated_files/memory.h"
+uint16_t FLASH_ReadWord(uint16_t flashAddr);
 
-# 72
-static void I2C1_Isr(void);
-static void I2C1_SlaveDefRdInterruptHandler(void);
-static void I2C1_SlaveDefWrInterruptHandler(void);
-static void I2C1_SlaveDefAddrInterruptHandler(void);
-static void I2C1_SlaveDefWrColInterruptHandler(void);
-static void I2C1_SlaveDefBusColInterruptHandler(void);
+# 128
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
 
-static void I2C1_SlaveRdCallBack(void);
-static void I2C1_SlaveWrCallBack(void);
-static void I2C1_SlaveAddrCallBack(void);
-static void I2C1_SlaveWrColCallBack(void);
-static void I2C1_SlaveBusColCallBack(void);
+# 164
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
 
-static inline bool I2C1_SlaveOpen();
-static inline void I2C1_SlaveClose();
-static inline void I2C1_SlaveSetSlaveAddr(uint8_t slaveAddr);
-static inline void I2C1_SlaveSetSlaveMask(uint8_t maskAddr);
-static inline void I2C1_SlaveEnableIrq(void);
-static inline bool I2C1_SlaveIsAddr(void);
-static inline bool I2C1_SlaveIsRead(void);
-static inline void I2C1_SlaveClearBuff(void);
-static inline void I2C1_SlaveClearIrq(void);
-static inline void I2C1_SlaveReleaseClock(void);
-static inline bool I2C1_SlaveIsWriteCollision(void);
-static inline bool I2C1_SlaveIsTxBufEmpty(void);
-static inline bool I2C1_SlaveIsData(void);
-static inline void I2C1_SlaveRestart(void);
-static inline bool I2C1_SlaveIsRxBufFull(void);
-static inline void I2C1_SlaveSendTxData(uint8_t data);
-static inline uint8_t I2C1_SlaveGetRxData(void);
-static inline uint8_t I2C1_SlaveGetAddr(void);
-static inline void I2C1_SlaveSendAck(void);
-static inline void I2C1_SlaveSendNack(void);
-static inline bool I2C1_SlaveIsOverFlow(void);
+# 189
+void FLASH_EraseBlock(uint16_t startAddr);
 
-void I2C1_Initialize() {
-SSP1STAT = 0xC0;
-SSP1CON1 |= 0x06;
-SSP1CON2 = 0x01;
-SSP1CON1bits.SSPEN = 0;
+# 222
+void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
+
+# 248
+uint8_t DATAEE_ReadByte(uint16_t bAdd);
+
+# 58 "mcc_generated_files/memory.c"
+uint16_t FLASH_ReadWord(uint16_t flashAddr)
+{
+uint8_t GIEBitValue = INTCONbits.GIE;
+
+INTCONbits.GIE = 0;
+NVMADRL = (flashAddr & 0x00FF);
+NVMADRH = ((flashAddr & 0xFF00) >> 8);
+
+NVMCON1bits.NVMREGS = 0;
+NVMCON1bits.RD = 1;
+__nop();
+__nop();
+INTCONbits.GIE = GIEBitValue;
+
+return ((uint16_t)((NVMDATH << 8) | NVMDATL));
 }
 
-void I2C1_Open() {
-I2C1_SlaveOpen();
-I2C1_SlaveSetSlaveAddr(103);
-I2C1_SlaveSetSlaveMask(127);
-I2C1_SlaveSetIsrHandler(I2C1_Isr);
-I2C1_SlaveSetBusColIntHandler(I2C1_SlaveDefBusColInterruptHandler);
-I2C1_SlaveSetWriteIntHandler(I2C1_SlaveDefWrInterruptHandler);
-I2C1_SlaveSetReadIntHandler(I2C1_SlaveDefRdInterruptHandler);
-I2C1_SlaveSetAddrIntHandler(I2C1_SlaveDefAddrInterruptHandler);
-I2C1_SlaveSetWrColIntHandler(I2C1_SlaveDefWrColInterruptHandler);
-I2C1_SlaveEnableIrq();
-}
-
-void I2C1_Close() {
-I2C1_SlaveClose();
-}
-
-uint8_t I2C1_Read() {
-return I2C1_SlaveGetRxData();
-}
-
-void I2C1_Write(uint8_t data) {
-I2C1_SlaveSendTxData(data);
-}
-
-bool I2C1_IsRead() {
-return I2C1_SlaveIsRead();
-}
-
-void I2C1_Enable() {
-I2C1_Initialize();
-}
-
-void I2C1_SendAck() {
-I2C1_SlaveSendAck();
-}
-
-void I2C1_SendNack() {
-I2C1_SlaveSendNack();
-}
-
-static void I2C1_Isr() {
-I2C1_SlaveClearIrq();
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word)
+{
+uint16_t blockStartAddr = (uint16_t)(flashAddr & ((0x2000-1) ^ (32-1)));
+uint8_t offset = (uint8_t)(flashAddr & (32-1));
+uint8_t i;
 
 
-if (I2C1_SlaveIsAddr()) {
-if (I2C1_SlaveIsRead()) {
-i2c1SlaveState = I2C1_ADDR_TX;
-} else {
-i2c1SlaveState = I2C1_ADDR_RX;
-}
-} else {
-if (I2C1_SlaveIsRead()) {
-
-i2c1SlaveState = I2C1_DATA_RX;
-} else {
-
-i2c1SlaveState = I2C1_DATA_TX;
-}
-}
-
-# 200
-switch (i2c1SlaveState) {
-case I2C1_ADDR_TX:
-I2C1_SlaveAddrCallBack();
-if (I2C1_SlaveIsTxBufEmpty()) {
-I2C1_SlaveWrCallBack();
-}
-break;
-case I2C1_ADDR_RX:
-I2C1_SlaveAddrCallBack();
-break;
-case I2C1_DATA_TX:
-if (I2C1_SlaveIsTxBufEmpty()) {
-I2C1_SlaveWrCallBack();
-}
-break;
-case I2C1_DATA_RX:
-if (I2C1_SlaveIsRxBufFull()) {
-I2C1_SlaveRdCallBack();
-}
-break;
-default:
-break;
-}
-I2C1_SlaveReleaseClock();
+for (i=0; i<32; i++)
+{
+ramBuf[i] = FLASH_ReadWord((blockStartAddr+i));
 }
 
 
+ramBuf[offset] = word;
 
-void I2C1_SlaveSetIsrHandler(i2c1InterruptHandler handler) {
-MSSP1_InterruptHandler = handler;
+
+FLASH_WriteBlock(blockStartAddr, ramBuf);
 }
 
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray)
+{
+uint16_t blockStartAddr = (uint16_t )(writeAddr & ((0x2000-1) ^ (32-1)));
+uint8_t GIEBitValue = INTCONbits.GIE;
+uint8_t i;
 
 
-void I2C1_SlaveSetReadIntHandler(i2c1InterruptHandler handler) {
-I2C1_SlaveRdInterruptHandler = handler;
+
+if( writeAddr != blockStartAddr )
+{
+return -1;
 }
 
-static void I2C1_SlaveRdCallBack() {
-
-if (I2C1_SlaveRdInterruptHandler) {
-I2C1_SlaveRdInterruptHandler();
-}
-}
-
-static void I2C1_SlaveDefRdInterruptHandler() {
-i2c1RdData = I2C1_SlaveGetRxData();
-}
+INTCONbits.GIE = 0;
 
 
-
-void I2C1_SlaveSetWriteIntHandler(i2c1InterruptHandler handler) {
-I2C1_SlaveWrInterruptHandler = handler;
-}
-
-static void I2C1_SlaveWrCallBack() {
-
-if (I2C1_SlaveWrInterruptHandler) {
-I2C1_SlaveWrInterruptHandler();
-}
-}
-
-static void I2C1_SlaveDefWrInterruptHandler() {
-I2C1_SlaveSendTxData(i2c1WrData);
-}
+FLASH_EraseBlock(writeAddr);
 
 
+NVMCON1bits.NVMREGS = 0;
+NVMCON1bits.WREN = 1;
+NVMCON1bits.LWLO = 1;
 
-void I2C1_SlaveSetAddrIntHandler(i2c1InterruptHandler handler) {
-I2C1_SlaveAddrInterruptHandler = handler;
+for (i=0; i<32; i++)
+{
+
+NVMADRL = (writeAddr & 0xFF);
+
+NVMADRH = ((writeAddr & 0xFF00) >> 8);
+
+
+NVMDATL = flashWordArray[i];
+NVMDATH = ((flashWordArray[i] & 0xFF00) >> 8);
+
+if(i == (32-1))
+{
+
+NVMCON1bits.LWLO = 0;
 }
 
-static void I2C1_SlaveAddrCallBack() {
+NVMCON2 = 0x55;
+NVMCON2 = 0xAA;
+NVMCON1bits.WR = 1;
+__nop();
+__nop();
 
-if (I2C1_SlaveAddrInterruptHandler) {
-I2C1_SlaveAddrInterruptHandler();
-}
-}
-
-static void I2C1_SlaveDefAddrInterruptHandler() {
-i2c1SlaveAddr = I2C1_SlaveGetRxData();
+writeAddr++;
 }
 
+NVMCON1bits.WREN = 0;
+INTCONbits.GIE = GIEBitValue;
 
-
-void I2C1_SlaveSetWrColIntHandler(i2c1InterruptHandler handler) {
-I2C1_SlaveWrColInterruptHandler = handler;
-}
-
-static void I2C1_SlaveWrColCallBack() {
-
-if (I2C1_SlaveWrColInterruptHandler) {
-I2C1_SlaveWrColInterruptHandler();
-}
-}
-
-static void I2C1_SlaveDefWrColInterruptHandler() {
-}
-
-
-
-void I2C1_SlaveSetBusColIntHandler(i2c1InterruptHandler handler) {
-I2C1_SlaveBusColInterruptHandler = handler;
-}
-
-static void I2C1_SlaveBusColCallBack() {
-
-if (I2C1_SlaveBusColInterruptHandler) {
-I2C1_SlaveBusColInterruptHandler();
-}
-}
-
-static void I2C1_SlaveDefBusColInterruptHandler() {
-}
-
-static inline bool I2C1_SlaveOpen() {
-if (!SSP1CON1bits.SSPEN) {
-SSP1STAT = 0xC0;
-SSP1CON1 |= 0x06;
-SSP1CON2 = 0x01;
-SSP1CON1bits.SSPEN = 1;
-return 1;
-}
 return 0;
 }
 
-static inline void I2C1_SlaveClose() {
-SSP1STAT = 0xC0;
-SSP1CON1 |= 0x06;
-SSP1CON2 = 0x01;
-SSP1CON1bits.SSPEN = 0;
+void FLASH_EraseBlock(uint16_t startAddr)
+{
+uint8_t GIEBitValue = INTCONbits.GIE;
+
+
+INTCONbits.GIE = 0;
+
+NVMADRL = (startAddr & 0xFF);
+
+NVMADRH = ((startAddr & 0xFF00) >> 8);
+
+
+NVMCON1bits.NVMREGS = 0;
+NVMCON1bits.FREE = 1;
+NVMCON1bits.WREN = 1;
+
+
+NVMCON2 = 0x55;
+NVMCON2 = 0xAA;
+NVMCON1bits.WR = 1;
+__nop();
+__nop();
+
+NVMCON1bits.WREN = 0;
+INTCONbits.GIE = GIEBitValue;
 }
 
-static inline void I2C1_SlaveSetSlaveAddr(uint8_t slaveAddr) {
-SSP1ADD = (uint8_t) (slaveAddr << 1);
+# 180
+void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData)
+{
+uint8_t GIEBitValue = INTCONbits.GIE;
+
+NVMADRH = ((bAdd >> 8) & 0xFF);
+NVMADRL = (bAdd & 0xFF);
+NVMDATL = bData;
+NVMCON1bits.NVMREGS = 1;
+NVMCON1bits.WREN = 1;
+INTCONbits.GIE = 0;
+NVMCON2 = 0x55;
+NVMCON2 = 0xAA;
+NVMCON1bits.WR = 1;
+
+while (NVMCON1bits.WR)
+{
 }
 
-static inline void I2C1_SlaveSetSlaveMask(uint8_t maskAddr) {
-SSP1MSK = (uint8_t) (maskAddr << 1);
+NVMCON1bits.WREN = 0;
+INTCONbits.GIE = GIEBitValue;
 }
 
-static inline void I2C1_SlaveEnableIrq() {
-PIE1bits.SSP1IE = 1;
+uint8_t DATAEE_ReadByte(uint16_t bAdd)
+{
+NVMADRH = ((bAdd >> 8) & 0xFF);
+NVMADRL = (bAdd & 0xFF);
+NVMCON1bits.NVMREGS = 1;
+NVMCON1bits.RD = 1;
+__nop();
+__nop();
+
+return (NVMDATL);
 }
 
-static inline bool I2C1_SlaveIsAddr() {
-return !(SSP1STATbits.D_nA);
-}
-
-static inline bool I2C1_SlaveIsRead() {
-return (SSP1STATbits.R_nW);
-}
-
-static inline void I2C1_SlaveClearIrq() {
-PIR1bits.SSP1IF = 0;
-}
-
-static inline void I2C1_SlaveReleaseClock() {
-SSP1CON1bits.CKP = 1;
-}
-
-static inline bool I2C1_SlaveIsWriteCollision() {
-return SSP1CON1bits.WCOL;
-}
-
-static inline bool I2C1_SlaveIsData() {
-return SSP1STATbits.D_nA;
-}
-
-static inline void I2C1_SlaveRestart(void) {
-SSP1CON2bits.RSEN = 1;
-}
-
-static inline bool I2C1_SlaveIsTxBufEmpty() {
-return !SSP1STATbits.BF;
-}
-
-static inline bool I2C1_SlaveIsRxBufFull() {
-return SSP1STATbits.BF;
-}
-
-static inline void I2C1_SlaveSendTxData(uint8_t data) {
-SSP1BUF = data;
-}
-
-static inline uint8_t I2C1_SlaveGetRxData() {
-return SSP1BUF;
-}
-
-static inline uint8_t I2C1_SlaveGetAddr() {
-return SSP1ADD;
-}
-
-static inline void I2C1_SlaveSendAck() {
-SSP1CON2bits.ACKDT = 0;
-SSP1CON2bits.ACKEN = 1;
-}
-
-static inline void I2C1_SlaveSendNack() {
-SSP1CON2bits.ACKDT = 1;
-SSP1CON2bits.ACKEN = 1;
-}
-
-static inline bool I2C1_SlaveIsOverFlow() {
-return SSP1CON1bits.SSPOV;
-}

@@ -69,10 +69,10 @@ volatile bool isEEMemoryAddr = false;
  */
 // ADDRESS Event Interrupt Handler
 static void EEPROM_I2C1_SlaveSetAddrIntHandler(void);
-// Reading EEPROM register by I2C MASTER device
-static void EEPROM_SlaveRdDataFromSlave(void);
 // I2C Master Write data into EEPROM
-static void EEPROM_SlaveRdDataFromMaster(void);
+static void EEPROM_SlaveSetWriteIntHandler(void);
+// Reading EEPROM register by I2C MASTER device
+static void EEPROM_SlaveSetReadIntHandler(void);
 
 /*
  * Handler function to be sued for store received
@@ -95,28 +95,36 @@ static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
     if (!I2C1_IsRead()) {
         isEEMemoryAddr = true;
     }
+
+    return;
 }
 
 /*
- * MASTER device sent a READ request to SLAVE. The SLAVE will send back
- * data from EEPROM (aka SLAVE) to MASTER.
+ * MASTER device has been sent a READ request to the SLAVE device.
+ * The SLAVE will send back data from EEPROM (aka SLAVE) to MASTER.
  */
-static void EEPROM_SlaveRdDataFromSlave(void) {
+static void EEPROM_SlaveSetWriteIntHandler(void) {
     if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
         i2c1EEMemAddr = 0x00;
     }
 
+    eeprom_write(0x20, i2c1EEMemAddr);
+
     uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
-    //uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr];
-    //i2c1EEMemAddr++;
+
+    eeprom_write(0x21, i2c1EEMemValue);
 
     I2C1_Write(i2c1EEMemValue);
+    //I2C1_Write(1);
+    return;
 }
 
 /*
- * MASTER device sent a WRITE request to EEPROM (aka SLAVE).
+ * MASTER device has been sent a WRITE request to the SLAVE device (aka EEPROM).
+ * SLAVE device should read data from the I2C bus, and saves into the pointed
+ * register address in the EEPROM.
  */
-static void EEPROM_SlaveRdDataFromMaster(void) {
+static void EEPROM_SlaveSetReadIntHandler(void) {
     /*
      * If isEEMemoryAddr true, SSPBUF register should contains the EEPROM
      * register address.
@@ -135,17 +143,20 @@ static void EEPROM_SlaveRdDataFromMaster(void) {
         // Clear the isEEMemoryAddr flag and exit from the function.
         isEEMemoryAddr = false;
         return;
+    } else {
+        // Read value to be write into EEPROM at the address
+        uint8_t i2c1EEMemValue = I2C1_Read();
+
+        // Save the data into the internal EE too, just for test purpose
+        eeprom_write(i2c1EEMemAddr, i2c1EEMemAddr);
+        uint8_t i2c1EEMemAddrTmp = i2c1EEMemAddr + 16;
+        eeprom_write(i2c1EEMemAddrTmp, i2c1EEMemValue);
+
+        // Write the value into the EEPROM
+        EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
+
+        return;
     }
-
-    // Read value to be write into EEPROM at the address
-    uint8_t i2c1EEMemValue = I2C1_Read();
-
-    // Save the data into the internal EE too, just for test purpose
-    //DATAEE_WriteByte(i2c1EEMemAddr, i2c1EEMemValue);
-    eeprom_write(i2c1EEMemAddr, i2c1EEMemAddr);
-
-    // Write the value into the EEPROM
-    EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
 }
 
 /*
@@ -176,8 +187,8 @@ void main(void) {
     // Configure handler functions to be used.
     // This will overwrite the handlers were set by I2C1_Open().
     I2C1_SlaveSetAddrIntHandler(EEPROM_I2C1_SlaveSetAddrIntHandler);
-    I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveRdDataFromSlave);
-    I2C1_SlaveSetReadIntHandler(EEPROM_SlaveRdDataFromMaster);
+    I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveSetWriteIntHandler);
+    I2C1_SlaveSetReadIntHandler(EEPROM_SlaveSetReadIntHandler);
 
     while (1) {
         // Add your application code

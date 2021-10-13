@@ -1,145 +1,43 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F64 `(v ~T0 @X0 0 tf ]
-[v F67 `(v ~T0 @X0 0 tf ]
-[v F70 `(v ~T0 @X0 0 tf ]
-[v F73 `(v ~T0 @X0 0 tf ]
-[v F76 `(v ~T0 @X0 0 tf ]
-[v F79 `(v ~T0 @X0 0 tf ]
-"67 mcc_generated_files/i2c1_slave.c
-[c E6228 0 1 2 3 4 .. ]
-[n E6228 . I2C1_IDLE I2C1_ADDR_TX I2C1_ADDR_RX I2C1_DATA_TX I2C1_DATA_RX  ]
-"4603 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
-[v _SSP1STAT `Vuc ~T0 @X0 0 e@532 ]
-"4725
-[v _SSP1CON1 `Vuc ~T0 @X0 0 e@533 ]
-"4995
-[v _SSP1CON2 `Vuc ~T0 @X0 0 e@534 ]
-"4744
-[s S229 :4 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S229 . SSPM CKP SSPEN SSPOV WCOL ]
-"4751
-[s S230 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S230 . SSPM0 SSPM1 SSPM2 SSPM3 ]
-"4743
-[u S228 `S229 1 `S230 1 ]
-[n S228 . . . ]
-"4758
-[v _SSP1CON1bits `VS228 ~T0 @X0 0 e@533 ]
-[v F6262 `(uc ~T0 @X0 1 tf ]
-"85 mcc_generated_files/i2c1_slave.c
-[v _I2C1_SlaveOpen `TF6262 ~T0 @X0 0 s ]
-[v F6267 `(v ~T0 @X0 1 tf1`uc ]
-"87
-[v _I2C1_SlaveSetSlaveAddr `TF6267 ~T0 @X0 0 s ]
-[v F6270 `(v ~T0 @X0 1 tf1`uc ]
-"88
-[v _I2C1_SlaveSetSlaveMask `TF6270 ~T0 @X0 0 s ]
-[v F31 `(v ~T0 @X0 0 tf ]
-"128 mcc_generated_files/i2c1_slave.h
-[v _I2C1_SlaveSetIsrHandler `(v ~T0 @X0 0 ef1`*F31 ]
-"72 mcc_generated_files/i2c1_slave.c
-[v _I2C1_Isr `(v ~T0 @X0 0 sf ]
-"132 mcc_generated_files/i2c1_slave.h
-[v _I2C1_SlaveSetBusColIntHandler `(v ~T0 @X0 0 ef1`*F31 ]
-"77 mcc_generated_files/i2c1_slave.c
-[v _I2C1_SlaveDefBusColInterruptHandler `(v ~T0 @X0 0 sf ]
-"131 mcc_generated_files/i2c1_slave.h
-[v _I2C1_SlaveSetWriteIntHandler `(v ~T0 @X0 0 ef1`*F31 ]
-"74 mcc_generated_files/i2c1_slave.c
-[v _I2C1_SlaveDefWrInterruptHandler `(v ~T0 @X0 0 sf ]
-"130 mcc_generated_files/i2c1_slave.h
-[v _I2C1_SlaveSetReadIntHandler `(v ~T0 @X0 0 ef1`*F31 ]
-"73 mcc_generated_files/i2c1_slave.c
-[v _I2C1_SlaveDefRdInterruptHandler `(v ~T0 @X0 0 sf ]
-"129 mcc_generated_files/i2c1_slave.h
-[v _I2C1_SlaveSetAddrIntHandler `(v ~T0 @X0 0 ef1`*F31 ]
-"75 mcc_generated_files/i2c1_slave.c
-[v _I2C1_SlaveDefAddrInterruptHandler `(v ~T0 @X0 0 sf ]
-"133 mcc_generated_files/i2c1_slave.h
-[v _I2C1_SlaveSetWrColIntHandler `(v ~T0 @X0 0 ef1`*F31 ]
-"76 mcc_generated_files/i2c1_slave.c
-[v _I2C1_SlaveDefWrColInterruptHandler `(v ~T0 @X0 0 sf ]
-[v F6273 `(v ~T0 @X0 1 tf ]
-"89
-[v _I2C1_SlaveEnableIrq `TF6273 ~T0 @X0 0 s ]
-[v F6264 `(v ~T0 @X0 1 tf ]
-"86
-[v _I2C1_SlaveClose `TF6264 ~T0 @X0 0 s ]
-[v F6309 `(uc ~T0 @X0 1 tf ]
-"101
-[v _I2C1_SlaveGetRxData `TF6309 ~T0 @X0 0 s ]
-[v F6306 `(v ~T0 @X0 1 tf1`uc ]
-"100
-[v _I2C1_SlaveSendTxData `TF6306 ~T0 @X0 0 s ]
-[v F6279 `(uc ~T0 @X0 1 tf ]
-"91
-[v _I2C1_SlaveIsRead `TF6279 ~T0 @X0 0 s ]
-[v F6315 `(v ~T0 @X0 1 tf ]
-"103
-[v _I2C1_SlaveSendAck `TF6315 ~T0 @X0 0 s ]
-[v F6318 `(v ~T0 @X0 1 tf ]
-"104
-[v _I2C1_SlaveSendNack `TF6318 ~T0 @X0 0 s ]
-[v F6285 `(v ~T0 @X0 1 tf ]
-"93
-[v _I2C1_SlaveClearIrq `TF6285 ~T0 @X0 0 s ]
-[v F6276 `(uc ~T0 @X0 1 tf ]
-"90
-[v _I2C1_SlaveIsAddr `TF6276 ~T0 @X0 0 s ]
-"81
-[v _I2C1_SlaveAddrCallBack `(v ~T0 @X0 0 sf ]
-[v F6294 `(uc ~T0 @X0 1 tf ]
-"96
-[v _I2C1_SlaveIsTxBufEmpty `TF6294 ~T0 @X0 0 s ]
-"80
-[v _I2C1_SlaveWrCallBack `(v ~T0 @X0 0 sf ]
-[v F6303 `(uc ~T0 @X0 1 tf ]
-"99
-[v _I2C1_SlaveIsRxBufFull `TF6303 ~T0 @X0 0 s ]
-"79
-[v _I2C1_SlaveRdCallBack `(v ~T0 @X0 0 sf ]
-[v F6288 `(v ~T0 @X0 1 tf ]
-"94
-[v _I2C1_SlaveReleaseClock `TF6288 ~T0 @X0 0 s ]
-"4095 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
-[v _SSP1ADD `Vuc ~T0 @X0 0 e@530 ]
-"4349
-[v _SSP1MSK `Vuc ~T0 @X0 0 e@531 ]
-"1634
-[s S85 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S85 . TMR1IE TMR2IE BCL1IE SSP1IE TXIE RCIE ADIE TMR1GIE ]
-"1633
-[u S84 `S85 1 ]
-[n S84 . . ]
-"1645
-[v _PIE1bits `VS84 ~T0 @X0 0 e@145 ]
-"4614
-[s S225 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S225 . BF UA R_nW S P D_nA CKE SMP ]
-"4613
-[u S224 `S225 1 ]
-[n S224 . . ]
-"4625
-[v _SSP1STATbits `VS224 ~T0 @X0 0 e@532 ]
-"524
-[s S34 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S34 . TMR1IF TMR2IF BCL1IF SSP1IF TXIF RCIF ADIF TMR1GIF ]
-"523
-[u S33 `S34 1 ]
-[n S33 . . ]
-"535
-[v _PIR1bits `VS33 ~T0 @X0 0 e@17 ]
-"5006
-[s S241 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S241 . SEN RSEN PEN RCEN ACKEN ACKDT ACKSTAT GCEN ]
-"5005
-[u S240 `S241 1 ]
-[n S240 . . ]
-"5017
-[v _SSP1CON2bits `VS240 ~T0 @X0 0 e@534 ]
-"3841
-[v _SSP1BUF `Vuc ~T0 @X0 0 e@529 ]
-[; ;stdbool.h: 15: typedef unsigned char bool;
+"358 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
+[s S26 :1 `uc 1 :5 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S26 . INTEDG . PEIE GIE ]
+"357
+[u S25 `S26 1 ]
+[n S25 . . ]
+"365
+[v _INTCONbits `VS25 ~T0 @X0 0 e@11 ]
+"10258
+[v _NVMADRL `Vuc ~T0 @X0 0 e@2193 ]
+"10510
+[v _NVMADRH `Vuc ~T0 @X0 0 e@2194 ]
+"11243
+[s S561 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S561 . RD WR WREN WRERR FREE LWLO NVMREGS ]
+"11252
+[s S562 :6 `uc 1 :1 `uc 1 ]
+[n S562 . . CFGS ]
+"11242
+[u S560 `S561 1 `S562 1 ]
+[n S560 . . . ]
+"11257
+[v _NVMCON1bits `VS560 ~T0 @X0 0 e@2197 ]
+"8 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h
+[v ___nop `(v ~T0 @X0 0 ef ]
+[p i ___nop ]
+"11012 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
+[v _NVMDATH `Vuc ~T0 @X0 0 e@2196 ]
+"10760
+[v _NVMDATL `Vuc ~T0 @X0 0 e@2195 ]
+"164 mcc_generated_files/memory.h
+[v _FLASH_WriteBlock `(c ~T0 @X0 0 ef2`ui`*ui ]
+"189
+[v _FLASH_EraseBlock `(v ~T0 @X0 0 ef1`ui ]
+"11417 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
+[v _NVMCON2 `Vuc ~T0 @X0 0 e@2198 ]
+[; ;xc.h: 18: extern const char __xc8_OPTIM_SPEED;
+[; ;xc.h: 20: extern double __fpnormalize(double);
+[; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef __int24 int24_t;
@@ -168,43 +66,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 282: typedef uint32_t uintmax_t;
 [; ;stdint.h: 289: typedef int16_t intptr_t;
 [; ;stdint.h: 294: typedef uint16_t uintptr_t;
-[; ;i2c1_slave.h: 53: typedef void (*i2c1InterruptHandler)(void);
-[; ;i2c1_slave.h: 61: void I2C1_Initialize(void);
-[; ;i2c1_slave.h: 68: void I2C1_Open(void);
-[; ;i2c1_slave.h: 76: void I2C1_Close(void);
-[; ;i2c1_slave.h: 83: uint8_t I2C1_Read(void);
-[; ;i2c1_slave.h: 90: void I2C1_Write(uint8_t data);
-[; ;i2c1_slave.h: 99: bool I2C1_IsRead(void);
-[; ;i2c1_slave.h: 106: void I2C1_Enable(void);
-[; ;i2c1_slave.h: 113: void I2C1_SendAck(void);
-[; ;i2c1_slave.h: 120: void I2C1_SendNack(void);
-[; ;i2c1_slave.h: 128: void I2C1_SlaveSetIsrHandler(i2c1InterruptHandler handler);
-[; ;i2c1_slave.h: 129: void I2C1_SlaveSetAddrIntHandler(i2c1InterruptHandler handler);
-[; ;i2c1_slave.h: 130: void I2C1_SlaveSetReadIntHandler(i2c1InterruptHandler handler);
-[; ;i2c1_slave.h: 131: void I2C1_SlaveSetWriteIntHandler(i2c1InterruptHandler handler);
-[; ;i2c1_slave.h: 132: void I2C1_SlaveSetBusColIntHandler(i2c1InterruptHandler handler);
-[; ;i2c1_slave.h: 133: void I2C1_SlaveSetWrColIntHandler(i2c1InterruptHandler handler);
-"135 mcc_generated_files/i2c1_slave.h
-[v _MSSP1_InterruptHandler `*F64 ~T0 @X0 1 e ]
-[; ;i2c1_slave.h: 135: void (*MSSP1_InterruptHandler)(void);
-"136
-[v _I2C1_SlaveRdInterruptHandler `*F67 ~T0 @X0 1 e ]
-[; ;i2c1_slave.h: 136: void (*I2C1_SlaveRdInterruptHandler)(void);
-"137
-[v _I2C1_SlaveWrInterruptHandler `*F70 ~T0 @X0 1 e ]
-[; ;i2c1_slave.h: 137: void (*I2C1_SlaveWrInterruptHandler)(void);
-"138
-[v _I2C1_SlaveAddrInterruptHandler `*F73 ~T0 @X0 1 e ]
-[; ;i2c1_slave.h: 138: void (*I2C1_SlaveAddrInterruptHandler)(void);
-"139
-[v _I2C1_SlaveBusColInterruptHandler `*F76 ~T0 @X0 1 e ]
-[; ;i2c1_slave.h: 139: void (*I2C1_SlaveBusColInterruptHandler)(void);
-"140
-[v _I2C1_SlaveWrColInterruptHandler `*F79 ~T0 @X0 1 e ]
-[; ;i2c1_slave.h: 140: void (*I2C1_SlaveWrColInterruptHandler)(void);
-[; ;xc.h: 18: extern const char __xc8_OPTIM_SPEED;
-[; ;xc.h: 20: extern double __fpnormalize(double);
-[; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;builtins.h: 8: extern void __nop(void);
 [; ;builtins.h: 12: extern __nonreentrant void _delay(uint32_t);
 [; ;builtins.h: 14: extern __nonreentrant void _delaywdt(uint32_t);
@@ -7341,934 +7202,403 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 127: extern __bank0 unsigned char __resetbits;
 [; ;pic.h: 128: extern __bank0 __bit __powerdown;
 [; ;pic.h: 129: extern __bank0 __bit __timeout;
-[; ;i2c1_slave.c: 53: typedef enum {
-[; ;i2c1_slave.c: 54: I2C1_IDLE,
-[; ;i2c1_slave.c: 55: I2C1_ADDR_TX,
-[; ;i2c1_slave.c: 56: I2C1_ADDR_RX,
-[; ;i2c1_slave.c: 57: I2C1_DATA_TX,
-[; ;i2c1_slave.c: 58: I2C1_DATA_RX
-[; ;i2c1_slave.c: 59: } i2c1_slave_state_t;
-"64 mcc_generated_files/i2c1_slave.c
-[v _i2c1WrData `Vuc ~T0 @X0 1 e ]
-[; ;i2c1_slave.c: 64: volatile uint8_t i2c1WrData;
-"65
-[v _i2c1RdData `Vuc ~T0 @X0 1 e ]
-[; ;i2c1_slave.c: 65: volatile uint8_t i2c1RdData;
-"66
-[v _i2c1SlaveAddr `Vuc ~T0 @X0 1 e ]
-[; ;i2c1_slave.c: 66: volatile uint8_t i2c1SlaveAddr;
-"67
-[v _i2c1SlaveState `VE6228 ~T0 @X0 1 s ]
-[i _i2c1SlaveState
-. `E6228 0
-]
-[; ;i2c1_slave.c: 67: static volatile i2c1_slave_state_t i2c1SlaveState = I2C1_IDLE;
-[; ;i2c1_slave.c: 72: static void I2C1_Isr(void);
-[; ;i2c1_slave.c: 73: static void I2C1_SlaveDefRdInterruptHandler(void);
-[; ;i2c1_slave.c: 74: static void I2C1_SlaveDefWrInterruptHandler(void);
-[; ;i2c1_slave.c: 75: static void I2C1_SlaveDefAddrInterruptHandler(void);
-[; ;i2c1_slave.c: 76: static void I2C1_SlaveDefWrColInterruptHandler(void);
-[; ;i2c1_slave.c: 77: static void I2C1_SlaveDefBusColInterruptHandler(void);
-[; ;i2c1_slave.c: 79: static void I2C1_SlaveRdCallBack(void);
-[; ;i2c1_slave.c: 80: static void I2C1_SlaveWrCallBack(void);
-[; ;i2c1_slave.c: 81: static void I2C1_SlaveAddrCallBack(void);
-[; ;i2c1_slave.c: 82: static void I2C1_SlaveWrColCallBack(void);
-[; ;i2c1_slave.c: 83: static void I2C1_SlaveBusColCallBack(void);
-[; ;i2c1_slave.c: 85: static inline bool I2C1_SlaveOpen();
-[; ;i2c1_slave.c: 86: static inline void I2C1_SlaveClose();
-[; ;i2c1_slave.c: 87: static inline void I2C1_SlaveSetSlaveAddr(uint8_t slaveAddr);
-[; ;i2c1_slave.c: 88: static inline void I2C1_SlaveSetSlaveMask(uint8_t maskAddr);
-[; ;i2c1_slave.c: 89: static inline void I2C1_SlaveEnableIrq(void);
-[; ;i2c1_slave.c: 90: static inline bool I2C1_SlaveIsAddr(void);
-[; ;i2c1_slave.c: 91: static inline bool I2C1_SlaveIsRead(void);
-[; ;i2c1_slave.c: 92: static inline void I2C1_SlaveClearBuff(void);
-[; ;i2c1_slave.c: 93: static inline void I2C1_SlaveClearIrq(void);
-[; ;i2c1_slave.c: 94: static inline void I2C1_SlaveReleaseClock(void);
-[; ;i2c1_slave.c: 95: static inline bool I2C1_SlaveIsWriteCollision(void);
-[; ;i2c1_slave.c: 96: static inline bool I2C1_SlaveIsTxBufEmpty(void);
-[; ;i2c1_slave.c: 97: static inline bool I2C1_SlaveIsData(void);
-[; ;i2c1_slave.c: 98: static inline void I2C1_SlaveRestart(void);
-[; ;i2c1_slave.c: 99: static inline bool I2C1_SlaveIsRxBufFull(void);
-[; ;i2c1_slave.c: 100: static inline void I2C1_SlaveSendTxData(uint8_t data);
-[; ;i2c1_slave.c: 101: static inline uint8_t I2C1_SlaveGetRxData(void);
-[; ;i2c1_slave.c: 102: static inline uint8_t I2C1_SlaveGetAddr(void);
-[; ;i2c1_slave.c: 103: static inline void I2C1_SlaveSendAck(void);
-[; ;i2c1_slave.c: 104: static inline void I2C1_SlaveSendNack(void);
-[; ;i2c1_slave.c: 105: static inline bool I2C1_SlaveIsOverFlow(void);
-"107
-[v _I2C1_Initialize `(v ~T0 @X0 1 ef ]
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;memory.h: 99: uint16_t FLASH_ReadWord(uint16_t flashAddr);
+[; ;memory.h: 128: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+[; ;memory.h: 164: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+[; ;memory.h: 189: void FLASH_EraseBlock(uint16_t startAddr);
+[; ;memory.h: 222: void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
+[; ;memory.h: 248: uint8_t DATAEE_ReadByte(uint16_t bAdd);
+"58 mcc_generated_files/memory.c
+[v _FLASH_ReadWord `(ui ~T0 @X0 1 ef1`ui ]
+"59
 {
-[; ;i2c1_slave.c: 107: void I2C1_Initialize() {
-[e :U _I2C1_Initialize ]
+[; ;memory.c: 58: uint16_t FLASH_ReadWord(uint16_t flashAddr)
+[; ;memory.c: 59: {
+[e :U _FLASH_ReadWord ]
+"58
+[v _flashAddr `ui ~T0 @X0 1 r1 ]
+"59
 [f ]
-[; ;i2c1_slave.c: 108: SSP1STAT = 0xC0;
-"108
-[e = _SSP1STAT -> -> 192 `i `uc ]
-[; ;i2c1_slave.c: 109: SSP1CON1 |= 0x06;
-"109
-[e =| _SSP1CON1 -> -> 6 `i `uc ]
-[; ;i2c1_slave.c: 110: SSP1CON2 = 0x01;
-"110
-[e = _SSP1CON2 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 111: SSP1CON1bits.SSPEN = 0;
-"111
-[e = . . _SSP1CON1bits 0 2 -> -> 0 `i `uc ]
-[; ;i2c1_slave.c: 112: }
-"112
+"60
+[v _GIEBitValue `uc ~T0 @X0 1 a ]
+[; ;memory.c: 60: uint8_t GIEBitValue = INTCONbits.GIE;
+[e = _GIEBitValue . . _INTCONbits 0 3 ]
+[; ;memory.c: 62: INTCONbits.GIE = 0;
+"62
+[e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
+[; ;memory.c: 63: NVMADRL = (flashAddr & 0x00FF);
+"63
+[e = _NVMADRL -> & _flashAddr -> -> 255 `i `ui `uc ]
+[; ;memory.c: 64: NVMADRH = ((flashAddr & 0xFF00) >> 8);
+"64
+[e = _NVMADRH -> >> & _flashAddr -> 65280 `ui -> 8 `i `uc ]
+[; ;memory.c: 66: NVMCON1bits.NVMREGS = 0;
+"66
+[e = . . _NVMCON1bits 0 6 -> -> 0 `i `uc ]
+[; ;memory.c: 67: NVMCON1bits.RD = 1;
+"67
+[e = . . _NVMCON1bits 0 0 -> -> 1 `i `uc ]
+[; ;memory.c: 68: __nop();
+"68
+[e ( ___nop ..  ]
+[; ;memory.c: 69: __nop();
+"69
+[e ( ___nop ..  ]
+[; ;memory.c: 70: INTCONbits.GIE = GIEBitValue;
+"70
+[e = . . _INTCONbits 0 3 _GIEBitValue ]
+[; ;memory.c: 72: return ((uint16_t)((NVMDATH << 8) | NVMDATL));
+"72
+[e ) -> | << -> _NVMDATH `i -> 8 `i -> _NVMDATL `i `ui ]
+[e $UE 918  ]
+[; ;memory.c: 73: }
+"73
 [e :UE 918 ]
 }
-"114
-[v _I2C1_Open `(v ~T0 @X0 1 ef ]
+"75
+[v _FLASH_WriteWord `(v ~T0 @X0 1 ef3`ui`*ui`ui ]
+"76
 {
-[; ;i2c1_slave.c: 114: void I2C1_Open() {
-[e :U _I2C1_Open ]
+[; ;memory.c: 75: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word)
+[; ;memory.c: 76: {
+[e :U _FLASH_WriteWord ]
+"75
+[v _flashAddr `ui ~T0 @X0 1 r1 ]
+[v _ramBuf `*ui ~T0 @X0 1 r2 ]
+[v _word `ui ~T0 @X0 1 r3 ]
+"76
 [f ]
-[; ;i2c1_slave.c: 115: I2C1_SlaveOpen();
-"115
-[e ( _I2C1_SlaveOpen ..  ]
-[; ;i2c1_slave.c: 116: I2C1_SlaveSetSlaveAddr(103);
-"116
-[e ( _I2C1_SlaveSetSlaveAddr (1 -> -> 103 `i `uc ]
-[; ;i2c1_slave.c: 117: I2C1_SlaveSetSlaveMask(127);
-"117
-[e ( _I2C1_SlaveSetSlaveMask (1 -> -> 127 `i `uc ]
-[; ;i2c1_slave.c: 118: I2C1_SlaveSetIsrHandler(I2C1_Isr);
-"118
-[e ( _I2C1_SlaveSetIsrHandler (1 &U _I2C1_Isr ]
-[; ;i2c1_slave.c: 119: I2C1_SlaveSetBusColIntHandler(I2C1_SlaveDefBusColInterruptHandler);
-"119
-[e ( _I2C1_SlaveSetBusColIntHandler (1 &U _I2C1_SlaveDefBusColInterruptHandler ]
-[; ;i2c1_slave.c: 120: I2C1_SlaveSetWriteIntHandler(I2C1_SlaveDefWrInterruptHandler);
-"120
-[e ( _I2C1_SlaveSetWriteIntHandler (1 &U _I2C1_SlaveDefWrInterruptHandler ]
-[; ;i2c1_slave.c: 121: I2C1_SlaveSetReadIntHandler(I2C1_SlaveDefRdInterruptHandler);
-"121
-[e ( _I2C1_SlaveSetReadIntHandler (1 &U _I2C1_SlaveDefRdInterruptHandler ]
-[; ;i2c1_slave.c: 122: I2C1_SlaveSetAddrIntHandler(I2C1_SlaveDefAddrInterruptHandler);
-"122
-[e ( _I2C1_SlaveSetAddrIntHandler (1 &U _I2C1_SlaveDefAddrInterruptHandler ]
-[; ;i2c1_slave.c: 123: I2C1_SlaveSetWrColIntHandler(I2C1_SlaveDefWrColInterruptHandler);
-"123
-[e ( _I2C1_SlaveSetWrColIntHandler (1 &U _I2C1_SlaveDefWrColInterruptHandler ]
-[; ;i2c1_slave.c: 124: I2C1_SlaveEnableIrq();
-"124
-[e ( _I2C1_SlaveEnableIrq ..  ]
-[; ;i2c1_slave.c: 125: }
-"125
+"77
+[v _blockStartAddr `ui ~T0 @X0 1 a ]
+[; ;memory.c: 77: uint16_t blockStartAddr = (uint16_t)(flashAddr & ((0x2000-1) ^ (32-1)));
+[e = _blockStartAddr & _flashAddr -> ^ - -> 8192 `i -> 1 `i - -> 32 `i -> 1 `i `ui ]
+"78
+[v _offset `uc ~T0 @X0 1 a ]
+[; ;memory.c: 78: uint8_t offset = (uint8_t)(flashAddr & (32-1));
+[e = _offset -> & _flashAddr -> - -> 32 `i -> 1 `i `ui `uc ]
+"79
+[v _i `uc ~T0 @X0 1 a ]
+[; ;memory.c: 79: uint8_t i;
+[; ;memory.c: 82: for (i=0; i<32; i++)
+"82
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 32 `i 920  ]
+[e $U 921  ]
+"83
+[e :U 920 ]
+[; ;memory.c: 83: {
+{
+[; ;memory.c: 84: ramBuf[i] = FLASH_ReadWord((blockStartAddr+i));
+"84
+[e = *U + _ramBuf * -> _i `ux -> -> # *U _ramBuf `ui `ux ( _FLASH_ReadWord (1 + _blockStartAddr -> _i `ui ]
+"85
+}
+"82
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 32 `i 920  ]
+[e :U 921 ]
+"85
+}
+[; ;memory.c: 85: }
+[; ;memory.c: 88: ramBuf[offset] = word;
+"88
+[e = *U + _ramBuf * -> _offset `ux -> -> # *U _ramBuf `ui `ux _word ]
+[; ;memory.c: 91: FLASH_WriteBlock(blockStartAddr, ramBuf);
+"91
+[e ( _FLASH_WriteBlock (2 , _blockStartAddr _ramBuf ]
+[; ;memory.c: 92: }
+"92
 [e :UE 919 ]
 }
-"127
-[v _I2C1_Close `(v ~T0 @X0 1 ef ]
+"94
+[v _FLASH_WriteBlock `(c ~T0 @X0 1 ef2`ui`*ui ]
+"95
 {
-[; ;i2c1_slave.c: 127: void I2C1_Close() {
-[e :U _I2C1_Close ]
+[; ;memory.c: 94: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray)
+[; ;memory.c: 95: {
+[e :U _FLASH_WriteBlock ]
+"94
+[v _writeAddr `ui ~T0 @X0 1 r1 ]
+[v _flashWordArray `*ui ~T0 @X0 1 r2 ]
+"95
 [f ]
-[; ;i2c1_slave.c: 128: I2C1_SlaveClose();
-"128
-[e ( _I2C1_SlaveClose ..  ]
-[; ;i2c1_slave.c: 129: }
-"129
-[e :UE 920 ]
-}
-"131
-[v _I2C1_Read `(uc ~T0 @X0 1 ef ]
+"96
+[v _blockStartAddr `ui ~T0 @X0 1 a ]
+[; ;memory.c: 96: uint16_t blockStartAddr = (uint16_t )(writeAddr & ((0x2000-1) ^ (32-1)));
+[e = _blockStartAddr & _writeAddr -> ^ - -> 8192 `i -> 1 `i - -> 32 `i -> 1 `i `ui ]
+"97
+[v _GIEBitValue `uc ~T0 @X0 1 a ]
+[; ;memory.c: 97: uint8_t GIEBitValue = INTCONbits.GIE;
+[e = _GIEBitValue . . _INTCONbits 0 3 ]
+"98
+[v _i `uc ~T0 @X0 1 a ]
+[; ;memory.c: 98: uint8_t i;
+[; ;memory.c: 102: if( writeAddr != blockStartAddr )
+"102
+[e $ ! != _writeAddr _blockStartAddr 924  ]
+[; ;memory.c: 103: {
+"103
 {
-[; ;i2c1_slave.c: 131: uint8_t I2C1_Read() {
-[e :U _I2C1_Read ]
-[f ]
-[; ;i2c1_slave.c: 132: return I2C1_SlaveGetRxData();
-"132
-[e ) ( _I2C1_SlaveGetRxData ..  ]
-[e $UE 921  ]
-[; ;i2c1_slave.c: 133: }
-"133
-[e :UE 921 ]
-}
-"135
-[v _I2C1_Write `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;i2c1_slave.c: 135: void I2C1_Write(uint8_t data) {
-[e :U _I2C1_Write ]
-[v _data `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 136: I2C1_SlaveSendTxData(data);
-"136
-[e ( _I2C1_SlaveSendTxData (1 _data ]
-[; ;i2c1_slave.c: 137: }
-"137
-[e :UE 922 ]
-}
-"139
-[v _I2C1_IsRead `(uc ~T0 @X0 1 ef ]
-{
-[; ;i2c1_slave.c: 139: bool I2C1_IsRead() {
-[e :U _I2C1_IsRead ]
-[f ]
-[; ;i2c1_slave.c: 140: return I2C1_SlaveIsRead();
-"140
-[e ) ( _I2C1_SlaveIsRead ..  ]
+[; ;memory.c: 104: return -1;
+"104
+[e ) -> -U -> 1 `i `c ]
 [e $UE 923  ]
-[; ;i2c1_slave.c: 141: }
+"105
+}
+[e :U 924 ]
+[; ;memory.c: 105: }
+[; ;memory.c: 107: INTCONbits.GIE = 0;
+"107
+[e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
+[; ;memory.c: 110: FLASH_EraseBlock(writeAddr);
+"110
+[e ( _FLASH_EraseBlock (1 _writeAddr ]
+[; ;memory.c: 113: NVMCON1bits.NVMREGS = 0;
+"113
+[e = . . _NVMCON1bits 0 6 -> -> 0 `i `uc ]
+[; ;memory.c: 114: NVMCON1bits.WREN = 1;
+"114
+[e = . . _NVMCON1bits 0 2 -> -> 1 `i `uc ]
+[; ;memory.c: 115: NVMCON1bits.LWLO = 1;
+"115
+[e = . . _NVMCON1bits 0 5 -> -> 1 `i `uc ]
+[; ;memory.c: 117: for (i=0; i<32; i++)
+"117
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 32 `i 925  ]
+[e $U 926  ]
+"118
+[e :U 925 ]
+[; ;memory.c: 118: {
+{
+[; ;memory.c: 120: NVMADRL = (writeAddr & 0xFF);
+"120
+[e = _NVMADRL -> & _writeAddr -> -> 255 `i `ui `uc ]
+[; ;memory.c: 122: NVMADRH = ((writeAddr & 0xFF00) >> 8);
+"122
+[e = _NVMADRH -> >> & _writeAddr -> 65280 `ui -> 8 `i `uc ]
+[; ;memory.c: 125: NVMDATL = flashWordArray[i];
+"125
+[e = _NVMDATL -> *U + _flashWordArray * -> _i `ux -> -> # *U _flashWordArray `ui `ux `uc ]
+[; ;memory.c: 126: NVMDATH = ((flashWordArray[i] & 0xFF00) >> 8);
+"126
+[e = _NVMDATH -> >> & *U + _flashWordArray * -> _i `ux -> -> # *U _flashWordArray `ui `ux -> 65280 `ui -> 8 `i `uc ]
+[; ;memory.c: 128: if(i == (32-1))
+"128
+[e $ ! == -> _i `i - -> 32 `i -> 1 `i 928  ]
+[; ;memory.c: 129: {
+"129
+{
+[; ;memory.c: 131: NVMCON1bits.LWLO = 0;
+"131
+[e = . . _NVMCON1bits 0 5 -> -> 0 `i `uc ]
+"132
+}
+[e :U 928 ]
+[; ;memory.c: 132: }
+[; ;memory.c: 134: NVMCON2 = 0x55;
+"134
+[e = _NVMCON2 -> -> 85 `i `uc ]
+[; ;memory.c: 135: NVMCON2 = 0xAA;
+"135
+[e = _NVMCON2 -> -> 170 `i `uc ]
+[; ;memory.c: 136: NVMCON1bits.WR = 1;
+"136
+[e = . . _NVMCON1bits 0 1 -> -> 1 `i `uc ]
+[; ;memory.c: 137: __nop();
+"137
+[e ( ___nop ..  ]
+[; ;memory.c: 138: __nop();
+"138
+[e ( ___nop ..  ]
+[; ;memory.c: 140: writeAddr++;
+"140
+[e ++ _writeAddr -> -> 1 `i `ui ]
 "141
+}
+"117
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 32 `i 925  ]
+[e :U 926 ]
+"141
+}
+[; ;memory.c: 141: }
+[; ;memory.c: 143: NVMCON1bits.WREN = 0;
+"143
+[e = . . _NVMCON1bits 0 2 -> -> 0 `i `uc ]
+[; ;memory.c: 144: INTCONbits.GIE = GIEBitValue;
+"144
+[e = . . _INTCONbits 0 3 _GIEBitValue ]
+[; ;memory.c: 146: return 0;
+"146
+[e ) -> -> 0 `i `c ]
+[e $UE 923  ]
+[; ;memory.c: 147: }
+"147
 [e :UE 923 ]
 }
-"143
-[v _I2C1_Enable `(v ~T0 @X0 1 ef ]
-{
-[; ;i2c1_slave.c: 143: void I2C1_Enable() {
-[e :U _I2C1_Enable ]
-[f ]
-[; ;i2c1_slave.c: 144: I2C1_Initialize();
-"144
-[e ( _I2C1_Initialize ..  ]
-[; ;i2c1_slave.c: 145: }
-"145
-[e :UE 924 ]
-}
-"147
-[v _I2C1_SendAck `(v ~T0 @X0 1 ef ]
-{
-[; ;i2c1_slave.c: 147: void I2C1_SendAck() {
-[e :U _I2C1_SendAck ]
-[f ]
-[; ;i2c1_slave.c: 148: I2C1_SlaveSendAck();
-"148
-[e ( _I2C1_SlaveSendAck ..  ]
-[; ;i2c1_slave.c: 149: }
 "149
-[e :UE 925 ]
-}
+[v _FLASH_EraseBlock `(v ~T0 @X0 1 ef1`ui ]
+"150
+{
+[; ;memory.c: 149: void FLASH_EraseBlock(uint16_t startAddr)
+[; ;memory.c: 150: {
+[e :U _FLASH_EraseBlock ]
+"149
+[v _startAddr `ui ~T0 @X0 1 r1 ]
+"150
+[f ]
 "151
-[v _I2C1_SendNack `(v ~T0 @X0 1 ef ]
-{
-[; ;i2c1_slave.c: 151: void I2C1_SendNack() {
-[e :U _I2C1_SendNack ]
-[f ]
-[; ;i2c1_slave.c: 152: I2C1_SlaveSendNack();
-"152
-[e ( _I2C1_SlaveSendNack ..  ]
-[; ;i2c1_slave.c: 153: }
-"153
-[e :UE 926 ]
-}
-"155
-[v _I2C1_Isr `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 155: static void I2C1_Isr() {
-[e :U _I2C1_Isr ]
-[f ]
-[; ;i2c1_slave.c: 156: I2C1_SlaveClearIrq();
+[v _GIEBitValue `uc ~T0 @X0 1 a ]
+[; ;memory.c: 151: uint8_t GIEBitValue = INTCONbits.GIE;
+[e = _GIEBitValue . . _INTCONbits 0 3 ]
+[; ;memory.c: 154: INTCONbits.GIE = 0;
+"154
+[e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
+[; ;memory.c: 156: NVMADRL = (startAddr & 0xFF);
 "156
-[e ( _I2C1_SlaveClearIrq ..  ]
-[; ;i2c1_slave.c: 159: if (I2C1_SlaveIsAddr()) {
-"159
-[e $ ! != -> ( _I2C1_SlaveIsAddr ..  `i -> -> -> 0 `i `uc `i 928  ]
-{
-[; ;i2c1_slave.c: 160: if (I2C1_SlaveIsRead()) {
-"160
-[e $ ! != -> ( _I2C1_SlaveIsRead ..  `i -> -> -> 0 `i `uc `i 929  ]
-{
-[; ;i2c1_slave.c: 161: i2c1SlaveState = I2C1_ADDR_TX;
+[e = _NVMADRL -> & _startAddr -> -> 255 `i `ui `uc ]
+[; ;memory.c: 158: NVMADRH = ((startAddr & 0xFF00) >> 8);
+"158
+[e = _NVMADRH -> >> & _startAddr -> 65280 `ui -> 8 `i `uc ]
+[; ;memory.c: 161: NVMCON1bits.NVMREGS = 0;
 "161
-[e = _i2c1SlaveState . `E6228 1 ]
+[e = . . _NVMCON1bits 0 6 -> -> 0 `i `uc ]
+[; ;memory.c: 162: NVMCON1bits.FREE = 1;
 "162
-}
-[; ;i2c1_slave.c: 162: } else {
-[e $U 930  ]
-[e :U 929 ]
-{
-[; ;i2c1_slave.c: 163: i2c1SlaveState = I2C1_ADDR_RX;
+[e = . . _NVMCON1bits 0 4 -> -> 1 `i `uc ]
+[; ;memory.c: 163: NVMCON1bits.WREN = 1;
 "163
-[e = _i2c1SlaveState . `E6228 2 ]
-"164
-}
-[e :U 930 ]
-"165
-}
-[; ;i2c1_slave.c: 164: }
-[; ;i2c1_slave.c: 165: } else {
-[e $U 931  ]
-[e :U 928 ]
-{
-[; ;i2c1_slave.c: 166: if (I2C1_SlaveIsRead()) {
+[e = . . _NVMCON1bits 0 2 -> -> 1 `i `uc ]
+[; ;memory.c: 166: NVMCON2 = 0x55;
 "166
-[e $ ! != -> ( _I2C1_SlaveIsRead ..  `i -> -> -> 0 `i `uc `i 932  ]
-{
-[; ;i2c1_slave.c: 168: i2c1SlaveState = I2C1_DATA_RX;
+[e = _NVMCON2 -> -> 85 `i `uc ]
+[; ;memory.c: 167: NVMCON2 = 0xAA;
+"167
+[e = _NVMCON2 -> -> 170 `i `uc ]
+[; ;memory.c: 168: NVMCON1bits.WR = 1;
 "168
-[e = _i2c1SlaveState . `E6228 4 ]
+[e = . . _NVMCON1bits 0 1 -> -> 1 `i `uc ]
+[; ;memory.c: 169: __nop();
 "169
-}
-[; ;i2c1_slave.c: 169: } else {
-[e $U 933  ]
-[e :U 932 ]
-{
-[; ;i2c1_slave.c: 171: i2c1SlaveState = I2C1_DATA_TX;
-"171
-[e = _i2c1SlaveState . `E6228 3 ]
+[e ( ___nop ..  ]
+[; ;memory.c: 170: __nop();
+"170
+[e ( ___nop ..  ]
+[; ;memory.c: 172: NVMCON1bits.WREN = 0;
 "172
-}
-[e :U 933 ]
+[e = . . _NVMCON1bits 0 2 -> -> 0 `i `uc ]
+[; ;memory.c: 173: INTCONbits.GIE = GIEBitValue;
 "173
+[e = . . _INTCONbits 0 3 _GIEBitValue ]
+[; ;memory.c: 174: }
+"174
+[e :UE 929 ]
+}
+"180
+[v _DATAEE_WriteByte `(v ~T0 @X0 1 ef2`ui`uc ]
+"181
+{
+[; ;memory.c: 180: void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData)
+[; ;memory.c: 181: {
+[e :U _DATAEE_WriteByte ]
+"180
+[v _bAdd `ui ~T0 @X0 1 r1 ]
+[v _bData `uc ~T0 @X0 1 r2 ]
+"181
+[f ]
+"182
+[v _GIEBitValue `uc ~T0 @X0 1 a ]
+[; ;memory.c: 182: uint8_t GIEBitValue = INTCONbits.GIE;
+[e = _GIEBitValue . . _INTCONbits 0 3 ]
+[; ;memory.c: 184: NVMADRH = ((bAdd >> 8) & 0xFF);
+"184
+[e = _NVMADRH -> & >> _bAdd -> 8 `i -> -> 255 `i `ui `uc ]
+[; ;memory.c: 185: NVMADRL = (bAdd & 0xFF);
+"185
+[e = _NVMADRL -> & _bAdd -> -> 255 `i `ui `uc ]
+[; ;memory.c: 186: NVMDATL = bData;
+"186
+[e = _NVMDATL _bData ]
+[; ;memory.c: 187: NVMCON1bits.NVMREGS = 1;
+"187
+[e = . . _NVMCON1bits 0 6 -> -> 1 `i `uc ]
+[; ;memory.c: 188: NVMCON1bits.WREN = 1;
+"188
+[e = . . _NVMCON1bits 0 2 -> -> 1 `i `uc ]
+[; ;memory.c: 189: INTCONbits.GIE = 0;
+"189
+[e = . . _INTCONbits 0 3 -> -> 0 `i `uc ]
+[; ;memory.c: 190: NVMCON2 = 0x55;
+"190
+[e = _NVMCON2 -> -> 85 `i `uc ]
+[; ;memory.c: 191: NVMCON2 = 0xAA;
+"191
+[e = _NVMCON2 -> -> 170 `i `uc ]
+[; ;memory.c: 192: NVMCON1bits.WR = 1;
+"192
+[e = . . _NVMCON1bits 0 1 -> -> 1 `i `uc ]
+[; ;memory.c: 194: while (NVMCON1bits.WR)
+"194
+[e $U 931  ]
+[e :U 932 ]
+[; ;memory.c: 195: {
+"195
+{
+"196
 }
 [e :U 931 ]
-[; ;i2c1_slave.c: 172: }
-[; ;i2c1_slave.c: 173: }
-[; ;i2c1_slave.c: 200: switch (i2c1SlaveState) {
+"194
+[e $ != -> . . _NVMCON1bits 0 1 `i -> -> -> 0 `i `Vuc `i 932  ]
+[e :U 933 ]
+[; ;memory.c: 196: }
+[; ;memory.c: 198: NVMCON1bits.WREN = 0;
+"198
+[e = . . _NVMCON1bits 0 2 -> -> 0 `i `uc ]
+[; ;memory.c: 199: INTCONbits.GIE = GIEBitValue;
+"199
+[e = . . _INTCONbits 0 3 _GIEBitValue ]
+[; ;memory.c: 200: }
 "200
-[e $U 935  ]
-{
-[; ;i2c1_slave.c: 201: case I2C1_ADDR_TX:
-"201
-[e :U 936 ]
-[; ;i2c1_slave.c: 202: I2C1_SlaveAddrCallBack();
+[e :UE 930 ]
+}
 "202
-[e ( _I2C1_SlaveAddrCallBack ..  ]
-[; ;i2c1_slave.c: 203: if (I2C1_SlaveIsTxBufEmpty()) {
+[v _DATAEE_ReadByte `(uc ~T0 @X0 1 ef1`ui ]
 "203
-[e $ ! != -> ( _I2C1_SlaveIsTxBufEmpty ..  `i -> -> -> 0 `i `uc `i 937  ]
 {
-[; ;i2c1_slave.c: 204: I2C1_SlaveWrCallBack();
+[; ;memory.c: 202: uint8_t DATAEE_ReadByte(uint16_t bAdd)
+[; ;memory.c: 203: {
+[e :U _DATAEE_ReadByte ]
+"202
+[v _bAdd `ui ~T0 @X0 1 r1 ]
+"203
+[f ]
+[; ;memory.c: 204: NVMADRH = ((bAdd >> 8) & 0xFF);
 "204
-[e ( _I2C1_SlaveWrCallBack ..  ]
+[e = _NVMADRH -> & >> _bAdd -> 8 `i -> -> 255 `i `ui `uc ]
+[; ;memory.c: 205: NVMADRL = (bAdd & 0xFF);
 "205
-}
-[e :U 937 ]
-[; ;i2c1_slave.c: 205: }
-[; ;i2c1_slave.c: 206: break;
+[e = _NVMADRL -> & _bAdd -> -> 255 `i `ui `uc ]
+[; ;memory.c: 206: NVMCON1bits.NVMREGS = 1;
 "206
-[e $U 934  ]
-[; ;i2c1_slave.c: 207: case I2C1_ADDR_RX:
+[e = . . _NVMCON1bits 0 6 -> -> 1 `i `uc ]
+[; ;memory.c: 207: NVMCON1bits.RD = 1;
 "207
-[e :U 938 ]
-[; ;i2c1_slave.c: 208: I2C1_SlaveAddrCallBack();
+[e = . . _NVMCON1bits 0 0 -> -> 1 `i `uc ]
+[; ;memory.c: 208: __nop();
 "208
-[e ( _I2C1_SlaveAddrCallBack ..  ]
-[; ;i2c1_slave.c: 209: break;
+[e ( ___nop ..  ]
+[; ;memory.c: 209: __nop();
 "209
-[e $U 934  ]
-[; ;i2c1_slave.c: 210: case I2C1_DATA_TX:
-"210
-[e :U 939 ]
-[; ;i2c1_slave.c: 211: if (I2C1_SlaveIsTxBufEmpty()) {
+[e ( ___nop ..  ]
+[; ;memory.c: 211: return (NVMDATL);
 "211
-[e $ ! != -> ( _I2C1_SlaveIsTxBufEmpty ..  `i -> -> -> 0 `i `uc `i 940  ]
-{
-[; ;i2c1_slave.c: 212: I2C1_SlaveWrCallBack();
+[e ) _NVMDATL ]
+[e $UE 934  ]
+[; ;memory.c: 212: }
 "212
-[e ( _I2C1_SlaveWrCallBack ..  ]
-"213
-}
-[e :U 940 ]
-[; ;i2c1_slave.c: 213: }
-[; ;i2c1_slave.c: 214: break;
-"214
-[e $U 934  ]
-[; ;i2c1_slave.c: 215: case I2C1_DATA_RX:
-"215
-[e :U 941 ]
-[; ;i2c1_slave.c: 216: if (I2C1_SlaveIsRxBufFull()) {
-"216
-[e $ ! != -> ( _I2C1_SlaveIsRxBufFull ..  `i -> -> -> 0 `i `uc `i 942  ]
-{
-[; ;i2c1_slave.c: 217: I2C1_SlaveRdCallBack();
-"217
-[e ( _I2C1_SlaveRdCallBack ..  ]
-"218
-}
-[e :U 942 ]
-[; ;i2c1_slave.c: 218: }
-[; ;i2c1_slave.c: 219: break;
-"219
-[e $U 934  ]
-[; ;i2c1_slave.c: 220: default:
-"220
-[e :U 943 ]
-[; ;i2c1_slave.c: 221: break;
-"221
-[e $U 934  ]
-"222
-}
-[; ;i2c1_slave.c: 222: }
-[e $U 934  ]
-"200
-[e :U 935 ]
-[e [\ _i2c1SlaveState , $ . `E6228 1 936
- , $ . `E6228 2 938
- , $ . `E6228 3 939
- , $ . `E6228 4 941
- 943 ]
-"222
-[e :U 934 ]
-[; ;i2c1_slave.c: 223: I2C1_SlaveReleaseClock();
-"223
-[e ( _I2C1_SlaveReleaseClock ..  ]
-[; ;i2c1_slave.c: 224: }
-"224
-[e :UE 927 ]
-}
-"228
-[v _I2C1_SlaveSetIsrHandler `(v ~T0 @X0 1 ef1`*F31 ]
-{
-[; ;i2c1_slave.c: 228: void I2C1_SlaveSetIsrHandler(i2c1InterruptHandler handler) {
-[e :U _I2C1_SlaveSetIsrHandler ]
-[v _handler `*F31 ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 229: MSSP1_InterruptHandler = handler;
-"229
-[e = _MSSP1_InterruptHandler _handler ]
-[; ;i2c1_slave.c: 230: }
-"230
-[e :UE 944 ]
-}
-"234
-[v _I2C1_SlaveSetReadIntHandler `(v ~T0 @X0 1 ef1`*F31 ]
-{
-[; ;i2c1_slave.c: 234: void I2C1_SlaveSetReadIntHandler(i2c1InterruptHandler handler) {
-[e :U _I2C1_SlaveSetReadIntHandler ]
-[v _handler `*F31 ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 235: I2C1_SlaveRdInterruptHandler = handler;
-"235
-[e = _I2C1_SlaveRdInterruptHandler _handler ]
-[; ;i2c1_slave.c: 236: }
-"236
-[e :UE 945 ]
-}
-"238
-[v _I2C1_SlaveRdCallBack `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 238: static void I2C1_SlaveRdCallBack() {
-[e :U _I2C1_SlaveRdCallBack ]
-[f ]
-[; ;i2c1_slave.c: 240: if (I2C1_SlaveRdInterruptHandler) {
-"240
-[e $ ! != _I2C1_SlaveRdInterruptHandler -> -> 0 `i `*F67 947  ]
-{
-[; ;i2c1_slave.c: 241: I2C1_SlaveRdInterruptHandler();
-"241
-[e ( *U _I2C1_SlaveRdInterruptHandler ..  ]
-"242
-}
-[e :U 947 ]
-[; ;i2c1_slave.c: 242: }
-[; ;i2c1_slave.c: 243: }
-"243
-[e :UE 946 ]
-}
-"245
-[v _I2C1_SlaveDefRdInterruptHandler `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 245: static void I2C1_SlaveDefRdInterruptHandler() {
-[e :U _I2C1_SlaveDefRdInterruptHandler ]
-[f ]
-[; ;i2c1_slave.c: 246: i2c1RdData = I2C1_SlaveGetRxData();
-"246
-[e = _i2c1RdData ( _I2C1_SlaveGetRxData ..  ]
-[; ;i2c1_slave.c: 247: }
-"247
-[e :UE 948 ]
-}
-"251
-[v _I2C1_SlaveSetWriteIntHandler `(v ~T0 @X0 1 ef1`*F31 ]
-{
-[; ;i2c1_slave.c: 251: void I2C1_SlaveSetWriteIntHandler(i2c1InterruptHandler handler) {
-[e :U _I2C1_SlaveSetWriteIntHandler ]
-[v _handler `*F31 ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 252: I2C1_SlaveWrInterruptHandler = handler;
-"252
-[e = _I2C1_SlaveWrInterruptHandler _handler ]
-[; ;i2c1_slave.c: 253: }
-"253
-[e :UE 949 ]
-}
-"255
-[v _I2C1_SlaveWrCallBack `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 255: static void I2C1_SlaveWrCallBack() {
-[e :U _I2C1_SlaveWrCallBack ]
-[f ]
-[; ;i2c1_slave.c: 257: if (I2C1_SlaveWrInterruptHandler) {
-"257
-[e $ ! != _I2C1_SlaveWrInterruptHandler -> -> 0 `i `*F70 951  ]
-{
-[; ;i2c1_slave.c: 258: I2C1_SlaveWrInterruptHandler();
-"258
-[e ( *U _I2C1_SlaveWrInterruptHandler ..  ]
-"259
-}
-[e :U 951 ]
-[; ;i2c1_slave.c: 259: }
-[; ;i2c1_slave.c: 260: }
-"260
-[e :UE 950 ]
-}
-"262
-[v _I2C1_SlaveDefWrInterruptHandler `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 262: static void I2C1_SlaveDefWrInterruptHandler() {
-[e :U _I2C1_SlaveDefWrInterruptHandler ]
-[f ]
-[; ;i2c1_slave.c: 263: I2C1_SlaveSendTxData(i2c1WrData);
-"263
-[e ( _I2C1_SlaveSendTxData (1 _i2c1WrData ]
-[; ;i2c1_slave.c: 264: }
-"264
-[e :UE 952 ]
-}
-"268
-[v _I2C1_SlaveSetAddrIntHandler `(v ~T0 @X0 1 ef1`*F31 ]
-{
-[; ;i2c1_slave.c: 268: void I2C1_SlaveSetAddrIntHandler(i2c1InterruptHandler handler) {
-[e :U _I2C1_SlaveSetAddrIntHandler ]
-[v _handler `*F31 ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 269: I2C1_SlaveAddrInterruptHandler = handler;
-"269
-[e = _I2C1_SlaveAddrInterruptHandler _handler ]
-[; ;i2c1_slave.c: 270: }
-"270
-[e :UE 953 ]
-}
-"272
-[v _I2C1_SlaveAddrCallBack `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 272: static void I2C1_SlaveAddrCallBack() {
-[e :U _I2C1_SlaveAddrCallBack ]
-[f ]
-[; ;i2c1_slave.c: 274: if (I2C1_SlaveAddrInterruptHandler) {
-"274
-[e $ ! != _I2C1_SlaveAddrInterruptHandler -> -> 0 `i `*F73 955  ]
-{
-[; ;i2c1_slave.c: 275: I2C1_SlaveAddrInterruptHandler();
-"275
-[e ( *U _I2C1_SlaveAddrInterruptHandler ..  ]
-"276
-}
-[e :U 955 ]
-[; ;i2c1_slave.c: 276: }
-[; ;i2c1_slave.c: 277: }
-"277
-[e :UE 954 ]
-}
-"279
-[v _I2C1_SlaveDefAddrInterruptHandler `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 279: static void I2C1_SlaveDefAddrInterruptHandler() {
-[e :U _I2C1_SlaveDefAddrInterruptHandler ]
-[f ]
-[; ;i2c1_slave.c: 280: i2c1SlaveAddr = I2C1_SlaveGetRxData();
-"280
-[e = _i2c1SlaveAddr ( _I2C1_SlaveGetRxData ..  ]
-[; ;i2c1_slave.c: 281: }
-"281
-[e :UE 956 ]
-}
-"285
-[v _I2C1_SlaveSetWrColIntHandler `(v ~T0 @X0 1 ef1`*F31 ]
-{
-[; ;i2c1_slave.c: 285: void I2C1_SlaveSetWrColIntHandler(i2c1InterruptHandler handler) {
-[e :U _I2C1_SlaveSetWrColIntHandler ]
-[v _handler `*F31 ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 286: I2C1_SlaveWrColInterruptHandler = handler;
-"286
-[e = _I2C1_SlaveWrColInterruptHandler _handler ]
-[; ;i2c1_slave.c: 287: }
-"287
-[e :UE 957 ]
-}
-"289
-[v _I2C1_SlaveWrColCallBack `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 289: static void I2C1_SlaveWrColCallBack() {
-[e :U _I2C1_SlaveWrColCallBack ]
-[f ]
-[; ;i2c1_slave.c: 291: if (I2C1_SlaveWrColInterruptHandler) {
-"291
-[e $ ! != _I2C1_SlaveWrColInterruptHandler -> -> 0 `i `*F79 959  ]
-{
-[; ;i2c1_slave.c: 292: I2C1_SlaveWrColInterruptHandler();
-"292
-[e ( *U _I2C1_SlaveWrColInterruptHandler ..  ]
-"293
-}
-[e :U 959 ]
-[; ;i2c1_slave.c: 293: }
-[; ;i2c1_slave.c: 294: }
-"294
-[e :UE 958 ]
-}
-"296
-[v _I2C1_SlaveDefWrColInterruptHandler `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 296: static void I2C1_SlaveDefWrColInterruptHandler() {
-[e :U _I2C1_SlaveDefWrColInterruptHandler ]
-[f ]
-[; ;i2c1_slave.c: 297: }
-"297
-[e :UE 960 ]
-}
-"301
-[v _I2C1_SlaveSetBusColIntHandler `(v ~T0 @X0 1 ef1`*F31 ]
-{
-[; ;i2c1_slave.c: 301: void I2C1_SlaveSetBusColIntHandler(i2c1InterruptHandler handler) {
-[e :U _I2C1_SlaveSetBusColIntHandler ]
-[v _handler `*F31 ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 302: I2C1_SlaveBusColInterruptHandler = handler;
-"302
-[e = _I2C1_SlaveBusColInterruptHandler _handler ]
-[; ;i2c1_slave.c: 303: }
-"303
-[e :UE 961 ]
-}
-"305
-[v _I2C1_SlaveBusColCallBack `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 305: static void I2C1_SlaveBusColCallBack() {
-[e :U _I2C1_SlaveBusColCallBack ]
-[f ]
-[; ;i2c1_slave.c: 307: if (I2C1_SlaveBusColInterruptHandler) {
-"307
-[e $ ! != _I2C1_SlaveBusColInterruptHandler -> -> 0 `i `*F76 963  ]
-{
-[; ;i2c1_slave.c: 308: I2C1_SlaveBusColInterruptHandler();
-"308
-[e ( *U _I2C1_SlaveBusColInterruptHandler ..  ]
-"309
-}
-[e :U 963 ]
-[; ;i2c1_slave.c: 309: }
-[; ;i2c1_slave.c: 310: }
-"310
-[e :UE 962 ]
-}
-"312
-[v _I2C1_SlaveDefBusColInterruptHandler `(v ~T0 @X0 1 sf ]
-{
-[; ;i2c1_slave.c: 312: static void I2C1_SlaveDefBusColInterruptHandler() {
-[e :U _I2C1_SlaveDefBusColInterruptHandler ]
-[f ]
-[; ;i2c1_slave.c: 313: }
-"313
-[e :UE 964 ]
-}
-"315
-[v _I2C1_SlaveOpen `TF6262 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 315: static inline bool I2C1_SlaveOpen() {
-[e :U _I2C1_SlaveOpen ]
-[f ]
-[; ;i2c1_slave.c: 316: if (!SSP1CON1bits.SSPEN) {
-"316
-[e $ ! ! != -> . . _SSP1CON1bits 0 2 `i -> -> -> 0 `i `Vuc `i 966  ]
-{
-[; ;i2c1_slave.c: 317: SSP1STAT = 0xC0;
-"317
-[e = _SSP1STAT -> -> 192 `i `uc ]
-[; ;i2c1_slave.c: 318: SSP1CON1 |= 0x06;
-"318
-[e =| _SSP1CON1 -> -> 6 `i `uc ]
-[; ;i2c1_slave.c: 319: SSP1CON2 = 0x01;
-"319
-[e = _SSP1CON2 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 320: SSP1CON1bits.SSPEN = 1;
-"320
-[e = . . _SSP1CON1bits 0 2 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 321: return 1;
-"321
-[e ) -> -> 1 `i `uc ]
-[e $UE 965  ]
-"322
-}
-[e :U 966 ]
-[; ;i2c1_slave.c: 322: }
-[; ;i2c1_slave.c: 323: return 0;
-"323
-[e ) -> -> 0 `i `uc ]
-[e $UE 965  ]
-[; ;i2c1_slave.c: 324: }
-"324
-[e :UE 965 ]
-}
-"326
-[v _I2C1_SlaveClose `TF6264 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 326: static inline void I2C1_SlaveClose() {
-[e :U _I2C1_SlaveClose ]
-[f ]
-[; ;i2c1_slave.c: 327: SSP1STAT = 0xC0;
-"327
-[e = _SSP1STAT -> -> 192 `i `uc ]
-[; ;i2c1_slave.c: 328: SSP1CON1 |= 0x06;
-"328
-[e =| _SSP1CON1 -> -> 6 `i `uc ]
-[; ;i2c1_slave.c: 329: SSP1CON2 = 0x01;
-"329
-[e = _SSP1CON2 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 330: SSP1CON1bits.SSPEN = 0;
-"330
-[e = . . _SSP1CON1bits 0 2 -> -> 0 `i `uc ]
-[; ;i2c1_slave.c: 331: }
-"331
-[e :UE 967 ]
-}
-"333
-[v _I2C1_SlaveSetSlaveAddr `TF6267 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 333: static inline void I2C1_SlaveSetSlaveAddr(uint8_t slaveAddr) {
-[e :U _I2C1_SlaveSetSlaveAddr ]
-[v _slaveAddr `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 334: SSP1ADD = (uint8_t) (slaveAddr << 1);
-"334
-[e = _SSP1ADD -> << -> _slaveAddr `i -> 1 `i `uc ]
-[; ;i2c1_slave.c: 335: }
-"335
-[e :UE 968 ]
-}
-"337
-[v _I2C1_SlaveSetSlaveMask `TF6270 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 337: static inline void I2C1_SlaveSetSlaveMask(uint8_t maskAddr) {
-[e :U _I2C1_SlaveSetSlaveMask ]
-[v _maskAddr `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 338: SSP1MSK = (uint8_t) (maskAddr << 1);
-"338
-[e = _SSP1MSK -> << -> _maskAddr `i -> 1 `i `uc ]
-[; ;i2c1_slave.c: 339: }
-"339
-[e :UE 969 ]
-}
-"341
-[v _I2C1_SlaveEnableIrq `TF6273 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 341: static inline void I2C1_SlaveEnableIrq() {
-[e :U _I2C1_SlaveEnableIrq ]
-[f ]
-[; ;i2c1_slave.c: 342: PIE1bits.SSP1IE = 1;
-"342
-[e = . . _PIE1bits 0 3 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 343: }
-"343
-[e :UE 970 ]
-}
-"345
-[v _I2C1_SlaveIsAddr `TF6276 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 345: static inline bool I2C1_SlaveIsAddr() {
-[e :U _I2C1_SlaveIsAddr ]
-[f ]
-[; ;i2c1_slave.c: 346: return !(SSP1STATbits.D_nA);
-"346
-[e ) -> -> ! != -> . . _SSP1STATbits 0 5 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-[e $UE 971  ]
-[; ;i2c1_slave.c: 347: }
-"347
-[e :UE 971 ]
-}
-"349
-[v _I2C1_SlaveIsRead `TF6279 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 349: static inline bool I2C1_SlaveIsRead() {
-[e :U _I2C1_SlaveIsRead ]
-[f ]
-[; ;i2c1_slave.c: 350: return (SSP1STATbits.R_nW);
-"350
-[e ) . . _SSP1STATbits 0 2 ]
-[e $UE 972  ]
-[; ;i2c1_slave.c: 351: }
-"351
-[e :UE 972 ]
-}
-"353
-[v _I2C1_SlaveClearIrq `TF6285 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 353: static inline void I2C1_SlaveClearIrq() {
-[e :U _I2C1_SlaveClearIrq ]
-[f ]
-[; ;i2c1_slave.c: 354: PIR1bits.SSP1IF = 0;
-"354
-[e = . . _PIR1bits 0 3 -> -> 0 `i `uc ]
-[; ;i2c1_slave.c: 355: }
-"355
-[e :UE 973 ]
-}
-"357
-[v _I2C1_SlaveReleaseClock `TF6288 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 357: static inline void I2C1_SlaveReleaseClock() {
-[e :U _I2C1_SlaveReleaseClock ]
-[f ]
-[; ;i2c1_slave.c: 358: SSP1CON1bits.CKP = 1;
-"358
-[e = . . _SSP1CON1bits 0 1 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 359: }
-"359
-[e :UE 974 ]
-}
-[v F6291 `(uc ~T0 @X0 1 tf ]
-"361
-[v _I2C1_SlaveIsWriteCollision `TF6291 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 361: static inline bool I2C1_SlaveIsWriteCollision() {
-[e :U _I2C1_SlaveIsWriteCollision ]
-[f ]
-[; ;i2c1_slave.c: 362: return SSP1CON1bits.WCOL;
-"362
-[e ) . . _SSP1CON1bits 0 4 ]
-[e $UE 975  ]
-[; ;i2c1_slave.c: 363: }
-"363
-[e :UE 975 ]
-}
-[v F6297 `(uc ~T0 @X0 1 tf ]
-"365
-[v _I2C1_SlaveIsData `TF6297 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 365: static inline bool I2C1_SlaveIsData() {
-[e :U _I2C1_SlaveIsData ]
-[f ]
-[; ;i2c1_slave.c: 366: return SSP1STATbits.D_nA;
-"366
-[e ) . . _SSP1STATbits 0 5 ]
-[e $UE 976  ]
-[; ;i2c1_slave.c: 367: }
-"367
-[e :UE 976 ]
-}
-[v F6300 `(v ~T0 @X0 1 tf ]
-"369
-[v _I2C1_SlaveRestart `TF6300 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 369: static inline void I2C1_SlaveRestart(void) {
-[e :U _I2C1_SlaveRestart ]
-[f ]
-[; ;i2c1_slave.c: 370: SSP1CON2bits.RSEN = 1;
-"370
-[e = . . _SSP1CON2bits 0 1 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 371: }
-"371
-[e :UE 977 ]
-}
-"373
-[v _I2C1_SlaveIsTxBufEmpty `TF6294 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 373: static inline bool I2C1_SlaveIsTxBufEmpty() {
-[e :U _I2C1_SlaveIsTxBufEmpty ]
-[f ]
-[; ;i2c1_slave.c: 374: return !SSP1STATbits.BF;
-"374
-[e ) -> -> ! != -> . . _SSP1STATbits 0 0 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-[e $UE 978  ]
-[; ;i2c1_slave.c: 375: }
-"375
-[e :UE 978 ]
-}
-"377
-[v _I2C1_SlaveIsRxBufFull `TF6303 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 377: static inline bool I2C1_SlaveIsRxBufFull() {
-[e :U _I2C1_SlaveIsRxBufFull ]
-[f ]
-[; ;i2c1_slave.c: 378: return SSP1STATbits.BF;
-"378
-[e ) . . _SSP1STATbits 0 0 ]
-[e $UE 979  ]
-[; ;i2c1_slave.c: 379: }
-"379
-[e :UE 979 ]
-}
-"381
-[v _I2C1_SlaveSendTxData `TF6306 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 381: static inline void I2C1_SlaveSendTxData(uint8_t data) {
-[e :U _I2C1_SlaveSendTxData ]
-[v _data `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;i2c1_slave.c: 382: SSP1BUF = data;
-"382
-[e = _SSP1BUF _data ]
-[; ;i2c1_slave.c: 383: }
-"383
-[e :UE 980 ]
-}
-"385
-[v _I2C1_SlaveGetRxData `TF6309 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 385: static inline uint8_t I2C1_SlaveGetRxData() {
-[e :U _I2C1_SlaveGetRxData ]
-[f ]
-[; ;i2c1_slave.c: 386: return SSP1BUF;
-"386
-[e ) _SSP1BUF ]
-[e $UE 981  ]
-[; ;i2c1_slave.c: 387: }
-"387
-[e :UE 981 ]
-}
-[v F6312 `(uc ~T0 @X0 1 tf ]
-"389
-[v _I2C1_SlaveGetAddr `TF6312 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 389: static inline uint8_t I2C1_SlaveGetAddr() {
-[e :U _I2C1_SlaveGetAddr ]
-[f ]
-[; ;i2c1_slave.c: 390: return SSP1ADD;
-"390
-[e ) _SSP1ADD ]
-[e $UE 982  ]
-[; ;i2c1_slave.c: 391: }
-"391
-[e :UE 982 ]
-}
-"393
-[v _I2C1_SlaveSendAck `TF6315 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 393: static inline void I2C1_SlaveSendAck() {
-[e :U _I2C1_SlaveSendAck ]
-[f ]
-[; ;i2c1_slave.c: 394: SSP1CON2bits.ACKDT = 0;
-"394
-[e = . . _SSP1CON2bits 0 5 -> -> 0 `i `uc ]
-[; ;i2c1_slave.c: 395: SSP1CON2bits.ACKEN = 1;
-"395
-[e = . . _SSP1CON2bits 0 4 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 396: }
-"396
-[e :UE 983 ]
-}
-"398
-[v _I2C1_SlaveSendNack `TF6318 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 398: static inline void I2C1_SlaveSendNack() {
-[e :U _I2C1_SlaveSendNack ]
-[f ]
-[; ;i2c1_slave.c: 399: SSP1CON2bits.ACKDT = 1;
-"399
-[e = . . _SSP1CON2bits 0 5 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 400: SSP1CON2bits.ACKEN = 1;
-"400
-[e = . . _SSP1CON2bits 0 4 -> -> 1 `i `uc ]
-[; ;i2c1_slave.c: 401: }
-"401
-[e :UE 984 ]
-}
-[v F6321 `(uc ~T0 @X0 1 tf ]
-"403
-[v _I2C1_SlaveIsOverFlow `TF6321 ~T0 @X0 1 s ]
-{
-[; ;i2c1_slave.c: 403: static inline bool I2C1_SlaveIsOverFlow() {
-[e :U _I2C1_SlaveIsOverFlow ]
-[f ]
-[; ;i2c1_slave.c: 404: return SSP1CON1bits.SSPOV;
-"404
-[e ) . . _SSP1CON1bits 0 3 ]
-[e $UE 985  ]
-[; ;i2c1_slave.c: 405: }
-"405
-[e :UE 985 ]
+[e :UE 934 ]
 }

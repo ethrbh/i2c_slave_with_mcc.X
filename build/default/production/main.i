@@ -10844,9 +10844,9 @@ volatile bool isEEMemoryAddr = 0;
 # 71
 static void EEPROM_I2C1_SlaveSetAddrIntHandler(void);
 
-static void EEPROM_SlaveRdDataFromSlave(void);
+static void EEPROM_SlaveSetWriteIntHandler(void);
 
-static void EEPROM_SlaveRdDataFromMaster(void);
+static void EEPROM_SlaveSetReadIntHandler(void);
 
 # 82
 static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
@@ -10858,25 +10858,31 @@ i2c1SlaveAddr = I2C1_Read() >> 1;
 if (!I2C1_IsRead()) {
 isEEMemoryAddr = 1;
 }
+
+return;
 }
 
-# 104
-static void EEPROM_SlaveRdDataFromSlave(void) {
+# 106
+static void EEPROM_SlaveSetWriteIntHandler(void) {
 if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
 i2c1EEMemAddr = 0x00;
 }
 
+eeprom_write(0x20, i2c1EEMemAddr);
+
 uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
 
-
+eeprom_write(0x21, i2c1EEMemValue);
 
 I2C1_Write(i2c1EEMemValue);
+
+return;
 }
 
-# 119
-static void EEPROM_SlaveRdDataFromMaster(void) {
+# 127
+static void EEPROM_SlaveSetReadIntHandler(void) {
 
-# 124
+# 132
 if (isEEMemoryAddr) {
 
 
@@ -10891,38 +10897,41 @@ i2c1EEMemAddr = 0x00;
 
 isEEMemoryAddr = 0;
 return;
-}
-
+} else {
 
 uint8_t i2c1EEMemValue = I2C1_Read();
 
 
-
 eeprom_write(i2c1EEMemAddr, i2c1EEMemAddr);
+uint8_t i2c1EEMemAddrTmp = i2c1EEMemAddr + 16;
+eeprom_write(i2c1EEMemAddrTmp, i2c1EEMemValue);
 
 
 EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
+
+return;
+}
 }
 
-# 154
+# 165
 void main(void) {
 
 SYSTEM_Initialize();
 
-# 162
+# 173
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 174
+# 185
 I2C1_Open();
 
 
 
 I2C1_SlaveSetAddrIntHandler(EEPROM_I2C1_SlaveSetAddrIntHandler);
-I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveRdDataFromSlave);
-I2C1_SlaveSetReadIntHandler(EEPROM_SlaveRdDataFromMaster);
+I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveSetWriteIntHandler);
+I2C1_SlaveSetReadIntHandler(EEPROM_SlaveSetReadIntHandler);
 
 while (1) {
 
