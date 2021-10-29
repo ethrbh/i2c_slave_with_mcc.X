@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>i2c_slave_with_mcc_core_5.0.2</name>
+            <name>i2c_slave_with_mcc</name>
             <creation-uuid>fa75917c-3b4e-42b9-b105-7370e7b82a4c</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

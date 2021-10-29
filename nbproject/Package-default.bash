@@ -10,9 +10,9 @@ CND_CONF=default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/i2c_slave_with_mcc_core_5.0.2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=i2c_slave_with_mcc_core_5.0.2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=i2cslavewithmcccore5.0.2.x/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/i2c_slave_with_mcc.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=i2c_slave_with_mcc.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=i2cslavewithmcc.x/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/i2cslavewithmcccore5.0.2.x/bin
+makeDirectory ${TMPDIR}/i2cslavewithmcc.x/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/i2cslavewithmcccore5.0.2.x.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/i2cslavewithmcc.x.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/i2cslavewithmcccore5.0.2.x.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/i2cslavewithmcc.x.tar *
 checkReturnCode
 
 # Cleanup

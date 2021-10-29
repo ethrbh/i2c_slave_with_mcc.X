@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"11243 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
+"11243 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
 [s S561 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S561 . RD WR WREN WRERR FREE LWLO NVMREGS ]
 "11252
@@ -75,7 +75,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;builtins.h: 14: extern __nonreentrant void _delaywdt(uint32_t);
 [; ;builtins.h: 17: extern __nonreentrant void _delay3(uint8_t);
 [; ;pic16f18325.h: 53: extern volatile unsigned char INDF0 __at(0x000);
-"55 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
+"55 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
 [; ;pic16f18325.h: 55: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f18325.h: 58: typedef union {

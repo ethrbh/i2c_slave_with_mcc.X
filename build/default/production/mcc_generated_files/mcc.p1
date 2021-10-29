@@ -5,17 +5,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F6241 `(v ~T0 @X0 0 tf ]
 [v F6244 `(v ~T0 @X0 0 tf ]
 [v F6247 `(v ~T0 @X0 0 tf ]
-"109 mcc_generated_files/mcc.h
+"108 mcc_generated_files/mcc.h
 [v _PMD_Initialize `(v ~T0 @X0 0 ef ]
 "61 mcc_generated_files/i2c1_slave.h
 [v _I2C1_Initialize `(v ~T0 @X0 0 ef ]
 "122 mcc_generated_files/pin_manager.h
 [v _PIN_MANAGER_Initialize `(v ~T0 @X0 0 ef ]
-"85 mcc_generated_files/mcc.h
+"84 mcc_generated_files/mcc.h
 [v _OSCILLATOR_Initialize `(v ~T0 @X0 0 ef ]
-"97
+"96
 [v _WDT_Initialize `(v ~T0 @X0 0 ef ]
-"11928 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
+"11928 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
 [v _OSCCON1 `Vuc ~T0 @X0 0 e@2329 ]
 "12068
 [v _OSCCON3 `Vuc ~T0 @X0 0 e@2331 ]
@@ -75,7 +75,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;builtins.h: 14: extern __nonreentrant void _delaywdt(uint32_t);
 [; ;builtins.h: 17: extern __nonreentrant void _delay3(uint8_t);
 [; ;pic16f18325.h: 53: extern volatile unsigned char INDF0 __at(0x000);
-"55 /home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
+"55 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
 [; ;pic16f18325.h: 55: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f18325.h: 58: typedef union {
@@ -7253,17 +7253,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 "140
 [v _I2C1_SlaveWrColInterruptHandler `*F6247 ~T0 @X0 1 e ]
 [; ;i2c1_slave.h: 140: void (*I2C1_SlaveWrColInterruptHandler)(void);
-[; ;stdbool.h: 15: typedef unsigned char bool;
-[; ;memory.h: 99: uint16_t FLASH_ReadWord(uint16_t flashAddr);
-[; ;memory.h: 128: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
-[; ;memory.h: 164: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
-[; ;memory.h: 189: void FLASH_EraseBlock(uint16_t startAddr);
-[; ;memory.h: 222: void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
-[; ;memory.h: 248: uint8_t DATAEE_ReadByte(uint16_t bAdd);
-[; ;mcc.h: 72: void SYSTEM_Initialize(void);
-[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 97: void WDT_Initialize(void);
-[; ;mcc.h: 109: void PMD_Initialize(void);
+[; ;mcc.h: 71: void SYSTEM_Initialize(void);
+[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 96: void WDT_Initialize(void);
+[; ;mcc.h: 108: void PMD_Initialize(void);
 "50 mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize `(v ~T0 @X0 1 ef ]
 "51

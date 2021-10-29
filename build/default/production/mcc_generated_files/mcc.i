@@ -1,7 +1,7 @@
 
 # 1 "mcc_generated_files/mcc.c"
 
-# 18 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h"
+# 18 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
@@ -98,7 +98,7 @@ typedef int16_t intptr_t;
 typedef uint16_t uintptr_t;
 
 
-# 7 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h"
+# 7 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
@@ -111,7 +111,7 @@ extern __nonreentrant void _delaywdt(uint32_t);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(uint8_t);
 
-# 53 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h"
+# 53 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h"
 extern volatile unsigned char INDF0 __at(0x000);
 
 asm("INDF0 equ 00h");
@@ -10701,18 +10701,18 @@ extern volatile __bit nRWDT __at(0x44DC);
 
 extern volatile __bit nTO __at(0x1C);
 
-# 76 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
+# 76 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
 __attribute__((__unsupported__("The " "FLASH_READ" " macro function is no longer supported. Please use the MPLAB X MCC."))) unsigned char __flash_read(unsigned short addr);
 
 __attribute__((__unsupported__("The " "FLASH_WRITE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_write(unsigned short addr, unsigned short data);
 
 __attribute__((__unsupported__("The " "FLASH_ERASE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_erase(unsigned short addr);
 
-# 114 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/eeprom_routines.h"
+# 114 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 
-# 127 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
+# 127 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
 extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
@@ -10791,37 +10791,16 @@ void (*I2C1_SlaveAddrInterruptHandler)(void);
 void (*I2C1_SlaveBusColInterruptHandler)(void);
 void (*I2C1_SlaveWrColInterruptHandler)(void);
 
-# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
-typedef unsigned char bool;
-
-# 99 "mcc_generated_files/memory.h"
-uint16_t FLASH_ReadWord(uint16_t flashAddr);
-
-# 128
-void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
-
-# 164
-int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
-
-# 189
-void FLASH_EraseBlock(uint16_t startAddr);
-
-# 222
-void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
-
-# 248
-uint8_t DATAEE_ReadByte(uint16_t bAdd);
-
-# 72 "mcc_generated_files/mcc.h"
+# 71 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 85
+# 84
 void OSCILLATOR_Initialize(void);
 
-# 97
+# 96
 void WDT_Initialize(void);
 
-# 109
+# 108
 void PMD_Initialize(void);
 
 # 50 "mcc_generated_files/mcc.c"

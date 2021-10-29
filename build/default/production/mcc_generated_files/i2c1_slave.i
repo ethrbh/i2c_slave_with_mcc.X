@@ -135,7 +135,7 @@ void (*I2C1_SlaveAddrInterruptHandler)(void);
 void (*I2C1_SlaveBusColInterruptHandler)(void);
 void (*I2C1_SlaveWrColInterruptHandler)(void);
 
-# 18 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h"
+# 18 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
@@ -146,7 +146,7 @@ extern double __fpnormalize(double);
 extern void __builtin_software_breakpoint(void);
 
 
-# 7 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h"
+# 7 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
@@ -159,7 +159,7 @@ extern __nonreentrant void _delaywdt(uint32_t);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(uint8_t);
 
-# 53 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h"
+# 53 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h"
 extern volatile unsigned char INDF0 __at(0x000);
 
 asm("INDF0 equ 00h");
@@ -10749,23 +10749,27 @@ extern volatile __bit nRWDT __at(0x44DC);
 
 extern volatile __bit nTO __at(0x1C);
 
-# 76 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
+# 76 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
 __attribute__((__unsupported__("The " "FLASH_READ" " macro function is no longer supported. Please use the MPLAB X MCC."))) unsigned char __flash_read(unsigned short addr);
 
 __attribute__((__unsupported__("The " "FLASH_WRITE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_write(unsigned short addr, unsigned short data);
 
 __attribute__((__unsupported__("The " "FLASH_ERASE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_erase(unsigned short addr);
 
-# 114 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/eeprom_routines.h"
+# 114 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 
-# 127 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
+# 127 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
 extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 
-# 53 "mcc_generated_files/i2c1_slave.c"
+# 77 "mcc_generated_files/../test.h"
+volatile uint8_t tmpCntI2C = 0x00;
+volatile uint8_t tmpCntI2C2 = 0x50;
+
+# 54 "mcc_generated_files/i2c1_slave.c"
 typedef enum {
 I2C1_IDLE,
 I2C1_ADDR_TX,
@@ -10774,13 +10778,13 @@ I2C1_DATA_TX,
 I2C1_DATA_RX
 } i2c1_slave_state_t;
 
-# 64
+# 65
 volatile uint8_t i2c1WrData;
 volatile uint8_t i2c1RdData;
 volatile uint8_t i2c1SlaveAddr;
 static volatile i2c1_slave_state_t i2c1SlaveState = I2C1_IDLE;
 
-# 72
+# 73
 static void I2C1_Isr(void);
 static void I2C1_SlaveDefRdInterruptHandler(void);
 static void I2C1_SlaveDefWrInterruptHandler(void);
@@ -10819,7 +10823,7 @@ static inline bool I2C1_SlaveIsOverFlow(void);
 void I2C1_Initialize() {
 SSP1STAT = 0xC0;
 SSP1CON1 |= 0x06;
-SSP1CON2 = 0x01;
+SSP1CON2 = 0x81;
 SSP1CON1bits.SSPEN = 0;
 }
 
@@ -10868,46 +10872,20 @@ static void I2C1_Isr() {
 I2C1_SlaveClearIrq();
 
 
-if (I2C1_SlaveIsAddr()) {
-if (I2C1_SlaveIsRead()) {
-i2c1SlaveState = I2C1_ADDR_TX;
-} else {
-i2c1SlaveState = I2C1_ADDR_RX;
-}
-} else {
-if (I2C1_SlaveIsRead()) {
 
-i2c1SlaveState = I2C1_DATA_RX;
-} else {
+while (!I2C1_SlaveIsRxBufFull());
 
-i2c1SlaveState = I2C1_DATA_TX;
-}
-}
+uint8_t tmpCntI2C2_orig = tmpCntI2C2;
+eeprom_write(tmpCntI2C2++, SSP1STAT);
+eeprom_write(tmpCntI2C2++, I2C1_Read());
+eeprom_write(tmpCntI2C2++, I2C1_SlaveIsAddr());
+eeprom_write(tmpCntI2C2++, SSP1ADD);
+eeprom_write(tmpCntI2C2++, SSP1STAT);
+eeprom_write(tmpCntI2C2++, SSP1CON1);
+eeprom_write(tmpCntI2C2++, SSP1CON2);
+tmpCntI2C2 = tmpCntI2C2_orig + 16;
 
-# 200
-switch (i2c1SlaveState) {
-case I2C1_ADDR_TX:
-I2C1_SlaveAddrCallBack();
-if (I2C1_SlaveIsTxBufEmpty()) {
-I2C1_SlaveWrCallBack();
-}
-break;
-case I2C1_ADDR_RX:
-I2C1_SlaveAddrCallBack();
-break;
-case I2C1_DATA_TX:
-if (I2C1_SlaveIsTxBufEmpty()) {
-I2C1_SlaveWrCallBack();
-}
-break;
-case I2C1_DATA_RX:
-if (I2C1_SlaveIsRxBufFull()) {
-I2C1_SlaveRdCallBack();
-}
-break;
-default:
-break;
-}
+# 210
 I2C1_SlaveReleaseClock();
 }
 
@@ -11004,7 +10982,7 @@ static inline bool I2C1_SlaveOpen() {
 if (!SSP1CON1bits.SSPEN) {
 SSP1STAT = 0xC0;
 SSP1CON1 |= 0x06;
-SSP1CON2 = 0x01;
+SSP1CON2 = 0x81;
 SSP1CON1bits.SSPEN = 1;
 return 1;
 }
@@ -11014,7 +10992,7 @@ return 0;
 static inline void I2C1_SlaveClose() {
 SSP1STAT = 0xC0;
 SSP1CON1 |= 0x06;
-SSP1CON2 = 0x01;
+SSP1CON2 = 0x81;
 SSP1CON1bits.SSPEN = 0;
 }
 

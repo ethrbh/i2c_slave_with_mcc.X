@@ -46,6 +46,7 @@
 
 #include "i2c1_slave.h"
 #include <xc.h>
+#include "../test.h"
 
 #define I2C1_SLAVE_ADDRESS      103
 #define I2C1_SLAVE_MASK         127
@@ -107,7 +108,7 @@ static inline bool I2C1_SlaveIsOverFlow(void);
 void I2C1_Initialize() {
     SSP1STAT = 0xC0;
     SSP1CON1 |= 0x06;
-    SSP1CON2 = 0x01;
+    SSP1CON2 = 0x81;
     SSP1CON1bits.SSPEN = 0;
 }
 
@@ -155,71 +156,57 @@ void I2C1_SendNack() {
 static void I2C1_Isr() {
     I2C1_SlaveClearIrq();
 
-    // Orig
-    if (I2C1_SlaveIsAddr()) {
-        if (I2C1_SlaveIsRead()) {
-            i2c1SlaveState = I2C1_ADDR_TX;
-        } else {
-            i2c1SlaveState = I2C1_ADDR_RX;
-        }
-    } else {
-        if (I2C1_SlaveIsRead()) {
-            //i2c1SlaveState = I2C1_DATA_TX;
-            i2c1SlaveState = I2C1_DATA_RX;
-        } else {
-            //i2c1SlaveState = I2C1_DATA_RX;
-            i2c1SlaveState = I2C1_DATA_TX;
-        }
-    }
+    // Waiting for I2C1_SlaveIsRxBufFull
+    // state.
+    while (!I2C1_SlaveIsRxBufFull());
 
-    //    // My version
-    //    if (I2C1_SlaveIsRead()) {
-    //        // Read from SLAVE device case
-    //        if ((I2C1_SlaveIsData()) && (SSP1CON2bits.ACKSTAT)) {
-    //            // state: I2C1_SLAVE_READ_COMPLETED
-    //            // The register address has been received to be read out.
-    //            i2c1SlaveState = I2C1_DATA_TX; //ok
+    uint8_t tmpCntI2C2_orig = tmpCntI2C2;
+    eeprom_write(tmpCntI2C2++, SSP1STAT);
+    eeprom_write(tmpCntI2C2++, I2C1_Read());
+    eeprom_write(tmpCntI2C2++, I2C1_SlaveIsAddr());
+    eeprom_write(tmpCntI2C2++, SSP1ADD);
+    eeprom_write(tmpCntI2C2++, SSP1STAT);
+    eeprom_write(tmpCntI2C2++, SSP1CON1);
+    eeprom_write(tmpCntI2C2++, SSP1CON2);
+    tmpCntI2C2 = tmpCntI2C2_orig + 16;
+
+    //    if (I2C1_SlaveIsAddr()) {
+    //        if (I2C1_SlaveIsRead()) {
+    //            i2c1SlaveState = I2C1_ADDR_TX;
     //        } else {
-    //            // state: I2C1_SLAVE_READ_REQUEST
-    //            // I2C slave address has been received.
-    //            // The next byte should be the register address to be read out.
-    //            i2c1SlaveState = I2C1_ADDR_TX; //ok
+    //            i2c1SlaveState = I2C1_ADDR_RX;
     //        }
     //    } else {
-    //        // Write into the SLAVE device case
-    //        if (I2C1_SlaveIsAddr()) {
-    //            // state: I2C1_SLAVE_WRITE_REQUEST
-    //            i2c1SlaveState = I2C1_ADDR_RX; //ok
+    //        if (I2C1_SlaveIsRead()) {
+    //            i2c1SlaveState = I2C1_DATA_TX;
     //        } else {
-    //            // state: I2C1_SLAVE_WRITE_COMPLETED
     //            i2c1SlaveState = I2C1_DATA_RX;
     //        }
     //    }
-    //    // End of my version
-
-    switch (i2c1SlaveState) {
-        case I2C1_ADDR_TX:
-            I2C1_SlaveAddrCallBack();
-            if (I2C1_SlaveIsTxBufEmpty()) {
-                I2C1_SlaveWrCallBack();
-            }
-            break;
-        case I2C1_ADDR_RX:
-            I2C1_SlaveAddrCallBack();
-            break;
-        case I2C1_DATA_TX:
-            if (I2C1_SlaveIsTxBufEmpty()) {
-                I2C1_SlaveWrCallBack();
-            }
-            break;
-        case I2C1_DATA_RX:
-            if (I2C1_SlaveIsRxBufFull()) {
-                I2C1_SlaveRdCallBack();
-            }
-            break;
-        default:
-            break;
-    }
+    //
+    //    switch (i2c1SlaveState) {
+    //        case I2C1_ADDR_TX:
+    //            I2C1_SlaveAddrCallBack();
+    //            if (I2C1_SlaveIsTxBufEmpty()) {
+    //                I2C1_SlaveWrCallBack();
+    //            }
+    //            break;
+    //        case I2C1_ADDR_RX:
+    //            I2C1_SlaveAddrCallBack();
+    //            break;
+    //        case I2C1_DATA_TX:
+    //            if (I2C1_SlaveIsTxBufEmpty()) {
+    //                I2C1_SlaveWrCallBack();
+    //            }
+    //            break;
+    //        case I2C1_DATA_RX:
+    //            if (I2C1_SlaveIsRxBufFull()) {
+    //                I2C1_SlaveRdCallBack();
+    //            }
+    //            break;
+    //        default:
+    //            break;
+    //    }
     I2C1_SlaveReleaseClock();
 }
 
@@ -316,7 +303,7 @@ static inline bool I2C1_SlaveOpen() {
     if (!SSP1CON1bits.SSPEN) {
         SSP1STAT = 0xC0;
         SSP1CON1 |= 0x06;
-        SSP1CON2 = 0x01;
+        SSP1CON2 = 0x81;
         SSP1CON1bits.SSPEN = 1;
         return true;
     }
@@ -326,7 +313,7 @@ static inline bool I2C1_SlaveOpen() {
 static inline void I2C1_SlaveClose() {
     SSP1STAT = 0xC0;
     SSP1CON1 |= 0x06;
-    SSP1CON2 = 0x01;
+    SSP1CON2 = 0x81;
     SSP1CON1bits.SSPEN = 0;
 }
 

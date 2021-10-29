@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=i2c_slave_with_mcc_core_5.0.2.X
+PROJECTNAME=i2c_slave_with_mcc.X
 
 # Active Configuration
 DEFAULTCONF=default

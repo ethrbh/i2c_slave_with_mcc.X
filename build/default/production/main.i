@@ -1,7 +1,7 @@
 
 # 1 "main.c"
 
-# 18 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h"
+# 18 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
@@ -98,7 +98,7 @@ typedef int16_t intptr_t;
 typedef uint16_t uintptr_t;
 
 
-# 7 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h"
+# 7 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
@@ -111,7 +111,7 @@ extern __nonreentrant void _delaywdt(uint32_t);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(uint8_t);
 
-# 53 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h"
+# 53 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h"
 extern volatile unsigned char INDF0 __at(0x000);
 
 asm("INDF0 equ 00h");
@@ -10701,18 +10701,18 @@ extern volatile __bit nRWDT __at(0x44DC);
 
 extern volatile __bit nTO __at(0x1C);
 
-# 76 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
+# 76 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
 __attribute__((__unsupported__("The " "FLASH_READ" " macro function is no longer supported. Please use the MPLAB X MCC."))) unsigned char __flash_read(unsigned short addr);
 
 __attribute__((__unsupported__("The " "FLASH_WRITE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_write(unsigned short addr, unsigned short data);
 
 __attribute__((__unsupported__("The " "FLASH_ERASE" " macro function is no longer supported. Please use the MPLAB X MCC."))) void __flash_erase(unsigned short addr);
 
-# 114 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/eeprom_routines.h"
+# 114 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 
-# 127 "/home/ethrbh/tools/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
+# 127 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h"
 extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
@@ -10791,55 +10791,38 @@ void (*I2C1_SlaveAddrInterruptHandler)(void);
 void (*I2C1_SlaveBusColInterruptHandler)(void);
 void (*I2C1_SlaveWrColInterruptHandler)(void);
 
-# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
-typedef unsigned char bool;
-
-# 99 "mcc_generated_files/memory.h"
-uint16_t FLASH_ReadWord(uint16_t flashAddr);
-
-# 128
-void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
-
-# 164
-int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
-
-# 189
-void FLASH_EraseBlock(uint16_t startAddr);
-
-# 222
-void DATAEE_WriteByte(uint16_t bAdd, uint8_t bData);
-
-# 248
-uint8_t DATAEE_ReadByte(uint16_t bAdd);
-
-# 72 "mcc_generated_files/mcc.h"
+# 71 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 85
+# 84
 void OSCILLATOR_Initialize(void);
 
-# 97
+# 96
 void WDT_Initialize(void);
 
-# 109
+# 108
 void PMD_Initialize(void);
 
+# 77 "test.h"
+volatile uint8_t tmpCntI2C = 0x00;
+volatile uint8_t tmpCntI2C2 = 0x50;
+
 # 51 "main.c"
-volatile uint8_t SLAVE_EEPROM_SIZE = 128;
+volatile uint8_t SLAVE_EEPROM_SIZE = 64;
 static uint8_t EEPROM_Buffer[] = {
 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f,
-0x40, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c, 0x4d, 0x4e, 0x4f,
-0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5a, 0x5b, 0x5c, 0x5d, 0x5e, 0x5f,
-0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f,
-0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7a, 0x7b, 0x7c, 0x7d, 0x7e, 0x7f
+0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f
 };
 
 volatile uint8_t i2c1SlaveAddr = 0x00;
 uint8_t i2c1EEMemAddr = 0x00;
-volatile bool isEEMemoryAddr = 0;
+
+
+
+
+volatile uint8_t isEEMemoryAddrState = 0;
 
 # 71
 static void EEPROM_I2C1_SlaveSetAddrIntHandler(void);
@@ -10852,79 +10835,98 @@ static void EEPROM_SlaveSetReadIntHandler(void);
 static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
 
 # 89
-i2c1SlaveAddr = I2C1_Read() >> 1;
+i2c1SlaveAddr = I2C1_Read();
 
-# 95
-if (!I2C1_IsRead()) {
-isEEMemoryAddr = 1;
+# 99
+if (I2C1_IsRead()) {
+eeprom_write(tmpCntI2C++, 0x11);
+
+# 107
+EEPROM_SlaveSetWriteIntHandler();
+} else {
+
+
+if (isEEMemoryAddrState == 0) {
+eeprom_write(tmpCntI2C++, 0x13);
+
+
+isEEMemoryAddrState = 1;
+}
 }
 
 return;
 }
 
-# 106
+# 126
 static void EEPROM_SlaveSetWriteIntHandler(void) {
 if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
-i2c1EEMemAddr = 0x00;
+i2c1EEMemAddr = 0;
 }
-
-eeprom_write(0x20, i2c1EEMemAddr);
 
 uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
 
-eeprom_write(0x21, i2c1EEMemValue);
+if (!SSP1CON2bits.ACKSTAT) {
+eeprom_write(tmpCntI2C++, 0x21);
 
 I2C1_Write(i2c1EEMemValue);
+do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0);
+
+while (SSPSTATbits.BF);
+}
 
 return;
 }
 
-# 127
+# 150
 static void EEPROM_SlaveSetReadIntHandler(void) {
 
-# 132
-if (isEEMemoryAddr) {
+# 156
+if (isEEMemoryAddrState != 2) {
+eeprom_write(tmpCntI2C++, 0x31);
 
 
 i2c1EEMemAddr = I2C1_Read();
 
 
 
+
 if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
-i2c1EEMemAddr = 0x00;
+i2c1EEMemAddr = 0;
 }
 
 
-isEEMemoryAddr = 0;
+
+isEEMemoryAddrState = 2;
+
 return;
 } else {
+eeprom_write(tmpCntI2C++, 0x33);
+if (isEEMemoryAddrState == 2) {
+
+
 
 uint8_t i2c1EEMemValue = I2C1_Read();
 
-
-eeprom_write(i2c1EEMemAddr, i2c1EEMemAddr);
-uint8_t i2c1EEMemAddrTmp = i2c1EEMemAddr + 16;
-eeprom_write(i2c1EEMemAddrTmp, i2c1EEMemValue);
-
-
+# 188
 EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
 
 return;
 }
 }
+}
 
-# 165
+# 198
 void main(void) {
 
 SYSTEM_Initialize();
 
-# 173
+# 206
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 185
+# 218
 I2C1_Open();
 
 
@@ -10934,6 +10936,8 @@ I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveSetWriteIntHandler);
 I2C1_SlaveSetReadIntHandler(EEPROM_SlaveSetReadIntHandler);
 
 while (1) {
+
+
 
 
 }
