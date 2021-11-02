@@ -42,6 +42,7 @@
  */
 
 #include "mcc_generated_files/mcc.h"
+#include "mcc_generated_files/examples/i2c2_master_example.h" /* For I2C Master  application interface. */
 #include "test.h"
 
 /*
@@ -50,10 +51,14 @@
  */
 volatile uint8_t SLAVE_EEPROM_SIZE = 64;
 static uint8_t EEPROM_Buffer[] = {
-    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-    0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+    0x00, 0x01, 0x022, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+    0x10, 0x11, 0x12, 0x13, 0x16, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
     0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
     0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f
+};
+
+static uint8_t MASTER_Buffer[] = {
+    0x01, 0xFF, 0xFE, 0xFD, 0xFC, 0xFB, 0xFA, 0xF9, 0xF8, 0xF7, 0xF6, 0xF5, 0xF4, 0xF3, 0xF2, 0xF1, 0xF0
 };
 
 volatile uint8_t i2c1SlaveAddr = 0x00;
@@ -96,24 +101,17 @@ static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
      */
     //eeprom_write(tmpCntI2C++, 0x10);
 
-    if (I2C1_IsRead()) {
-        eeprom_write(tmpCntI2C++, 0x11);
-
-        // Case when MASTER issued a read request
-        // without/with specify the register address.
-        // In this case the memory address pointed by
-        // i2c1EEMemAddr should be read out, and write
-        // into the I2C bus.
-        EEPROM_SlaveSetWriteIntHandler();
-    } else {
+    if (!I2C1_IsRead()) {
         // Master sent a WRITE request
         //eeprom_write(tmpCntI2C++, 0x12);
-        if (isEEMemoryAddrState == EE_ADDR_NONE) {
-            eeprom_write(tmpCntI2C++, 0x13);
-            // If no register address received yet,
-            // the next byte on the I2C bus will be that.
-            isEEMemoryAddrState = EE_ADDR_WAITING;
-        }
+        isEEMemoryAddrState = EE_ADDR_WAITING;
+
+        //        if (isEEMemoryAddrState == EE_ADDR_NONE) {
+        //            //eeprom_write(tmpCntI2C++, 0x13);
+        //            // If no register address received yet,
+        //            // the next byte on the I2C bus will be that.
+        //            isEEMemoryAddrState = EE_ADDR_WAITING;
+        //        }
     }
 
     return;
@@ -131,12 +129,12 @@ static void EEPROM_SlaveSetWriteIntHandler(void) {
     uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
 
     if (!SSP1CON2bits.ACKSTAT) {
-        eeprom_write(tmpCntI2C++, 0x21);
+        //eeprom_write(tmpCntI2C++, 0x21);
 
         I2C1_Write(i2c1EEMemValue);
         IO_RA2_Toggle();
 
-        while (SSPSTATbits.BF);
+        //while (SSPSTATbits.BF);
     }
 
     return;
@@ -153,8 +151,8 @@ static void EEPROM_SlaveSetReadIntHandler(void) {
      * register address.
      */
     //eeprom_write(tmpCntI2C++, 0x30);
-    if (isEEMemoryAddrState != EE_ADDR_RECEIVED) {
-        eeprom_write(tmpCntI2C++, 0x31);
+    if (isEEMemoryAddrState == EE_ADDR_WAITING) {
+        //eeprom_write(tmpCntI2C++, 0x31);
 
         // Read EEPROM register address
         i2c1EEMemAddr = I2C1_Read();
@@ -172,7 +170,7 @@ static void EEPROM_SlaveSetReadIntHandler(void) {
 
         return;
     } else {
-        eeprom_write(tmpCntI2C++, 0x33);
+        //eeprom_write(tmpCntI2C++, 0x33);
         if (isEEMemoryAddrState == EE_ADDR_RECEIVED) {
             //eeprom_write(tmpCntI2C++, 0x34);
 
@@ -223,11 +221,32 @@ void main(void) {
     I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveSetWriteIntHandler);
     I2C1_SlaveSetReadIntHandler(EEPROM_SlaveSetReadIntHandler);
 
+    static uint8_t Memory_Index = 1;
+    static uint8_t SlaveAddress = 103;
+
+    static uint8_t value1 = 0x00;
+    static uint8_t value2 = 0x00;
+    static uint8_t value3 = 0x00;
+    value1 = I2C2_Read1ByteRegister(SlaveAddress, 0x02);
+    value2 = I2C2_Read1ByteRegister(SlaveAddress, 0x14);
+    value3 = value1 + value2;
     while (1) {
         // Add your application code
         //IO_RA2_Toggle();
         //printf("hello\n");
         //__delay_ms(200);
+
+        //MASTER_Buffer[0] = Memory_Index;
+        /* 1 byte memory address and 8 bytes data from the same buffer. Mysil */
+        //I2C2_WriteNBytes(SlaveAddress, MASTER_Buffer, 9);
+        //I2C2_Write1ByteRegister(SlaveAddress, 0x02, 0xcc);
+
+        IO_RA2_Toggle();
+
+        //I2C2_ReadDataBlock(SlaveAddress, Memory_Index, &MASTER_Buffer[1], 16);
+        //Memory_Index += 8;
+        //I2C2_Read1ByteRegister(SlaveAddress, 0x02);
+        __delay_ms(200);
     }
 }
 /**

@@ -2,6 +2,7 @@
  build/default/production/mcc_generated_files/mcc.p1:  \
  mcc_generated_files/mcc.c  \
 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/language_support.h  \
+mcc_generated_files/i2c2_master.h  \
 mcc_generated_files/mcc.h  \
 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h  \
 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/xc.h  \
@@ -15,4 +16,5 @@ mcc_generated_files/i2c1_slave.h  \
 mcc_generated_files/interrupt_manager.h  \
 mcc_generated_files/pin_manager.h  \
 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/pic.h  \
+/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/__size_t.h  \
 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/__at.h 

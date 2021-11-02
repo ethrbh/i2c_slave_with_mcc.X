@@ -54,6 +54,7 @@
 #include <conio.h>
 #include "interrupt_manager.h"
 #include "i2c1_slave.h"
+#include "i2c2_master.h"
 
 
 

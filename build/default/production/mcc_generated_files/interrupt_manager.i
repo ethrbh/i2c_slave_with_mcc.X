@@ -10717,10 +10717,10 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 
-# 122 "mcc_generated_files/pin_manager.h"
+# 146 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 134
+# 158
 void PIN_MANAGER_IOC(void);
 
 # 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
@@ -10791,16 +10791,137 @@ void (*I2C1_SlaveAddrInterruptHandler)(void);
 void (*I2C1_SlaveBusColInterruptHandler)(void);
 void (*I2C1_SlaveWrColInterruptHandler)(void);
 
-# 71 "mcc_generated_files/mcc.h"
+# 4 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/__size_t.h"
+typedef unsigned size_t;
+
+# 7 "/opt/microchip/xc8/v2.32/pic/include/c90/stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "/opt/microchip/xc8/v2.32/pic/include/c90/stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 88
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
+typedef unsigned char bool;
+
+# 58 "mcc_generated_files/i2c2_master.h"
+typedef enum {
+I2C2_NOERR,
+I2C2_BUSY,
+I2C2_FAIL
+
+
+} i2c2_error_t;
+
+typedef enum
+{
+I2C2_STOP=1,
+I2C2_RESTART_READ,
+I2C2_RESTART_WRITE,
+I2C2_CONTINUE,
+I2C2_RESET_LINK
+} i2c2_operations_t;
+
+typedef uint8_t i2c2_address_t;
+typedef i2c2_operations_t (*i2c2_callback_t)(void *funPtr);
+
+
+i2c2_operations_t I2C2_CallbackReturnStop(void *funPtr);
+i2c2_operations_t I2C2_CallbackReturnReset(void *funPtr);
+i2c2_operations_t I2C2_CallbackRestartWrite(void *funPtr);
+i2c2_operations_t I2C2_CallbackRestartRead(void *funPtr);
+
+# 89
+void I2C2_Initialize(void);
+
+# 101
+i2c2_error_t I2C2_Open(i2c2_address_t address);
+
+# 111
+i2c2_error_t I2C2_Close(void);
+
+# 123
+i2c2_error_t I2C2_MasterOperation(bool read);
+
+# 128
+i2c2_error_t I2C2_MasterWrite(void);
+
+# 133
+i2c2_error_t I2C2_MasterRead(void);
+
+# 142
+void I2C2_SetTimeout(uint8_t timeOut);
+
+# 152
+void I2C2_SetBuffer(void *buffer, size_t bufferSize);
+
+# 164
+void I2C2_SetDataCompleteCallback(i2c2_callback_t cb, void *ptr);
+
+# 174
+void I2C2_SetWriteCollisionCallback(i2c2_callback_t cb, void *ptr);
+
+# 184
+void I2C2_SetAddressNackCallback(i2c2_callback_t cb, void *ptr);
+
+# 194
+void I2C2_SetDataNackCallback(i2c2_callback_t cb, void *ptr);
+
+# 204
+void I2C2_SetTimeoutCallback(i2c2_callback_t cb, void *ptr);
+
+# 213
+void (*MSSP2_InterruptHandler)(void);
+
+# 222
+void I2C2_SetInterruptHandler(void (* InterruptHandler)(void));
+
+# 72 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 84
+# 85
 void OSCILLATOR_Initialize(void);
 
-# 96
+# 97
 void WDT_Initialize(void);
 
-# 108
+# 109
 void PMD_Initialize(void);
 
 # 52 "mcc_generated_files/interrupt_manager.c"
@@ -10816,6 +10937,14 @@ MSSP1_InterruptHandler();
 else if(PIE1bits.SSP1IE == 1 && PIR1bits.SSP1IF == 1)
 {
 MSSP1_InterruptHandler();
+}
+else if(PIE2bits.BCL2IE == 1 && PIR2bits.BCL2IF == 1)
+{
+MSSP2_InterruptHandler();
+}
+else if(PIE2bits.SSP2IE == 1 && PIR2bits.SSP2IF == 1)
+{
+MSSP2_InterruptHandler();
 }
 else
 {

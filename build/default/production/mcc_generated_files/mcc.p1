@@ -5,15 +5,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F6241 `(v ~T0 @X0 0 tf ]
 [v F6244 `(v ~T0 @X0 0 tf ]
 [v F6247 `(v ~T0 @X0 0 tf ]
-"108 mcc_generated_files/mcc.h
+[v F6351 `(v ~T0 @X0 0 tf ]
+"109 mcc_generated_files/mcc.h
 [v _PMD_Initialize `(v ~T0 @X0 0 ef ]
 "61 mcc_generated_files/i2c1_slave.h
 [v _I2C1_Initialize `(v ~T0 @X0 0 ef ]
-"122 mcc_generated_files/pin_manager.h
+"89 mcc_generated_files/i2c2_master.h
+[v _I2C2_Initialize `(v ~T0 @X0 0 ef ]
+"146 mcc_generated_files/pin_manager.h
 [v _PIN_MANAGER_Initialize `(v ~T0 @X0 0 ef ]
-"84 mcc_generated_files/mcc.h
+"85 mcc_generated_files/mcc.h
 [v _OSCILLATOR_Initialize `(v ~T0 @X0 0 ef ]
-"96
+"97
 [v _WDT_Initialize `(v ~T0 @X0 0 ef ]
 "11928 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
 [v _OSCCON1 `Vuc ~T0 @X0 0 e@2329 ]
@@ -7206,8 +7209,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 127: extern __bank0 unsigned char __resetbits;
 [; ;pic.h: 128: extern __bank0 __bit __powerdown;
 [; ;pic.h: 129: extern __bank0 __bit __timeout;
-[; ;pin_manager.h: 122: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 134: void PIN_MANAGER_IOC(void);
+[; ;pin_manager.h: 146: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 158: void PIN_MANAGER_IOC(void);
 [; ;stdbool.h: 15: typedef unsigned char bool;
 [; ;errno.h: 29: extern int errno;
 [; ;conio.h: 12: extern void init_uart(void);
@@ -7253,10 +7256,68 @@ Version 3.2 HI-TECH Software Intermediate Code
 "140
 [v _I2C1_SlaveWrColInterruptHandler `*F6247 ~T0 @X0 1 e ]
 [; ;i2c1_slave.h: 140: void (*I2C1_SlaveWrColInterruptHandler)(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 96: void WDT_Initialize(void);
-[; ;mcc.h: 108: void PMD_Initialize(void);
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;i2c2_master.h: 58: typedef enum {
+[; ;i2c2_master.h: 59: I2C2_NOERR,
+[; ;i2c2_master.h: 60: I2C2_BUSY,
+[; ;i2c2_master.h: 61: I2C2_FAIL
+[; ;i2c2_master.h: 64: } i2c2_error_t;
+[; ;i2c2_master.h: 66: typedef enum
+[; ;i2c2_master.h: 67: {
+[; ;i2c2_master.h: 68: I2C2_STOP=1,
+[; ;i2c2_master.h: 69: I2C2_RESTART_READ,
+[; ;i2c2_master.h: 70: I2C2_RESTART_WRITE,
+[; ;i2c2_master.h: 71: I2C2_CONTINUE,
+[; ;i2c2_master.h: 72: I2C2_RESET_LINK
+[; ;i2c2_master.h: 73: } i2c2_operations_t;
+[; ;i2c2_master.h: 75: typedef uint8_t i2c2_address_t;
+[; ;i2c2_master.h: 76: typedef i2c2_operations_t (*i2c2_callback_t)(void *funPtr);
+[; ;i2c2_master.h: 79: i2c2_operations_t I2C2_CallbackReturnStop(void *funPtr);
+[; ;i2c2_master.h: 80: i2c2_operations_t I2C2_CallbackReturnReset(void *funPtr);
+[; ;i2c2_master.h: 81: i2c2_operations_t I2C2_CallbackRestartWrite(void *funPtr);
+[; ;i2c2_master.h: 82: i2c2_operations_t I2C2_CallbackRestartRead(void *funPtr);
+[; ;i2c2_master.h: 89: void I2C2_Initialize(void);
+[; ;i2c2_master.h: 101: i2c2_error_t I2C2_Open(i2c2_address_t address);
+[; ;i2c2_master.h: 111: i2c2_error_t I2C2_Close(void);
+[; ;i2c2_master.h: 123: i2c2_error_t I2C2_MasterOperation(bool read);
+[; ;i2c2_master.h: 128: i2c2_error_t I2C2_MasterWrite(void);
+[; ;i2c2_master.h: 133: i2c2_error_t I2C2_MasterRead(void);
+[; ;i2c2_master.h: 142: void I2C2_SetTimeout(uint8_t timeOut);
+[; ;i2c2_master.h: 152: void I2C2_SetBuffer(void *buffer, size_t bufferSize);
+[; ;i2c2_master.h: 164: void I2C2_SetDataCompleteCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 174: void I2C2_SetWriteCollisionCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 184: void I2C2_SetAddressNackCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 194: void I2C2_SetDataNackCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 204: void I2C2_SetTimeoutCallback(i2c2_callback_t cb, void *ptr);
+"213 mcc_generated_files/i2c2_master.h
+[v _MSSP2_InterruptHandler `*F6351 ~T0 @X0 1 e ]
+[; ;i2c2_master.h: 213: void (*MSSP2_InterruptHandler)(void);
+[; ;i2c2_master.h: 222: void I2C2_SetInterruptHandler(void (* InterruptHandler)(void));
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 97: void WDT_Initialize(void);
+[; ;mcc.h: 109: void PMD_Initialize(void);
 "50 mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize `(v ~T0 @X0 1 ef ]
 "51
@@ -7271,88 +7332,91 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mcc.c: 54: I2C1_Initialize();
 "54
 [e ( _I2C1_Initialize ..  ]
-[; ;mcc.c: 55: PIN_MANAGER_Initialize();
+[; ;mcc.c: 55: I2C2_Initialize();
 "55
-[e ( _PIN_MANAGER_Initialize ..  ]
-[; ;mcc.c: 56: OSCILLATOR_Initialize();
+[e ( _I2C2_Initialize ..  ]
+[; ;mcc.c: 56: PIN_MANAGER_Initialize();
 "56
-[e ( _OSCILLATOR_Initialize ..  ]
-[; ;mcc.c: 57: WDT_Initialize();
+[e ( _PIN_MANAGER_Initialize ..  ]
+[; ;mcc.c: 57: OSCILLATOR_Initialize();
 "57
-[e ( _WDT_Initialize ..  ]
-[; ;mcc.c: 58: }
+[e ( _OSCILLATOR_Initialize ..  ]
+[; ;mcc.c: 58: WDT_Initialize();
 "58
-[e :UE 918 ]
-}
-"60
-[v _OSCILLATOR_Initialize `(v ~T0 @X0 1 ef ]
-"61
-{
-[; ;mcc.c: 60: void OSCILLATOR_Initialize(void)
-[; ;mcc.c: 61: {
-[e :U _OSCILLATOR_Initialize ]
-[f ]
-[; ;mcc.c: 63: OSCCON1 = 0x62;
-"63
-[e = _OSCCON1 -> -> 98 `i `uc ]
-[; ;mcc.c: 65: OSCCON3 = 0x00;
-"65
-[e = _OSCCON3 -> -> 0 `i `uc ]
-[; ;mcc.c: 67: OSCEN = 0x00;
-"67
-[e = _OSCEN -> -> 0 `i `uc ]
-[; ;mcc.c: 69: OSCFRQ = 0x03;
-"69
-[e = _OSCFRQ -> -> 3 `i `uc ]
-[; ;mcc.c: 71: OSCTUNE = 0x00;
-"71
-[e = _OSCTUNE -> -> 0 `i `uc ]
-[; ;mcc.c: 72: }
-"72
+[e ( _WDT_Initialize ..  ]
+[; ;mcc.c: 59: }
+"59
 [e :UE 919 ]
 }
-"74
-[v _WDT_Initialize `(v ~T0 @X0 1 ef ]
-"75
+"61
+[v _OSCILLATOR_Initialize `(v ~T0 @X0 1 ef ]
+"62
 {
-[; ;mcc.c: 74: void WDT_Initialize(void)
-[; ;mcc.c: 75: {
-[e :U _WDT_Initialize ]
+[; ;mcc.c: 61: void OSCILLATOR_Initialize(void)
+[; ;mcc.c: 62: {
+[e :U _OSCILLATOR_Initialize ]
 [f ]
-[; ;mcc.c: 77: WDTCON = 0x16;
-"77
-[e = _WDTCON -> -> 22 `i `uc ]
-[; ;mcc.c: 78: }
-"78
+[; ;mcc.c: 64: OSCCON1 = 0x62;
+"64
+[e = _OSCCON1 -> -> 98 `i `uc ]
+[; ;mcc.c: 66: OSCCON3 = 0x00;
+"66
+[e = _OSCCON3 -> -> 0 `i `uc ]
+[; ;mcc.c: 68: OSCEN = 0x00;
+"68
+[e = _OSCEN -> -> 0 `i `uc ]
+[; ;mcc.c: 70: OSCFRQ = 0x03;
+"70
+[e = _OSCFRQ -> -> 3 `i `uc ]
+[; ;mcc.c: 72: OSCTUNE = 0x00;
+"72
+[e = _OSCTUNE -> -> 0 `i `uc ]
+[; ;mcc.c: 73: }
+"73
 [e :UE 920 ]
 }
-"80
-[v _PMD_Initialize `(v ~T0 @X0 1 ef ]
-"81
+"75
+[v _WDT_Initialize `(v ~T0 @X0 1 ef ]
+"76
 {
-[; ;mcc.c: 80: void PMD_Initialize(void)
-[; ;mcc.c: 81: {
+[; ;mcc.c: 75: void WDT_Initialize(void)
+[; ;mcc.c: 76: {
+[e :U _WDT_Initialize ]
+[f ]
+[; ;mcc.c: 78: WDTCON = 0x16;
+"78
+[e = _WDTCON -> -> 22 `i `uc ]
+[; ;mcc.c: 79: }
+"79
+[e :UE 921 ]
+}
+"81
+[v _PMD_Initialize `(v ~T0 @X0 1 ef ]
+"82
+{
+[; ;mcc.c: 81: void PMD_Initialize(void)
+[; ;mcc.c: 82: {
 [e :U _PMD_Initialize ]
 [f ]
-[; ;mcc.c: 83: PMD0 = 0x00;
-"83
+[; ;mcc.c: 84: PMD0 = 0x00;
+"84
 [e = _PMD0 -> -> 0 `i `uc ]
-[; ;mcc.c: 85: PMD1 = 0x00;
-"85
+[; ;mcc.c: 86: PMD1 = 0x00;
+"86
 [e = _PMD1 -> -> 0 `i `uc ]
-[; ;mcc.c: 87: PMD2 = 0x00;
-"87
+[; ;mcc.c: 88: PMD2 = 0x00;
+"88
 [e = _PMD2 -> -> 0 `i `uc ]
-[; ;mcc.c: 89: PMD3 = 0x00;
-"89
+[; ;mcc.c: 90: PMD3 = 0x00;
+"90
 [e = _PMD3 -> -> 0 `i `uc ]
-[; ;mcc.c: 91: PMD4 = 0x00;
-"91
+[; ;mcc.c: 92: PMD4 = 0x00;
+"92
 [e = _PMD4 -> -> 0 `i `uc ]
-[; ;mcc.c: 93: PMD5 = 0x00;
-"93
-[e = _PMD5 -> -> 0 `i `uc ]
-[; ;mcc.c: 94: }
+[; ;mcc.c: 94: PMD5 = 0x00;
 "94
-[e :UE 921 ]
+[e = _PMD5 -> -> 0 `i `uc ]
+[; ;mcc.c: 95: }
+"95
+[e :UE 922 ]
 }

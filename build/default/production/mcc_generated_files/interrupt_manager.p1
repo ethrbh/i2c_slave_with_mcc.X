@@ -5,8 +5,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F6241 `(v ~T0 @X0 0 tf ]
 [v F6244 `(v ~T0 @X0 0 tf ]
 [v F6247 `(v ~T0 @X0 0 tf ]
+[v F6351 `(v ~T0 @X0 0 tf ]
 [t ~ __interrupt . k ]
-[t T4 __interrupt  ]
+[t T10 __interrupt  ]
 "358 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
 [s S26 :1 `uc 1 :5 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S26 . INTEDG . PEIE GIE ]
@@ -31,6 +32,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S33 . . ]
 "535
 [v _PIR1bits `VS33 ~T0 @X0 0 e@17 ]
+"1696
+[s S87 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S87 . NCO1IE TMR4IE BCL2IE SSP2IE NVMIE C1IE C2IE TMR6IE ]
+"1695
+[u S86 `S87 1 ]
+[n S86 . . ]
+"1707
+[v _PIE2bits `VS86 ~T0 @X0 0 e@146 ]
+"586
+[s S36 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S36 . NCO1IF TMR4IF BCL2IF SSP2IF NVMIF C1IF C2IF TMR6IF ]
+"585
+[u S35 `S36 1 ]
+[n S35 . . ]
+"597
+[v _PIR2bits `VS35 ~T0 @X0 0 e@18 ]
 [; ;xc.h: 18: extern const char __xc8_OPTIM_SPEED;
 [; ;xc.h: 20: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7198,8 +7215,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 127: extern __bank0 unsigned char __resetbits;
 [; ;pic.h: 128: extern __bank0 __bit __powerdown;
 [; ;pic.h: 129: extern __bank0 __bit __timeout;
-[; ;pin_manager.h: 122: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 134: void PIN_MANAGER_IOC(void);
+[; ;pin_manager.h: 146: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 158: void PIN_MANAGER_IOC(void);
 [; ;stdbool.h: 15: typedef unsigned char bool;
 [; ;errno.h: 29: extern int errno;
 [; ;conio.h: 12: extern void init_uart(void);
@@ -7245,13 +7262,71 @@ Version 3.2 HI-TECH Software Intermediate Code
 "140
 [v _I2C1_SlaveWrColInterruptHandler `*F6247 ~T0 @X0 1 e ]
 [; ;i2c1_slave.h: 140: void (*I2C1_SlaveWrColInterruptHandler)(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 96: void WDT_Initialize(void);
-[; ;mcc.h: 108: void PMD_Initialize(void);
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;i2c2_master.h: 58: typedef enum {
+[; ;i2c2_master.h: 59: I2C2_NOERR,
+[; ;i2c2_master.h: 60: I2C2_BUSY,
+[; ;i2c2_master.h: 61: I2C2_FAIL
+[; ;i2c2_master.h: 64: } i2c2_error_t;
+[; ;i2c2_master.h: 66: typedef enum
+[; ;i2c2_master.h: 67: {
+[; ;i2c2_master.h: 68: I2C2_STOP=1,
+[; ;i2c2_master.h: 69: I2C2_RESTART_READ,
+[; ;i2c2_master.h: 70: I2C2_RESTART_WRITE,
+[; ;i2c2_master.h: 71: I2C2_CONTINUE,
+[; ;i2c2_master.h: 72: I2C2_RESET_LINK
+[; ;i2c2_master.h: 73: } i2c2_operations_t;
+[; ;i2c2_master.h: 75: typedef uint8_t i2c2_address_t;
+[; ;i2c2_master.h: 76: typedef i2c2_operations_t (*i2c2_callback_t)(void *funPtr);
+[; ;i2c2_master.h: 79: i2c2_operations_t I2C2_CallbackReturnStop(void *funPtr);
+[; ;i2c2_master.h: 80: i2c2_operations_t I2C2_CallbackReturnReset(void *funPtr);
+[; ;i2c2_master.h: 81: i2c2_operations_t I2C2_CallbackRestartWrite(void *funPtr);
+[; ;i2c2_master.h: 82: i2c2_operations_t I2C2_CallbackRestartRead(void *funPtr);
+[; ;i2c2_master.h: 89: void I2C2_Initialize(void);
+[; ;i2c2_master.h: 101: i2c2_error_t I2C2_Open(i2c2_address_t address);
+[; ;i2c2_master.h: 111: i2c2_error_t I2C2_Close(void);
+[; ;i2c2_master.h: 123: i2c2_error_t I2C2_MasterOperation(bool read);
+[; ;i2c2_master.h: 128: i2c2_error_t I2C2_MasterWrite(void);
+[; ;i2c2_master.h: 133: i2c2_error_t I2C2_MasterRead(void);
+[; ;i2c2_master.h: 142: void I2C2_SetTimeout(uint8_t timeOut);
+[; ;i2c2_master.h: 152: void I2C2_SetBuffer(void *buffer, size_t bufferSize);
+[; ;i2c2_master.h: 164: void I2C2_SetDataCompleteCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 174: void I2C2_SetWriteCollisionCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 184: void I2C2_SetAddressNackCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 194: void I2C2_SetDataNackCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 204: void I2C2_SetTimeoutCallback(i2c2_callback_t cb, void *ptr);
+"213 mcc_generated_files/i2c2_master.h
+[v _MSSP2_InterruptHandler `*F6351 ~T0 @X0 1 e ]
+[; ;i2c2_master.h: 213: void (*MSSP2_InterruptHandler)(void);
+[; ;i2c2_master.h: 222: void I2C2_SetInterruptHandler(void (* InterruptHandler)(void));
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 97: void WDT_Initialize(void);
+[; ;mcc.h: 109: void PMD_Initialize(void);
 [v $root$_INTERRUPT_InterruptManager `(v ~T0 @X0 0 e ]
 "52 mcc_generated_files/interrupt_manager.c
-[v _INTERRUPT_InterruptManager `(v ~T4 @X0 1 ef ]
+[v _INTERRUPT_InterruptManager `(v ~T10 @X0 1 ef ]
 "53
 {
 [; ;interrupt_manager.c: 52: void __interrupt() INTERRUPT_InterruptManager (void)
@@ -7260,13 +7335,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interrupt_manager.c: 55: if(INTCONbits.PEIE == 1)
 "55
-[e $ ! == -> . . _INTCONbits 0 2 `i -> 1 `i 919  ]
+[e $ ! == -> . . _INTCONbits 0 2 `i -> 1 `i 920  ]
 [; ;interrupt_manager.c: 56: {
 "56
 {
 [; ;interrupt_manager.c: 57: if(PIE1bits.BCL1IE == 1 && PIR1bits.BCL1IF == 1)
 "57
-[e $ ! && == -> . . _PIE1bits 0 2 `i -> 1 `i == -> . . _PIR1bits 0 2 `i -> 1 `i 920  ]
+[e $ ! && == -> . . _PIE1bits 0 2 `i -> 1 `i == -> . . _PIR1bits 0 2 `i -> 1 `i 921  ]
 [; ;interrupt_manager.c: 58: {
 "58
 {
@@ -7276,11 +7351,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "60
 }
 [; ;interrupt_manager.c: 60: }
-[e $U 921  ]
+[e $U 922  ]
 "61
-[e :U 920 ]
+[e :U 921 ]
 [; ;interrupt_manager.c: 61: else if(PIE1bits.SSP1IE == 1 && PIR1bits.SSP1IF == 1)
-[e $ ! && == -> . . _PIE1bits 0 3 `i -> 1 `i == -> . . _PIR1bits 0 3 `i -> 1 `i 922  ]
+[e $ ! && == -> . . _PIE1bits 0 3 `i -> 1 `i == -> . . _PIR1bits 0 3 `i -> 1 `i 923  ]
 [; ;interrupt_manager.c: 62: {
 "62
 {
@@ -7290,33 +7365,63 @@ Version 3.2 HI-TECH Software Intermediate Code
 "64
 }
 [; ;interrupt_manager.c: 64: }
-[e $U 923  ]
+[e $U 924  ]
 "65
-[e :U 922 ]
-[; ;interrupt_manager.c: 65: else
+[e :U 923 ]
+[; ;interrupt_manager.c: 65: else if(PIE2bits.BCL2IE == 1 && PIR2bits.BCL2IF == 1)
+[e $ ! && == -> . . _PIE2bits 0 2 `i -> 1 `i == -> . . _PIR2bits 0 2 `i -> 1 `i 925  ]
 [; ;interrupt_manager.c: 66: {
 "66
 {
+[; ;interrupt_manager.c: 67: MSSP2_InterruptHandler();
+"67
+[e ( *U _MSSP2_InterruptHandler ..  ]
 "68
 }
-[e :U 923 ]
-[e :U 921 ]
-"69
-}
 [; ;interrupt_manager.c: 68: }
-[; ;interrupt_manager.c: 69: }
-[e $U 924  ]
+[e $U 926  ]
+"69
+[e :U 925 ]
+[; ;interrupt_manager.c: 69: else if(PIE2bits.SSP2IE == 1 && PIR2bits.SSP2IF == 1)
+[e $ ! && == -> . . _PIE2bits 0 3 `i -> 1 `i == -> . . _PIR2bits 0 3 `i -> 1 `i 927  ]
+[; ;interrupt_manager.c: 70: {
 "70
-[e :U 919 ]
-[; ;interrupt_manager.c: 70: else
-[; ;interrupt_manager.c: 71: {
-"71
 {
-"73
+[; ;interrupt_manager.c: 71: MSSP2_InterruptHandler();
+"71
+[e ( *U _MSSP2_InterruptHandler ..  ]
+"72
 }
-[e :U 924 ]
-[; ;interrupt_manager.c: 73: }
-[; ;interrupt_manager.c: 74: }
+[; ;interrupt_manager.c: 72: }
+[e $U 928  ]
+"73
+[e :U 927 ]
+[; ;interrupt_manager.c: 73: else
+[; ;interrupt_manager.c: 74: {
 "74
-[e :UE 918 ]
+{
+"76
+}
+[e :U 928 ]
+[e :U 926 ]
+[e :U 924 ]
+[e :U 922 ]
+"77
+}
+[; ;interrupt_manager.c: 76: }
+[; ;interrupt_manager.c: 77: }
+[e $U 929  ]
+"78
+[e :U 920 ]
+[; ;interrupt_manager.c: 78: else
+[; ;interrupt_manager.c: 79: {
+"79
+{
+"81
+}
+[e :U 929 ]
+[; ;interrupt_manager.c: 81: }
+[; ;interrupt_manager.c: 82: }
+"82
+[e :UE 919 ]
 }

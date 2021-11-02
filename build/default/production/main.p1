@@ -5,13 +5,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v F6241 `(v ~T0 @X0 0 tf ]
 [v F6244 `(v ~T0 @X0 0 tf ]
 [v F6247 `(v ~T0 @X0 0 tf ]
+[v F6351 `(v ~T0 @X0 0 tf ]
 "83 mcc_generated_files/i2c1_slave.h
 [v _I2C1_Read `(uc ~T0 @X0 0 ef ]
 "99
 [v _I2C1_IsRead `(uc ~T0 @X0 0 ef ]
 "114 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/eeprom_routines.h
 [v _eeprom_write `(v ~T0 @X0 0 ef2`uc`uc ]
-"73 main.c
+"78 main.c
 [v _EEPROM_SlaveSetWriteIntHandler `(v ~T0 @X0 0 sf ]
 "5006 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
 [s S241 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -40,7 +41,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "4680
 [v _SSPSTATbits `VS226 ~T0 @X0 0 e@532 ]
 [p mainexit ]
-"71 mcc_generated_files/mcc.h
+"72 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
 "358 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/proc/pic16f18325.h
 [s S26 :1 `uc 1 :5 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -59,6 +60,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _I2C1_SlaveSetWriteIntHandler `(v ~T0 @X0 0 ef1`*F6199 ]
 "130
 [v _I2C1_SlaveSetReadIntHandler `(v ~T0 @X0 0 ef1`*F6199 ]
+"58 mcc_generated_files/examples/i2c2_master_example.h
+[v _I2C2_WriteNBytes `(v ~T0 @X0 0 ef3`uc`*uc`ui ]
+"60
+[v _I2C2_ReadDataBlock `(v ~T0 @X0 0 ef4`uc`uc`*uc`ui ]
+[v F38 `(v ~T0 @X0 1 tf1`ul ]
+"12 /opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/builtins.h
+[v __delay `JF38 ~T0 @X0 0 e ]
+[p i __delay ]
 [; ;xc.h: 18: extern const char __xc8_OPTIM_SPEED;
 [; ;xc.h: 20: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -7226,8 +7235,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 127: extern __bank0 unsigned char __resetbits;
 [; ;pic.h: 128: extern __bank0 __bit __powerdown;
 [; ;pic.h: 129: extern __bank0 __bit __timeout;
-[; ;pin_manager.h: 122: void PIN_MANAGER_Initialize (void);
-[; ;pin_manager.h: 134: void PIN_MANAGER_IOC(void);
+[; ;pin_manager.h: 146: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 158: void PIN_MANAGER_IOC(void);
 [; ;stdbool.h: 15: typedef unsigned char bool;
 [; ;errno.h: 29: extern int errno;
 [; ;conio.h: 12: extern void init_uart(void);
@@ -7273,10 +7282,75 @@ Version 3.2 HI-TECH Software Intermediate Code
 "140
 [v _I2C1_SlaveWrColInterruptHandler `*F6247 ~T0 @X0 1 e ]
 [; ;i2c1_slave.h: 140: void (*I2C1_SlaveWrColInterruptHandler)(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
-[; ;mcc.h: 96: void WDT_Initialize(void);
-[; ;mcc.h: 108: void PMD_Initialize(void);
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;stdbool.h: 15: typedef unsigned char bool;
+[; ;i2c2_master.h: 58: typedef enum {
+[; ;i2c2_master.h: 59: I2C2_NOERR,
+[; ;i2c2_master.h: 60: I2C2_BUSY,
+[; ;i2c2_master.h: 61: I2C2_FAIL
+[; ;i2c2_master.h: 64: } i2c2_error_t;
+[; ;i2c2_master.h: 66: typedef enum
+[; ;i2c2_master.h: 67: {
+[; ;i2c2_master.h: 68: I2C2_STOP=1,
+[; ;i2c2_master.h: 69: I2C2_RESTART_READ,
+[; ;i2c2_master.h: 70: I2C2_RESTART_WRITE,
+[; ;i2c2_master.h: 71: I2C2_CONTINUE,
+[; ;i2c2_master.h: 72: I2C2_RESET_LINK
+[; ;i2c2_master.h: 73: } i2c2_operations_t;
+[; ;i2c2_master.h: 75: typedef uint8_t i2c2_address_t;
+[; ;i2c2_master.h: 76: typedef i2c2_operations_t (*i2c2_callback_t)(void *funPtr);
+[; ;i2c2_master.h: 79: i2c2_operations_t I2C2_CallbackReturnStop(void *funPtr);
+[; ;i2c2_master.h: 80: i2c2_operations_t I2C2_CallbackReturnReset(void *funPtr);
+[; ;i2c2_master.h: 81: i2c2_operations_t I2C2_CallbackRestartWrite(void *funPtr);
+[; ;i2c2_master.h: 82: i2c2_operations_t I2C2_CallbackRestartRead(void *funPtr);
+[; ;i2c2_master.h: 89: void I2C2_Initialize(void);
+[; ;i2c2_master.h: 101: i2c2_error_t I2C2_Open(i2c2_address_t address);
+[; ;i2c2_master.h: 111: i2c2_error_t I2C2_Close(void);
+[; ;i2c2_master.h: 123: i2c2_error_t I2C2_MasterOperation(bool read);
+[; ;i2c2_master.h: 128: i2c2_error_t I2C2_MasterWrite(void);
+[; ;i2c2_master.h: 133: i2c2_error_t I2C2_MasterRead(void);
+[; ;i2c2_master.h: 142: void I2C2_SetTimeout(uint8_t timeOut);
+[; ;i2c2_master.h: 152: void I2C2_SetBuffer(void *buffer, size_t bufferSize);
+[; ;i2c2_master.h: 164: void I2C2_SetDataCompleteCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 174: void I2C2_SetWriteCollisionCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 184: void I2C2_SetAddressNackCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 194: void I2C2_SetDataNackCallback(i2c2_callback_t cb, void *ptr);
+[; ;i2c2_master.h: 204: void I2C2_SetTimeoutCallback(i2c2_callback_t cb, void *ptr);
+"213 mcc_generated_files/i2c2_master.h
+[v _MSSP2_InterruptHandler `*F6351 ~T0 @X0 1 e ]
+[; ;i2c2_master.h: 213: void (*MSSP2_InterruptHandler)(void);
+[; ;i2c2_master.h: 222: void I2C2_SetInterruptHandler(void (* InterruptHandler)(void));
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 97: void WDT_Initialize(void);
+[; ;mcc.h: 109: void PMD_Initialize(void);
+[; ;i2c2_master_example.h: 54: uint8_t I2C2_Read1ByteRegister(i2c2_address_t address, uint8_t reg);
+[; ;i2c2_master_example.h: 55: uint16_t I2C2_Read2ByteRegister(i2c2_address_t address, uint8_t reg);
+[; ;i2c2_master_example.h: 56: void I2C2_Write1ByteRegister(i2c2_address_t address, uint8_t reg, uint8_t data);
+[; ;i2c2_master_example.h: 57: void I2C2_Write2ByteRegister(i2c2_address_t address, uint8_t reg, uint16_t data);
+[; ;i2c2_master_example.h: 58: void I2C2_WriteNBytes(i2c2_address_t address, uint8_t *data, size_t len);
+[; ;i2c2_master_example.h: 59: void I2C2_ReadNBytes(i2c2_address_t address, uint8_t *data, size_t len);
+[; ;i2c2_master_example.h: 60: void I2C2_ReadDataBlock(i2c2_address_t address, uint8_t reg, uint8_t *data, size_t len);
 "77 test.h
 [v _tmpCntI2C `Vuc ~T0 @X0 1 e ]
 [i _tmpCntI2C
@@ -7289,17 +7363,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 80 `i `uc
 ]
 [; ;test.h: 78: volatile uint8_t tmpCntI2C2 = 0x50;
-"51 main.c
+"52 main.c
 [v _SLAVE_EEPROM_SIZE `Vuc ~T0 @X0 1 e ]
 [i _SLAVE_EEPROM_SIZE
 -> -> 64 `i `uc
 ]
-[; ;main.c: 51: volatile uint8_t SLAVE_EEPROM_SIZE = 64;
-"52
+[; ;main.c: 52: volatile uint8_t SLAVE_EEPROM_SIZE = 64;
+"53
 [v _EEPROM_Buffer `uc ~T0 @X0 -> 0 `x s ]
 [i _EEPROM_Buffer
 :U ..
-"53
+"54
 -> -> 0 `i `uc
 -> -> 1 `i `uc
 -> -> 2 `i `uc
@@ -7316,7 +7390,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 13 `i `uc
 -> -> 14 `i `uc
 -> -> 15 `i `uc
-"54
+"55
 -> -> 16 `i `uc
 -> -> 17 `i `uc
 -> -> 18 `i `uc
@@ -7333,7 +7407,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 29 `i `uc
 -> -> 30 `i `uc
 -> -> 31 `i `uc
-"55
+"56
 -> -> 32 `i `uc
 -> -> 33 `i `uc
 -> -> 34 `i `uc
@@ -7350,7 +7424,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 45 `i `uc
 -> -> 46 `i `uc
 -> -> 47 `i `uc
-"56
+"57
 -> -> 48 `i `uc
 -> -> 49 `i `uc
 -> -> 50 `i `uc
@@ -7366,251 +7440,313 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 60 `i `uc
 -> -> 61 `i `uc
 -> -> 62 `i `uc
-"57
+"58
 -> -> 63 `i `uc
 ..
 ]
-[; ;main.c: 52: static uint8_t EEPROM_Buffer[] = {
-[; ;main.c: 53: 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-[; ;main.c: 54: 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
-[; ;main.c: 55: 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
-[; ;main.c: 56: 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f
-[; ;main.c: 57: };
-"59
+[; ;main.c: 53: static uint8_t EEPROM_Buffer[] = {
+[; ;main.c: 54: 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
+[; ;main.c: 55: 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
+[; ;main.c: 56: 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
+[; ;main.c: 57: 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f
+[; ;main.c: 58: };
+"60
+[v _MASTER_Buffer `uc ~T0 @X0 -> 0 `x s ]
+[i _MASTER_Buffer
+:U ..
+"61
+-> -> 1 `i `uc
+-> -> 255 `i `uc
+-> -> 254 `i `uc
+-> -> 253 `i `uc
+-> -> 252 `i `uc
+-> -> 251 `i `uc
+-> -> 250 `i `uc
+-> -> 249 `i `uc
+-> -> 248 `i `uc
+-> -> 247 `i `uc
+-> -> 246 `i `uc
+-> -> 245 `i `uc
+-> -> 244 `i `uc
+-> -> 243 `i `uc
+-> -> 242 `i `uc
+-> -> 241 `i `uc
+"62
+-> -> 240 `i `uc
+..
+]
+[; ;main.c: 60: static uint8_t MASTER_Buffer[] = {
+[; ;main.c: 61: 0x01, 0xFF, 0xFE, 0xFD, 0xFC, 0xFB, 0xFA, 0xF9, 0xF8, 0xF7, 0xF6, 0xF5, 0xF4, 0xF3, 0xF2, 0xF1, 0xF0
+[; ;main.c: 62: };
+"64
 [v _i2c1SlaveAddr `Vuc ~T0 @X0 1 e ]
 [i _i2c1SlaveAddr
 -> -> 0 `i `uc
 ]
-[; ;main.c: 59: volatile uint8_t i2c1SlaveAddr = 0x00;
-"60
+[; ;main.c: 64: volatile uint8_t i2c1SlaveAddr = 0x00;
+"65
 [v _i2c1EEMemAddr `uc ~T0 @X0 1 e ]
 [i _i2c1EEMemAddr
 -> -> 0 `i `uc
 ]
-[; ;main.c: 60: uint8_t i2c1EEMemAddr = 0x00;
-"65
+[; ;main.c: 65: uint8_t i2c1EEMemAddr = 0x00;
+"70
 [v _isEEMemoryAddrState `Vuc ~T0 @X0 1 e ]
 [i _isEEMemoryAddrState
 -> -> 0 `i `uc
 ]
-[; ;main.c: 65: volatile uint8_t isEEMemoryAddrState = 0;
-[; ;main.c: 71: static void EEPROM_I2C1_SlaveSetAddrIntHandler(void);
-[; ;main.c: 73: static void EEPROM_SlaveSetWriteIntHandler(void);
-[; ;main.c: 75: static void EEPROM_SlaveSetReadIntHandler(void);
-"82
+[; ;main.c: 70: volatile uint8_t isEEMemoryAddrState = 0;
+[; ;main.c: 76: static void EEPROM_I2C1_SlaveSetAddrIntHandler(void);
+[; ;main.c: 78: static void EEPROM_SlaveSetWriteIntHandler(void);
+[; ;main.c: 80: static void EEPROM_SlaveSetReadIntHandler(void);
+"87
 [v _EEPROM_I2C1_SlaveSetAddrIntHandler `(v ~T0 @X0 1 sf ]
 {
-[; ;main.c: 82: static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
+[; ;main.c: 87: static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
 [e :U _EEPROM_I2C1_SlaveSetAddrIntHandler ]
 [f ]
-[; ;main.c: 89: i2c1SlaveAddr = I2C1_Read();
-"89
+[; ;main.c: 94: i2c1SlaveAddr = I2C1_Read();
+"94
 [e = _i2c1SlaveAddr ( _I2C1_Read ..  ]
-[; ;main.c: 99: if (I2C1_IsRead()) {
-"99
-[e $ ! != -> ( _I2C1_IsRead ..  `i -> -> -> 0 `i `uc `i 919  ]
+[; ;main.c: 104: if (I2C1_IsRead()) {
+"104
+[e $ ! != -> ( _I2C1_IsRead ..  `i -> -> -> 0 `i `uc `i 920  ]
 {
-[; ;main.c: 100: eeprom_write(tmpCntI2C++, 0x11);
-"100
+[; ;main.c: 105: eeprom_write(tmpCntI2C++, 0x11);
+"105
 [e ( _eeprom_write (2 , ++ _tmpCntI2C -> -> 1 `i `uc -> -> 17 `i `uc ]
-[; ;main.c: 107: EEPROM_SlaveSetWriteIntHandler();
-"107
-[e ( _EEPROM_SlaveSetWriteIntHandler ..  ]
-"108
-}
-[; ;main.c: 108: } else {
-[e $U 920  ]
-[e :U 919 ]
-{
-[; ;main.c: 111: if (isEEMemoryAddrState == 0) {
-"111
-[e $ ! == -> _isEEMemoryAddrState `i -> 0 `i 921  ]
-{
-[; ;main.c: 112: eeprom_write(tmpCntI2C++, 0x13);
+[; ;main.c: 112: EEPROM_SlaveSetWriteIntHandler();
 "112
-[e ( _eeprom_write (2 , ++ _tmpCntI2C -> -> 1 `i `uc -> -> 19 `i `uc ]
-[; ;main.c: 115: isEEMemoryAddrState = 1;
-"115
-[e = _isEEMemoryAddrState -> -> 1 `i `uc ]
+[e ( _EEPROM_SlaveSetWriteIntHandler ..  ]
+"113
+}
+[; ;main.c: 113: } else {
+[e $U 921  ]
+[e :U 920 ]
+{
+[; ;main.c: 116: if (isEEMemoryAddrState == 0) {
 "116
+[e $ ! == -> _isEEMemoryAddrState `i -> 0 `i 922  ]
+{
+[; ;main.c: 117: eeprom_write(tmpCntI2C++, 0x13);
+"117
+[e ( _eeprom_write (2 , ++ _tmpCntI2C -> -> 1 `i `uc -> -> 19 `i `uc ]
+[; ;main.c: 120: isEEMemoryAddrState = 1;
+"120
+[e = _isEEMemoryAddrState -> -> 1 `i `uc ]
+"121
+}
+[e :U 922 ]
+"122
 }
 [e :U 921 ]
-"117
+[; ;main.c: 121: }
+[; ;main.c: 122: }
+[; ;main.c: 124: return;
+"124
+[e $UE 919  ]
+[; ;main.c: 125: }
+"125
+[e :UE 919 ]
 }
-[e :U 920 ]
-[; ;main.c: 116: }
-[; ;main.c: 117: }
-[; ;main.c: 119: return;
-"119
-[e $UE 918  ]
-[; ;main.c: 120: }
-"120
-[e :UE 918 ]
-}
-"126
+"131
 [v _EEPROM_SlaveSetWriteIntHandler `(v ~T0 @X0 1 sf ]
 {
-[; ;main.c: 126: static void EEPROM_SlaveSetWriteIntHandler(void) {
+[; ;main.c: 131: static void EEPROM_SlaveSetWriteIntHandler(void) {
 [e :U _EEPROM_SlaveSetWriteIntHandler ]
 [f ]
-[; ;main.c: 127: if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
-"127
-[e $ ! >= -> _i2c1EEMemAddr `i -> _SLAVE_EEPROM_SIZE `i 923  ]
+[; ;main.c: 132: if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
+"132
+[e $ ! >= -> _i2c1EEMemAddr `i -> _SLAVE_EEPROM_SIZE `i 924  ]
 {
-[; ;main.c: 128: i2c1EEMemAddr = 0;
-"128
-[e = _i2c1EEMemAddr -> -> 0 `i `uc ]
-"129
-}
-[e :U 923 ]
-"131
-[v _i2c1EEMemValue `uc ~T0 @X0 1 a ]
-[; ;main.c: 129: }
-[; ;main.c: 131: uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
-[e = _i2c1EEMemValue *U + &U _EEPROM_Buffer * -> ++ _i2c1EEMemAddr -> -> 1 `i `uc `ux -> -> # *U &U _EEPROM_Buffer `ui `ux ]
-[; ;main.c: 133: if (!SSP1CON2bits.ACKSTAT) {
+[; ;main.c: 133: i2c1EEMemAddr = 0;
 "133
-[e $ ! ! != -> . . _SSP1CON2bits 0 6 `i -> -> -> 0 `i `Vuc `i 924  ]
-{
-[; ;main.c: 134: eeprom_write(tmpCntI2C++, 0x21);
+[e = _i2c1EEMemAddr -> -> 0 `i `uc ]
 "134
-[e ( _eeprom_write (2 , ++ _tmpCntI2C -> -> 1 `i `uc -> -> 33 `i `uc ]
-[; ;main.c: 136: I2C1_Write(i2c1EEMemValue);
+}
+[e :U 924 ]
 "136
+[v _i2c1EEMemValue `uc ~T0 @X0 1 a ]
+[; ;main.c: 134: }
+[; ;main.c: 136: uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
+[e = _i2c1EEMemValue *U + &U _EEPROM_Buffer * -> ++ _i2c1EEMemAddr -> -> 1 `i `uc `ux -> -> # *U &U _EEPROM_Buffer `ui `ux ]
+[; ;main.c: 138: if (!SSP1CON2bits.ACKSTAT) {
+"138
+[e $ ! ! != -> . . _SSP1CON2bits 0 6 `i -> -> -> 0 `i `Vuc `i 925  ]
+{
+[; ;main.c: 139: eeprom_write(tmpCntI2C++, 0x21);
+"139
+[e ( _eeprom_write (2 , ++ _tmpCntI2C -> -> 1 `i `uc -> -> 33 `i `uc ]
+[; ;main.c: 141: I2C1_Write(i2c1EEMemValue);
+"141
 [e ( _I2C1_Write (1 _i2c1EEMemValue ]
-[; ;main.c: 137: do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0);
-"137
-[e :U 927 ]
+[; ;main.c: 142: do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0);
+"142
+[e :U 928 ]
 {
 [e = . . _LATAbits 0 2 -> ~ -> . . _LATAbits 0 2 `i `uc ]
 }
-[e :U 926 ]
-[; ;main.c: 139: while (SSPSTATbits.BF);
-"139
-[e $U 928  ]
-[e :U 929 ]
-[e :U 928 ]
-[e $ != -> . . _SSPSTATbits 0 0 `i -> -> -> 0 `i `Vuc `i 929  ]
+[e :U 927 ]
+[; ;main.c: 144: while (SSPSTATbits.BF);
+"144
+[e $U 929  ]
 [e :U 930 ]
-"140
+[e :U 929 ]
+[e $ != -> . . _SSPSTATbits 0 0 `i -> -> -> 0 `i `Vuc `i 930  ]
+[e :U 931 ]
+"145
 }
-[e :U 924 ]
-[; ;main.c: 140: }
-[; ;main.c: 142: return;
-"142
-[e $UE 922  ]
-[; ;main.c: 143: }
-"143
-[e :UE 922 ]
+[e :U 925 ]
+[; ;main.c: 145: }
+[; ;main.c: 147: return;
+"147
+[e $UE 923  ]
+[; ;main.c: 148: }
+"148
+[e :UE 923 ]
 }
-"150
+"155
 [v _EEPROM_SlaveSetReadIntHandler `(v ~T0 @X0 1 sf ]
 {
-[; ;main.c: 150: static void EEPROM_SlaveSetReadIntHandler(void) {
+[; ;main.c: 155: static void EEPROM_SlaveSetReadIntHandler(void) {
 [e :U _EEPROM_SlaveSetReadIntHandler ]
 [f ]
-[; ;main.c: 156: if (isEEMemoryAddrState != 2) {
-"156
-[e $ ! != -> _isEEMemoryAddrState `i -> 2 `i 932  ]
+[; ;main.c: 161: if (isEEMemoryAddrState != 2) {
+"161
+[e $ ! != -> _isEEMemoryAddrState `i -> 2 `i 933  ]
 {
-[; ;main.c: 157: eeprom_write(tmpCntI2C++, 0x31);
-"157
+[; ;main.c: 162: eeprom_write(tmpCntI2C++, 0x31);
+"162
 [e ( _eeprom_write (2 , ++ _tmpCntI2C -> -> 1 `i `uc -> -> 49 `i `uc ]
-[; ;main.c: 160: i2c1EEMemAddr = I2C1_Read();
-"160
-[e = _i2c1EEMemAddr ( _I2C1_Read ..  ]
-[; ;main.c: 165: if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
+[; ;main.c: 165: i2c1EEMemAddr = I2C1_Read();
 "165
-[e $ ! >= -> _i2c1EEMemAddr `i -> _SLAVE_EEPROM_SIZE `i 933  ]
+[e = _i2c1EEMemAddr ( _I2C1_Read ..  ]
+[; ;main.c: 170: if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
+"170
+[e $ ! >= -> _i2c1EEMemAddr `i -> _SLAVE_EEPROM_SIZE `i 934  ]
 {
-[; ;main.c: 166: i2c1EEMemAddr = 0;
-"166
-[e = _i2c1EEMemAddr -> -> 0 `i `uc ]
-"167
-}
-[e :U 933 ]
-[; ;main.c: 167: }
-[; ;main.c: 171: isEEMemoryAddrState = 2;
+[; ;main.c: 171: i2c1EEMemAddr = 0;
 "171
-[e = _isEEMemoryAddrState -> -> 2 `i `uc ]
-[; ;main.c: 173: return;
-"173
-[e $UE 931  ]
-"174
-}
-[; ;main.c: 174: } else {
-[e $U 934  ]
-[e :U 932 ]
-{
-[; ;main.c: 175: eeprom_write(tmpCntI2C++, 0x33);
-"175
-[e ( _eeprom_write (2 , ++ _tmpCntI2C -> -> 1 `i `uc -> -> 51 `i `uc ]
-[; ;main.c: 176: if (isEEMemoryAddrState == 2) {
-"176
-[e $ ! == -> _isEEMemoryAddrState `i -> 2 `i 935  ]
-{
-"180
-[v _i2c1EEMemValue `uc ~T0 @X0 1 a ]
-[; ;main.c: 180: uint8_t i2c1EEMemValue = I2C1_Read();
-[e = _i2c1EEMemValue ( _I2C1_Read ..  ]
-[; ;main.c: 188: EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
-"188
-[e = *U + &U _EEPROM_Buffer * -> ++ _i2c1EEMemAddr -> -> 1 `i `uc `ux -> -> # *U &U _EEPROM_Buffer `ui `ux _i2c1EEMemValue ]
-[; ;main.c: 190: return;
-"190
-[e $UE 931  ]
-"191
-}
-[e :U 935 ]
-"192
+[e = _i2c1EEMemAddr -> -> 0 `i `uc ]
+"172
 }
 [e :U 934 ]
-[; ;main.c: 191: }
-[; ;main.c: 192: }
-[; ;main.c: 193: }
+[; ;main.c: 172: }
+[; ;main.c: 176: isEEMemoryAddrState = 2;
+"176
+[e = _isEEMemoryAddrState -> -> 2 `i `uc ]
+[; ;main.c: 178: return;
+"178
+[e $UE 932  ]
+"179
+}
+[; ;main.c: 179: } else {
+[e $U 935  ]
+[e :U 933 ]
+{
+[; ;main.c: 180: eeprom_write(tmpCntI2C++, 0x33);
+"180
+[e ( _eeprom_write (2 , ++ _tmpCntI2C -> -> 1 `i `uc -> -> 51 `i `uc ]
+[; ;main.c: 181: if (isEEMemoryAddrState == 2) {
+"181
+[e $ ! == -> _isEEMemoryAddrState `i -> 2 `i 936  ]
+{
+"185
+[v _i2c1EEMemValue `uc ~T0 @X0 1 a ]
+[; ;main.c: 185: uint8_t i2c1EEMemValue = I2C1_Read();
+[e = _i2c1EEMemValue ( _I2C1_Read ..  ]
+[; ;main.c: 193: EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
 "193
-[e :UE 931 ]
+[e = *U + &U _EEPROM_Buffer * -> ++ _i2c1EEMemAddr -> -> 1 `i `uc `ux -> -> # *U &U _EEPROM_Buffer `ui `ux _i2c1EEMemValue ]
+[; ;main.c: 195: return;
+"195
+[e $UE 932  ]
+"196
+}
+[e :U 936 ]
+"197
+}
+[e :U 935 ]
+[; ;main.c: 196: }
+[; ;main.c: 197: }
+[; ;main.c: 198: }
+"198
+[e :UE 932 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"198
+"203
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 198: void main(void) {
+[; ;main.c: 203: void main(void) {
 [e :U _main ]
 [f ]
-[; ;main.c: 200: SYSTEM_Initialize();
-"200
+[; ;main.c: 205: SYSTEM_Initialize();
+"205
 [e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 206: (INTCONbits.GIE = 1);
-"206
+[; ;main.c: 211: (INTCONbits.GIE = 1);
+"211
 [e = . . _INTCONbits 0 3 -> -> 1 `i `uc ]
-[; ;main.c: 209: (INTCONbits.PEIE = 1);
-"209
+[; ;main.c: 214: (INTCONbits.PEIE = 1);
+"214
 [e = . . _INTCONbits 0 2 -> -> 1 `i `uc ]
-[; ;main.c: 218: I2C1_Open();
-"218
-[e ( _I2C1_Open ..  ]
-[; ;main.c: 222: I2C1_SlaveSetAddrIntHandler(EEPROM_I2C1_SlaveSetAddrIntHandler);
-"222
-[e ( _I2C1_SlaveSetAddrIntHandler (1 &U _EEPROM_I2C1_SlaveSetAddrIntHandler ]
-[; ;main.c: 223: I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveSetWriteIntHandler);
+[; ;main.c: 223: I2C1_Open();
 "223
+[e ( _I2C1_Open ..  ]
+[; ;main.c: 227: I2C1_SlaveSetAddrIntHandler(EEPROM_I2C1_SlaveSetAddrIntHandler);
+"227
+[e ( _I2C1_SlaveSetAddrIntHandler (1 &U _EEPROM_I2C1_SlaveSetAddrIntHandler ]
+[; ;main.c: 228: I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveSetWriteIntHandler);
+"228
 [e ( _I2C1_SlaveSetWriteIntHandler (1 &U _EEPROM_SlaveSetWriteIntHandler ]
-[; ;main.c: 224: I2C1_SlaveSetReadIntHandler(EEPROM_SlaveSetReadIntHandler);
-"224
+[; ;main.c: 229: I2C1_SlaveSetReadIntHandler(EEPROM_SlaveSetReadIntHandler);
+"229
 [e ( _I2C1_SlaveSetReadIntHandler (1 &U _EEPROM_SlaveSetReadIntHandler ]
-[; ;main.c: 226: while (1) {
-"226
-[e :U 938 ]
-{
 "231
-}
-[e :U 937 ]
-"226
-[e $U 938  ]
-[e :U 939 ]
-[; ;main.c: 231: }
-[; ;main.c: 232: }
+[v F6416 `uc ~T0 @X0 1 s Memory_Index ]
+[i F6416
+-> -> 1 `i `uc
+]
 "232
-[e :UE 936 ]
+[v F6417 `uc ~T0 @X0 1 s SlaveAddress ]
+[i F6417
+-> -> 103 `i `uc
+]
+[; ;main.c: 231: static uint8_t Memory_Index = 1;
+[; ;main.c: 232: static uint8_t SlaveAddress = 103;
+[; ;main.c: 234: while (1) {
+"234
+[e :U 939 ]
+{
+[; ;main.c: 240: MASTER_Buffer[0] = Memory_Index;
+"240
+[e = *U + &U _MASTER_Buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _MASTER_Buffer `ui `ux F6416 ]
+[; ;main.c: 242: I2C2_WriteNBytes(SlaveAddress, MASTER_Buffer, 9);
+"242
+[e ( _I2C2_WriteNBytes (3 , , F6417 &U _MASTER_Buffer -> -> 9 `i `ui ]
+[; ;main.c: 244: do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0);
+"244
+[e :U 943 ]
+{
+[e = . . _LATAbits 0 2 -> ~ -> . . _LATAbits 0 2 `i `uc ]
+}
+[e :U 942 ]
+[; ;main.c: 246: I2C2_ReadDataBlock(SlaveAddress, Memory_Index, &MASTER_Buffer[1], 16);
+"246
+[e ( _I2C2_ReadDataBlock (4 , , , F6417 F6416 &U *U + &U _MASTER_Buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _MASTER_Buffer `ui `ux -> -> 16 `i `ui ]
+[; ;main.c: 247: Memory_Index += 8;
+"247
+[e =+ F6416 -> -> 8 `i `uc ]
+[; ;main.c: 249: _delay((unsigned long)((200)*(1000000/4000.0)));
+"249
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 1000000 `l `d .4000.0 `ul ]
+"250
+}
+[e :U 938 ]
+"234
+[e $U 939  ]
+[e :U 940 ]
+[; ;main.c: 250: }
+[; ;main.c: 251: }
+"251
+[e :UE 937 ]
 }

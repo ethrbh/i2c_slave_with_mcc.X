@@ -1,26 +1,24 @@
 /**
-  Generated Interrupt Manager Source File
+  I2C2 Generated Driver API Header File
 
-  @Company:
+  @Company
     Microchip Technology Inc.
 
-  @File Name:
-    interrupt_manager.c
+  @File Name
+    i2c2_master_example.h
 
-  @Summary:
-    This is the Interrupt Manager file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+  @Summary
+    This is the generated header file for the I2C2 driver example using PIC10 / PIC12 / PIC16 / PIC18 MCUs
 
-  @Description:
-    This header file provides implementations for global interrupt handling.
-    For individual peripheral handlers please see the peripheral driver for
-    all modules selected in the GUI.
+  @Description
+    This header file provides APIs for driver for I2C2.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.6
         Device            :  PIC16F18325
-        Driver Version    :  2.03
+        Driver Version    :  1.0.0
     The generated drivers are tested against the following:
         Compiler          :  XC8 2.30 and above or later
-        MPLAB 	          :  MPLAB X 5.40
+        MPLAB             :  MPLAB X 5.40
 */
 
 /*
@@ -46,40 +44,19 @@
     SOFTWARE.
 */
 
-#include "interrupt_manager.h"
-#include "mcc.h"
+#ifndef I2C2_MASTER_EXAMPLE_H
+#define I2C2_MASTER_EXAMPLE_H
 
-void __interrupt() INTERRUPT_InterruptManager (void)
-{
-    // interrupt handler
-    if(INTCONbits.PEIE == 1)
-    {
-        if(PIE1bits.BCL1IE == 1 && PIR1bits.BCL1IF == 1)
-        {
-            MSSP1_InterruptHandler();
-        } 
-        else if(PIE1bits.SSP1IE == 1 && PIR1bits.SSP1IF == 1)
-        {
-            MSSP1_InterruptHandler();
-        } 
-        else if(PIE2bits.BCL2IE == 1 && PIR2bits.BCL2IF == 1)
-        {
-            MSSP2_InterruptHandler();
-        } 
-        else if(PIE2bits.SSP2IE == 1 && PIR2bits.SSP2IF == 1)
-        {
-            MSSP2_InterruptHandler();
-        } 
-        else
-        {
-            //Unhandled Interrupt
-        }
-    }      
-    else
-    {
-        //Unhandled Interrupt
-    }
-}
-/**
- End of File
-*/
+#include <stdint.h>
+#include <stdio.h>
+#include "../i2c2_master.h"
+
+uint8_t  I2C2_Read1ByteRegister(i2c2_address_t address, uint8_t reg);
+uint16_t I2C2_Read2ByteRegister(i2c2_address_t address, uint8_t reg);
+void I2C2_Write1ByteRegister(i2c2_address_t address, uint8_t reg, uint8_t data);
+void I2C2_Write2ByteRegister(i2c2_address_t address, uint8_t reg, uint16_t data);
+void I2C2_WriteNBytes(i2c2_address_t address, uint8_t *data, size_t len);
+void I2C2_ReadNBytes(i2c2_address_t address, uint8_t *data, size_t len);
+void I2C2_ReadDataBlock(i2c2_address_t address, uint8_t reg, uint8_t *data, size_t len);
+
+#endif /* I2C2_MASTER_EXAMPLE_H */

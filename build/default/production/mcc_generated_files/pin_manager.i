@@ -10717,10 +10717,10 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 
-# 122 "mcc_generated_files/pin_manager.h"
+# 146 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 134
+# 158
 void PIN_MANAGER_IOC(void);
 
 # 55 "mcc_generated_files/pin_manager.c"
@@ -10736,7 +10736,7 @@ TRISA = 0x33;
 TRISC = 0x3F;
 
 # 72
-ANSELC = 0x32;
+ANSELC = 0x02;
 ANSELA = 0x33;
 
 # 78
@@ -10757,9 +10757,13 @@ INLVLC = 0x3F;
 
 # 106
 SSP1CLKPPS = 0x12;
+SSP2DATPPS = 0x15;
 RC3PPS = 0x19;
+RC4PPS = 0x1A;
 RC2PPS = 0x18;
+RC5PPS = 0x1B;
 SSP1DATPPS = 0x13;
+SSP2CLKPPS = 0x14;
 }
 
 void PIN_MANAGER_IOC(void)

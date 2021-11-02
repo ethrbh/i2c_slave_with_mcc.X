@@ -158,55 +158,55 @@ static void I2C1_Isr() {
 
     // Waiting for I2C1_SlaveIsRxBufFull
     // state.
-    while (!I2C1_SlaveIsRxBufFull());
+    //while (!I2C1_SlaveIsRxBufFull());
 
-    uint8_t tmpCntI2C2_orig = tmpCntI2C2;
-    eeprom_write(tmpCntI2C2++, SSP1STAT);
-    eeprom_write(tmpCntI2C2++, I2C1_Read());
-    eeprom_write(tmpCntI2C2++, I2C1_SlaveIsAddr());
-    eeprom_write(tmpCntI2C2++, SSP1ADD);
-    eeprom_write(tmpCntI2C2++, SSP1STAT);
-    eeprom_write(tmpCntI2C2++, SSP1CON1);
-    eeprom_write(tmpCntI2C2++, SSP1CON2);
-    tmpCntI2C2 = tmpCntI2C2_orig + 16;
+    //    uint8_t tmpCntI2C2_orig = tmpCntI2C2;
+    //    eeprom_write(tmpCntI2C2++, SSP1STAT);
+    //    eeprom_write(tmpCntI2C2++, I2C1_Read());
+    //    eeprom_write(tmpCntI2C2++, I2C1_SlaveIsAddr());
+    //    eeprom_write(tmpCntI2C2++, SSP1ADD);
+    //    eeprom_write(tmpCntI2C2++, SSP1STAT);
+    //    eeprom_write(tmpCntI2C2++, SSP1CON1);
+    //    eeprom_write(tmpCntI2C2++, SSP1CON2);
+    //    tmpCntI2C2 = tmpCntI2C2_orig + 16;
 
-    //    if (I2C1_SlaveIsAddr()) {
-    //        if (I2C1_SlaveIsRead()) {
-    //            i2c1SlaveState = I2C1_ADDR_TX;
-    //        } else {
-    //            i2c1SlaveState = I2C1_ADDR_RX;
-    //        }
-    //    } else {
-    //        if (I2C1_SlaveIsRead()) {
-    //            i2c1SlaveState = I2C1_DATA_TX;
-    //        } else {
-    //            i2c1SlaveState = I2C1_DATA_RX;
-    //        }
-    //    }
-    //
-    //    switch (i2c1SlaveState) {
-    //        case I2C1_ADDR_TX:
-    //            I2C1_SlaveAddrCallBack();
-    //            if (I2C1_SlaveIsTxBufEmpty()) {
-    //                I2C1_SlaveWrCallBack();
-    //            }
-    //            break;
-    //        case I2C1_ADDR_RX:
-    //            I2C1_SlaveAddrCallBack();
-    //            break;
-    //        case I2C1_DATA_TX:
-    //            if (I2C1_SlaveIsTxBufEmpty()) {
-    //                I2C1_SlaveWrCallBack();
-    //            }
-    //            break;
-    //        case I2C1_DATA_RX:
-    //            if (I2C1_SlaveIsRxBufFull()) {
-    //                I2C1_SlaveRdCallBack();
-    //            }
-    //            break;
-    //        default:
-    //            break;
-    //    }
+    if (I2C1_SlaveIsAddr()) {
+        if (I2C1_SlaveIsRead()) {
+            i2c1SlaveState = I2C1_ADDR_TX;
+        } else {
+            i2c1SlaveState = I2C1_ADDR_RX;
+        }
+    } else {
+        if (I2C1_SlaveIsRead()) {
+            i2c1SlaveState = I2C1_DATA_TX;
+        } else {
+            i2c1SlaveState = I2C1_DATA_RX;
+        }
+    }
+
+    switch (i2c1SlaveState) {
+        case I2C1_ADDR_TX:
+            I2C1_SlaveAddrCallBack();
+            if (I2C1_SlaveIsTxBufEmpty()) {
+                I2C1_SlaveWrCallBack();
+            }
+            break;
+        case I2C1_ADDR_RX:
+            I2C1_SlaveAddrCallBack();
+            break;
+        case I2C1_DATA_TX:
+            if (I2C1_SlaveIsTxBufEmpty()) {
+                I2C1_SlaveWrCallBack();
+            }
+            break;
+        case I2C1_DATA_RX:
+            if (I2C1_SlaveIsRxBufFull()) {
+                I2C1_SlaveRdCallBack();
+            }
+            break;
+        default:
+            break;
+    }
     I2C1_SlaveReleaseClock();
 }
 

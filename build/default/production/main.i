@@ -10717,10 +10717,10 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 
-# 122 "mcc_generated_files/pin_manager.h"
+# 146 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 134
+# 158
 void PIN_MANAGER_IOC(void);
 
 # 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
@@ -10791,29 +10791,163 @@ void (*I2C1_SlaveAddrInterruptHandler)(void);
 void (*I2C1_SlaveBusColInterruptHandler)(void);
 void (*I2C1_SlaveWrColInterruptHandler)(void);
 
-# 71 "mcc_generated_files/mcc.h"
+# 4 "/opt/microchip/mplabx/v5.45/packs/Microchip/PIC16F1xxxx_DFP/1.5.133/xc8/pic/include/__size_t.h"
+typedef unsigned size_t;
+
+# 7 "/opt/microchip/xc8/v2.32/pic/include/c90/stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "/opt/microchip/xc8/v2.32/pic/include/c90/stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 88
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 15 "/opt/microchip/xc8/v2.32/pic/include/c90/stdbool.h"
+typedef unsigned char bool;
+
+# 58 "mcc_generated_files/i2c2_master.h"
+typedef enum {
+I2C2_NOERR,
+I2C2_BUSY,
+I2C2_FAIL
+
+
+} i2c2_error_t;
+
+typedef enum
+{
+I2C2_STOP=1,
+I2C2_RESTART_READ,
+I2C2_RESTART_WRITE,
+I2C2_CONTINUE,
+I2C2_RESET_LINK
+} i2c2_operations_t;
+
+typedef uint8_t i2c2_address_t;
+typedef i2c2_operations_t (*i2c2_callback_t)(void *funPtr);
+
+
+i2c2_operations_t I2C2_CallbackReturnStop(void *funPtr);
+i2c2_operations_t I2C2_CallbackReturnReset(void *funPtr);
+i2c2_operations_t I2C2_CallbackRestartWrite(void *funPtr);
+i2c2_operations_t I2C2_CallbackRestartRead(void *funPtr);
+
+# 89
+void I2C2_Initialize(void);
+
+# 101
+i2c2_error_t I2C2_Open(i2c2_address_t address);
+
+# 111
+i2c2_error_t I2C2_Close(void);
+
+# 123
+i2c2_error_t I2C2_MasterOperation(bool read);
+
+# 128
+i2c2_error_t I2C2_MasterWrite(void);
+
+# 133
+i2c2_error_t I2C2_MasterRead(void);
+
+# 142
+void I2C2_SetTimeout(uint8_t timeOut);
+
+# 152
+void I2C2_SetBuffer(void *buffer, size_t bufferSize);
+
+# 164
+void I2C2_SetDataCompleteCallback(i2c2_callback_t cb, void *ptr);
+
+# 174
+void I2C2_SetWriteCollisionCallback(i2c2_callback_t cb, void *ptr);
+
+# 184
+void I2C2_SetAddressNackCallback(i2c2_callback_t cb, void *ptr);
+
+# 194
+void I2C2_SetDataNackCallback(i2c2_callback_t cb, void *ptr);
+
+# 204
+void I2C2_SetTimeoutCallback(i2c2_callback_t cb, void *ptr);
+
+# 213
+void (*MSSP2_InterruptHandler)(void);
+
+# 222
+void I2C2_SetInterruptHandler(void (* InterruptHandler)(void));
+
+# 72 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 84
+# 85
 void OSCILLATOR_Initialize(void);
 
-# 96
+# 97
 void WDT_Initialize(void);
 
-# 108
+# 109
 void PMD_Initialize(void);
+
+# 54 "mcc_generated_files/examples/i2c2_master_example.h"
+uint8_t I2C2_Read1ByteRegister(i2c2_address_t address, uint8_t reg);
+uint16_t I2C2_Read2ByteRegister(i2c2_address_t address, uint8_t reg);
+void I2C2_Write1ByteRegister(i2c2_address_t address, uint8_t reg, uint8_t data);
+void I2C2_Write2ByteRegister(i2c2_address_t address, uint8_t reg, uint16_t data);
+void I2C2_WriteNBytes(i2c2_address_t address, uint8_t *data, size_t len);
+void I2C2_ReadNBytes(i2c2_address_t address, uint8_t *data, size_t len);
+void I2C2_ReadDataBlock(i2c2_address_t address, uint8_t reg, uint8_t *data, size_t len);
 
 # 77 "test.h"
 volatile uint8_t tmpCntI2C = 0x00;
 volatile uint8_t tmpCntI2C2 = 0x50;
 
-# 51 "main.c"
+# 52 "main.c"
 volatile uint8_t SLAVE_EEPROM_SIZE = 64;
 static uint8_t EEPROM_Buffer[] = {
 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f,
 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c, 0x3d, 0x3e, 0x3f
+};
+
+static uint8_t MASTER_Buffer[] = {
+0x01, 0xFF, 0xFE, 0xFD, 0xFC, 0xFB, 0xFA, 0xF9, 0xF8, 0xF7, 0xF6, 0xF5, 0xF4, 0xF3, 0xF2, 0xF1, 0xF0
 };
 
 volatile uint8_t i2c1SlaveAddr = 0x00;
@@ -10824,24 +10958,24 @@ uint8_t i2c1EEMemAddr = 0x00;
 
 volatile uint8_t isEEMemoryAddrState = 0;
 
-# 71
+# 76
 static void EEPROM_I2C1_SlaveSetAddrIntHandler(void);
 
 static void EEPROM_SlaveSetWriteIntHandler(void);
 
 static void EEPROM_SlaveSetReadIntHandler(void);
 
-# 82
+# 87
 static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
 
-# 89
+# 94
 i2c1SlaveAddr = I2C1_Read();
 
-# 99
+# 104
 if (I2C1_IsRead()) {
 eeprom_write(tmpCntI2C++, 0x11);
 
-# 107
+# 112
 EEPROM_SlaveSetWriteIntHandler();
 } else {
 
@@ -10857,7 +10991,7 @@ isEEMemoryAddrState = 1;
 return;
 }
 
-# 126
+# 131
 static void EEPROM_SlaveSetWriteIntHandler(void) {
 if (i2c1EEMemAddr >= SLAVE_EEPROM_SIZE) {
 i2c1EEMemAddr = 0;
@@ -10877,10 +11011,10 @@ while (SSPSTATbits.BF);
 return;
 }
 
-# 150
+# 155
 static void EEPROM_SlaveSetReadIntHandler(void) {
 
-# 156
+# 161
 if (isEEMemoryAddrState != 2) {
 eeprom_write(tmpCntI2C++, 0x31);
 
@@ -10907,7 +11041,7 @@ if (isEEMemoryAddrState == 2) {
 
 uint8_t i2c1EEMemValue = I2C1_Read();
 
-# 188
+# 193
 EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
 
 return;
@@ -10915,18 +11049,18 @@ return;
 }
 }
 
-# 198
+# 203
 void main(void) {
 
 SYSTEM_Initialize();
 
-# 206
+# 211
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 218
+# 223
 I2C1_Open();
 
 
@@ -10935,11 +11069,22 @@ I2C1_SlaveSetAddrIntHandler(EEPROM_I2C1_SlaveSetAddrIntHandler);
 I2C1_SlaveSetWriteIntHandler(EEPROM_SlaveSetWriteIntHandler);
 I2C1_SlaveSetReadIntHandler(EEPROM_SlaveSetReadIntHandler);
 
+static uint8_t Memory_Index = 1;
+static uint8_t SlaveAddress = 103;
+
 while (1) {
 
+# 240
+MASTER_Buffer[0] = Memory_Index;
 
+I2C2_WriteNBytes(SlaveAddress, MASTER_Buffer, 9);
 
+do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0);
 
+I2C2_ReadDataBlock(SlaveAddress, Memory_Index, &MASTER_Buffer[1], 16);
+Memory_Index += 8;
+
+_delay((unsigned long)((200)*(1000000/4000.0)));
 }
 }
 
