@@ -156,20 +156,6 @@ void I2C1_SendNack() {
 static void I2C1_Isr() {
     I2C1_SlaveClearIrq();
 
-    // Waiting for I2C1_SlaveIsRxBufFull
-    // state.
-    //while (!I2C1_SlaveIsRxBufFull());
-
-    //    uint8_t tmpCntI2C2_orig = tmpCntI2C2;
-    //    eeprom_write(tmpCntI2C2++, SSP1STAT);
-    //    eeprom_write(tmpCntI2C2++, I2C1_Read());
-    //    eeprom_write(tmpCntI2C2++, I2C1_SlaveIsAddr());
-    //    eeprom_write(tmpCntI2C2++, SSP1ADD);
-    //    eeprom_write(tmpCntI2C2++, SSP1STAT);
-    //    eeprom_write(tmpCntI2C2++, SSP1CON1);
-    //    eeprom_write(tmpCntI2C2++, SSP1CON2);
-    //    tmpCntI2C2 = tmpCntI2C2_orig + 16;
-
     if (I2C1_SlaveIsAddr()) {
         if (I2C1_SlaveIsRead()) {
             i2c1SlaveState = I2C1_ADDR_TX;
