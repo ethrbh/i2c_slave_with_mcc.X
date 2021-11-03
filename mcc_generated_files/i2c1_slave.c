@@ -156,6 +156,11 @@ void I2C1_SendNack() {
 static void I2C1_Isr() {
     I2C1_SlaveClearIrq();
 
+    eeprom_write(tmpCntI2C++, SSP1STAT);
+    eeprom_write(tmpCntI2C++, SSP1CON1);
+    eeprom_write(tmpCntI2C++, SSP1CON2);
+    eeprom_write(tmpCntI2C++, 0x99); // "separator byte"
+
     if (I2C1_SlaveIsAddr()) {
         if (I2C1_SlaveIsRead()) {
             i2c1SlaveState = I2C1_ADDR_TX;
