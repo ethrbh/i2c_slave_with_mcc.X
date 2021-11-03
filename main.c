@@ -192,6 +192,12 @@ void main(void) {
     // Execute I2C MASTER operations
     if (isI2CMasterDeviceUsed) {
 
+        // The I2C SLAVE device address (real EEPROM, 24LC02B))
+        //static uint8_t i2cSlaveAddress = 0x50;
+
+        // The I2C SLAVE device address (virtual EEPROM, represented by the I2C SLAVE device))
+        static uint8_t i2cSlaveAddress = 0x67;
+
         // The EEPROM register address in the SLAVE device
         // to be read/write.
         static uint8_t i2c1EEMemAddr_Master = 0x00;
@@ -200,14 +206,11 @@ void main(void) {
         // data from/to I2C SLAVE device.
         static uint8_t i2cBuffer_Master[] = {
             0x00,
-            0xFF, 0xFE, 0xFD, 0xFC, 0xFB, 0xFA, 0xF9, 0xF8, 0xF7, 0xF6, 0xF5, 0xF4, 0xF3, 0xF2, 0xF1, 0xF0
+            0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f
         };
 
-        // The I2C SLAVE device address
-        static uint8_t i2cSlaveAddress = 103;
-
         // 1. Write N bytes to the I2C SLAVE.
-        //    Number of bytes is 4 (1 address, 3 data).
+        //    Number of bytes is byteNumber (1 address, (byteNumber-1) data).
         //    The i2cBuffer_Master is used for this,
         //    where the 1st EEPROM register for the write is in the 0. position
         //    in the i2cBuffer_Master, and the next bytes (1,2, ect) are the data
@@ -215,26 +218,33 @@ void main(void) {
         uint8_t byteNumber = 4;
         I2C2_WriteNBytes(i2cSlaveAddress, i2cBuffer_Master, byteNumber);
 
-        // 2. Read a block from I2C SLAVE. Start EEPROM register of the block
-        //    is 0x10, read 3 bytes, and save the read byte into i2cBuffer_Master
-        //    buffer from index 1.
-        i2c1EEMemAddr_Master = 0x10;
-        uint8_t byteNumber = 3;
-        I2C2_ReadDataBlock(i2cSlaveAddress, i2c1EEMemAddr_Master, &i2cBuffer_Master[1], byteNumber);
+        // Cleanup the i2cBuffer_Master before store data from I2C SLAVE
+        uint8_t i;
+        uint8_t i2cBuffer_Master_len = sizeof (i2cBuffer_Master);
+        for (i = 0; i < i2cBuffer_Master_len; i++) {
+            i2cBuffer_Master[i] = 0x00;
+        }
 
-        // 3. Read a block from I2C SLAVE. Start EEPROM register of the block
-        //    is 0x00, read 3 bytes, and save the read byte into i2cBuffer_Master
-        //    buffer from index 1.
+        // 2. Read a block from I2C SLAVE. Start EEPROM register of the block
+        //    is i2c1EEMemAddr_Master, read byteNumber bytes, and save the read
+        //    byte into i2cBuffer_Master buffer from index 1.
         i2c1EEMemAddr_Master = 0x00;
         uint8_t byteNumber = 3;
         I2C2_ReadDataBlock(i2cSlaveAddress, i2c1EEMemAddr_Master, &i2cBuffer_Master[1], byteNumber);
 
-        // 4. Write value 0x12 into EEPROM register 0x03
+        // 3. Read a block from I2C SLAVE. Start EEPROM register of the block
+        //    is i2c1EEMemAddr_Master, read byteNumber bytes, and save the read
+        //    byte into i2cBuffer_Master buffer from index 1.
+        i2c1EEMemAddr_Master = 0x00;
+        uint8_t byteNumber = 3;
+        I2C2_ReadDataBlock(i2cSlaveAddress, i2c1EEMemAddr_Master, &i2cBuffer_Master[1], byteNumber);
+
+        // 4. Write value 0x12 into EEPROM register i2c1EEMemAddr_Master
         i2c1EEMemAddr_Master = 0x03;
         I2C2_Write1ByteRegister(i2cSlaveAddress, i2c1EEMemAddr_Master, 0x12);
 
-        // 5. Read data from I2C SLAVE at EEPROM register 0x03
-        I2C2_Read1ByteRegister(i2cSlaveAddress, i2c1EEMemAddr_Master);
+        // 5. Read data from I2C SLAVE at EEPROM register i2c1EEMemAddr_Master
+        uint8_t value = I2C2_Read1ByteRegister(i2cSlaveAddress, i2c1EEMemAddr_Master);
 
         IO_RA2_Toggle();
     }
