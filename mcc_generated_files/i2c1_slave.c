@@ -159,7 +159,16 @@ static void I2C1_Isr() {
     eeprom_write(tmpCntI2C++, SSP1STAT);
     eeprom_write(tmpCntI2C++, SSP1CON1);
     eeprom_write(tmpCntI2C++, SSP1CON2);
+    eeprom_write(tmpCntI2C++, SSP1CON3);
+    eeprom_write(tmpCntI2C++, PIR1);
+    eeprom_write(tmpCntI2C++, PIR2);
+    eeprom_write(tmpCntI2C++, PIR3);
     eeprom_write(tmpCntI2C++, 0x99); // "separator byte"
+
+    // Force to put the registers in the next row
+    // in the EEPROM representation in EE Data Memory
+    // view in MplabX.
+    tmpCntI2C = tmpCntI2C + 8;
 
     if (I2C1_SlaveIsAddr()) {
         if (I2C1_SlaveIsRead()) {

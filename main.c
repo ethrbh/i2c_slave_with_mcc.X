@@ -66,7 +66,7 @@ volatile uint8_t isEEMemoryAddrState = EE_ADDR_NONE;
 
 // If I2C MASTER device also has to be run, set this define to true,
 // otherwise this should be false.
-#define isI2CMasterDeviceUsed false
+#define isI2CMasterDeviceUsed true
 
 /*
  * Handlers to be used by I2C1 device
@@ -90,6 +90,8 @@ static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
      *       The 7 bit slave address is represented by the 7 bits
      *       from left hand side.
      */
+    while (!SSP1STATbits.BF) {
+    };
     i2c1SlaveAddr = I2C1_Read();
 
     /*
@@ -136,6 +138,8 @@ static void EEPROM_SlaveSetReadIntHandler(void) {
      */
     if (isEEMemoryAddrState == EE_ADDR_WAITING) {
         // Read EEPROM register address
+        while (!SSP1STATbits.BF) {
+        };
         i2c1EEMemAddr = I2C1_Read();
         // If the given address higher than the max EEPROM size, start
         // reading EEPROM from the 0x00 address.
@@ -150,6 +154,8 @@ static void EEPROM_SlaveSetReadIntHandler(void) {
         if (isEEMemoryAddrState == EE_ADDR_RECEIVED) {
 
             // Read value to be write into EEPROM at the address
+            while (!SSP1STATbits.BF) {
+            };
             uint8_t i2c1EEMemValue = I2C1_Read();
 
             // Write the value into the EEPROM
@@ -246,10 +252,11 @@ void main(void) {
         // 5. Read data from I2C SLAVE at EEPROM register i2c1EEMemAddr_Master
         i2c1EEMemAddr_Master = 0x03;
         uint8_t value = I2C2_Read1ByteRegister(i2cSlaveAddress, i2c1EEMemAddr_Master);
-
-        IO_RA2_Toggle();
     }
+
     while (1) {
+        IO_RA2_Toggle();
+        __delay_ms(2000);
     }
 }
 /**
