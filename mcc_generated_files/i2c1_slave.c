@@ -156,57 +156,107 @@ void I2C1_SendNack() {
 static void I2C1_Isr() {
     I2C1_SlaveClearIrq();
 
-    eeprom_write(tmpCntI2C++, SSP1STAT);
-    eeprom_write(tmpCntI2C++, SSP1CON1);
-    eeprom_write(tmpCntI2C++, SSP1CON2);
-    eeprom_write(tmpCntI2C++, SSP1CON3);
-    eeprom_write(tmpCntI2C++, PIR1);
-    eeprom_write(tmpCntI2C++, PIR2);
-    eeprom_write(tmpCntI2C++, PIR3);
-    eeprom_write(tmpCntI2C++, 0x99); // "separator byte"
+    //    eeprom_write(tmpCntI2C++, SSP1STAT);
+    //    eeprom_write(tmpCntI2C++, SSP1CON1);
+    //    eeprom_write(tmpCntI2C++, SSP1CON2);
+    //    eeprom_write(tmpCntI2C++, SSP1CON3);
+    //    eeprom_write(tmpCntI2C++, PIR1);
+    //    eeprom_write(tmpCntI2C++, PIR2);
+    //    eeprom_write(tmpCntI2C++, PIR3);
+    //
+    //    if (SSP1STATbits.BF) {
+    //        eeprom_write(tmpCntI2C++, 0x77);
+    //        uint8_t data = I2C1_Read();
+    //        eeprom_write(tmpCntI2C++, data);
+    //    } else {
+    //        eeprom_write(tmpCntI2C++, 0x88);
+    //        eeprom_write(tmpCntI2C++, 0x00);
+    //    }
+    //    eeprom_write(tmpCntI2C++, 0x99); // "separator byte"
+    //
+    //    // Force to put the registers in the next row
+    //    // in the EEPROM representation in EE Data Memory
+    //    // view in MplabX.
+    //    tmpCntI2C = tmpCntI2C + 6;
 
-    // Force to put the registers in the next row
-    // in the EEPROM representation in EE Data Memory
-    // view in MplabX.
-    tmpCntI2C = tmpCntI2C + 8;
+    eeprom_write(tmpCntI2C++, 0x60);
+    //eeprom_write(tmpCntI2C++, SSP1STAT);
+    //eeprom_write(tmpCntI2C++, SSP1CON1);
+    //eeprom_write(tmpCntI2C++, SSP1CON2);
+    //eeprom_write(tmpCntI2C++, SSP1CON3);
+    //eeprom_write(tmpCntI2C++, 0x99);
 
-    if (I2C1_SlaveIsAddr()) {
-        if (I2C1_SlaveIsRead()) {
-            i2c1SlaveState = I2C1_ADDR_TX;
+    // A new transaction has been started
+    if (SSP1STATbits.S) {
+        //if (I2C1_SlaveIsRxBufFull()) {
+        //eeprom_write(tmpCntI2C++, 0x61);
+        // MASTER has been sent some data,
+        // what SLAVE should be processed.
+        if (I2C1_SlaveIsAddr()) {
+            if (I2C1_SlaveIsRead()) {
+                i2c1SlaveState = I2C1_ADDR_TX;
+            } else {
+                i2c1SlaveState = I2C1_ADDR_RX;
+            }
         } else {
-            i2c1SlaveState = I2C1_ADDR_RX;
+            if (I2C1_SlaveIsRead()) {
+                i2c1SlaveState = I2C1_DATA_TX;
+            } else {
+                i2c1SlaveState = I2C1_DATA_RX;
+            }
         }
+
+        switch (i2c1SlaveState) {
+            case I2C1_ADDR_TX:
+                //eeprom_write(tmpCntI2C++, 0x01);
+                I2C1_SlaveAddrCallBack();
+                //eeprom_write(tmpCntI2C++, 0x02);
+                if (I2C1_SlaveIsTxBufEmpty()) {
+                    //eeprom_write(tmpCntI2C++, 0x03);
+                    I2C1_SlaveWrCallBack();
+                    //eeprom_write(tmpCntI2C++, 0x04);
+                }
+                //eeprom_write(tmpCntI2C++, 0x05);
+                break;
+
+            case I2C1_ADDR_RX:
+                //eeprom_write(tmpCntI2C++, 0x11);
+                I2C1_SlaveAddrCallBack();
+                //eeprom_write(tmpCntI2C++, 0x12);
+                break;
+
+            case I2C1_DATA_TX:
+                //eeprom_write(tmpCntI2C++, 0x21);
+                if (I2C1_SlaveIsTxBufEmpty()) {
+                    //eeprom_write(tmpCntI2C++, 0x22);
+                    I2C1_SlaveWrCallBack();
+                    //eeprom_write(tmpCntI2C++, 0x23);
+                }
+                //eeprom_write(tmpCntI2C++, 0x24);
+                break;
+
+            case I2C1_DATA_RX:
+                //eeprom_write(tmpCntI2C++, 0x31);
+                if (I2C1_SlaveIsRxBufFull()) {
+                    //eeprom_write(tmpCntI2C++, 0x32);
+                    I2C1_SlaveRdCallBack();
+                    //eeprom_write(tmpCntI2C++, 0x33);
+                }
+                //eeprom_write(tmpCntI2C++, 0x34);
+                break;
+
+            default:
+                //eeprom_write(tmpCntI2C++, 0x41);
+                break;
+        }
+        //} else {
+        // MASTER has been triggered the I2C start or re-start event
+        //eeprom_write(tmpCntI2C++, 0x62);
+        //}
     } else {
-        if (I2C1_SlaveIsRead()) {
-            i2c1SlaveState = I2C1_DATA_TX;
-        } else {
-            i2c1SlaveState = I2C1_DATA_RX;
-        }
+        //eeprom_write(tmpCntI2C++, 0x63);
     }
 
-    switch (i2c1SlaveState) {
-        case I2C1_ADDR_TX:
-            I2C1_SlaveAddrCallBack();
-            if (I2C1_SlaveIsTxBufEmpty()) {
-                I2C1_SlaveWrCallBack();
-            }
-            break;
-        case I2C1_ADDR_RX:
-            I2C1_SlaveAddrCallBack();
-            break;
-        case I2C1_DATA_TX:
-            if (I2C1_SlaveIsTxBufEmpty()) {
-                I2C1_SlaveWrCallBack();
-            }
-            break;
-        case I2C1_DATA_RX:
-            if (I2C1_SlaveIsRxBufFull()) {
-                I2C1_SlaveRdCallBack();
-            }
-            break;
-        default:
-            break;
-    }
     I2C1_SlaveReleaseClock();
 }
 
