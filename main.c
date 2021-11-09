@@ -43,7 +43,6 @@
 
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/examples/i2c2_master_example.h" /* For I2C Master  application interface. */
-#include "test.h"
 
 /*
  * Define "internal" EEPROM to be read/write via I2C
@@ -92,20 +91,16 @@ static void EEPROM_I2C1_SlaveSetAddrIntHandler(void) {
      *       from left hand side.
      */
 
-    //eeprom_write(tmpCntI2C++, 0x71);
     i2c1SlaveAddr = I2C1_Read();
-    //eeprom_write(tmpCntI2C++, 0x73);
 
     /*
      * If SSP1STATbits.R_nW is 1, the next byte from MASTER will be the
      * EEPROM register address, thus isEEMemoryAddr signs this.
      */
     if (!I2C1_IsRead()) {
-        //eeprom_write(tmpCntI2C++, 0x74);
         // Master sent a WRITE request, the next byte from MASTER
         // should be the register address to be read/write.
         isEEMemoryAddrState = EE_ADDR_WAITING;
-        //eeprom_write(tmpCntI2C++, 0x75);
     }
 
     return;
@@ -121,17 +116,9 @@ static void EEPROM_SlaveSetWriteIntHandler(void) {
         i2c1EEMemAddr = 0;
     }
 
-    //eeprom_write(tmpCntI2C++, 0x80);
-    //eeprom_write(tmpCntI2C++, i2c1EEMemAddr);
-
     uint8_t i2c1EEMemValue = EEPROM_Buffer[i2c1EEMemAddr++];
 
-    //eeprom_write(tmpCntI2C++, i2c1EEMemAddr);
-    //eeprom_write(tmpCntI2C++, 0x81);
-
-    //if (!SSP1CON2bits.ACKSTAT) {
     I2C1_Write(i2c1EEMemValue);
-    //}
 
     return;
 }
@@ -148,8 +135,6 @@ static void EEPROM_SlaveSetReadIntHandler(void) {
      */
     if (isEEMemoryAddrState == EE_ADDR_WAITING) {
         // Read EEPROM register address
-        //eeprom_write(tmpCntI2C++, 0x80);
-
         i2c1EEMemAddr = I2C1_Read();
         // If the given address higher than the max EEPROM size, start
         // reading EEPROM from the 0x00 address.
@@ -158,8 +143,6 @@ static void EEPROM_SlaveSetReadIntHandler(void) {
         }
 
         isEEMemoryAddrState = EE_ADDR_RECEIVED;
-        //eeprom_write(tmpCntI2C++, i2c1EEMemAddr);
-        //eeprom_write(tmpCntI2C++, 0x81);
 
         return;
     } else {
@@ -168,19 +151,12 @@ static void EEPROM_SlaveSetReadIntHandler(void) {
             // Read value to be write into EEPROM at the address
 
             // Wait for reading until buffer is full
-            while (!SSP1STATbits.BF) {
-            };
+            //while (!SSP1STATbits.BF) {
+            //};
             uint8_t i2c1EEMemValue = I2C1_Read();
 
             // Write the value into the EEPROM
-            //eeprom_write(tmpCntI2C++, 0x90);
-            //eeprom_write(tmpCntI2C++, i2c1EEMemValue);
-            //eeprom_write(tmpCntI2C++, i2c1EEMemAddr);
-
             EEPROM_Buffer[i2c1EEMemAddr++] = i2c1EEMemValue;
-
-            //eeprom_write(tmpCntI2C++, i2c1EEMemAddr);
-            //eeprom_write(tmpCntI2C++, 0x91);
 
             return;
         }
