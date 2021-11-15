@@ -5,12 +5,8 @@
         <group>
             <file>file:/home/ethrbh/projects/github/i2c_slave_with_mcc.X/mcc_generated_files/i2c2_master.c</file>
             <file>file:/home/ethrbh/projects/github/i2c_slave_with_mcc.X/main.c</file>
-            <file>file:/home/ethrbh/projects/github/i2c_slave_with_mcc.X/mcc_generated_files/examples/i2c2_master_example.h</file>
             <file>file:/home/ethrbh/projects/github/i2c_slave_with_mcc.X/mcc_generated_files/examples/i2c2_master_example.c</file>
-            <file>file:/home/ethrbh/projects/github/i2c_slave_with_mcc.X/mcc_generated_files/mcc.c</file>
             <file>file:/home/ethrbh/projects/github/i2c_slave_with_mcc.X/mcc_generated_files/i2c1_slave.c</file>
-            <file>file:/home/ethrbh/projects/github/i2c_slave_with_mcc.X/mcc_generated_files/i2c2_master.h</file>
-            <file>file:/home/ethrbh/projects/github/i2c_slave_with_mcc.X/mcc_generated_files/interrupt_manager.c</file>
         </group>
     </open-files>
 </project-private>
