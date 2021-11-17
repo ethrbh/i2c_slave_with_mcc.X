@@ -95,6 +95,28 @@ def read_byte(i2c_obj, i2c_bus, i2c_addr):
 def read_byte_data(i2c_obj, i2c_bus, i2c_addr, reg_addr):
     return i2c_obj.read_byte_data(i2c_bus, i2c_addr, reg_addr)
 
+
+# ===========================================================================
+# Read a block of byte data from a given register
+#
+# Input:
+#    i2c_obj     -    object of the I2C wrapper
+#    i2c_bus     -    int, the integer id of the I2C bus to be used
+#                     For example if the I2C bus name is /dev/i2c-1
+#                     the integer id to be used here is 1.
+#    i2c_addr    -    i2c address
+#                     valid type: int | hex string
+#    reg_addr    -    the address of the register to be read
+#                     valid type: int | hex string
+#    length      -    integer, number of byte to be read out
+# Output:
+#    ["ok", data] | ["error", reason]
+#    data: list of integer
+#    reason: string
+# ===========================================================================
+def read_i2c_block_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, length):
+    return i2c_obj.read_i2c_block_data(i2c_bus, i2c_addr, reg_addr, length)
+
 # # ===========================================================================
 # # Write a single register.
 # #
@@ -203,6 +225,7 @@ USAGE
                                                 "      -reg_value 6 " +
                                                 "    when more than one data byte should be write from a specified register address: " +
                                                 "      -reg_value 6,7,8,9 NOTE: NO SPACE is allowed between comma and number!!"))
+        parser.add_argument("-length", help="The number of byte to be read out from the given register address from the I2C slave device.")
         parser.add_argument("-i2c_operation",
                             help=("The operation to be executed in the I2C slave device. This can be " +
                                   I2C_OPERATION_READ + " | " + I2C_OPERATION_WRITE))
@@ -247,7 +270,10 @@ USAGE
             if args.reg_addr is None:
                 return read_byte(i2c_obj, args.i2c_bus, args.i2c_addr)
             else:
-                return read_byte_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr)
+                if args.length is None:
+                    return read_byte_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr)
+                else:
+                    return read_i2c_block_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr, args.length)
 
         elif args.i2c_operation == I2C_OPERATION_WRITE:
             if args.reg_addr is None or args.reg_value is None:

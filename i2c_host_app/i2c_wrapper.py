@@ -269,6 +269,48 @@ class I2CBus(object):
             return [resCode, resText]
 
     # ===========================================================================
+    # Read a block of byte data from a given register
+    #
+    # Input:
+    #    i2c_bus     -    int, the integer id of the I2C bus to be used
+    #                     For example if the I2C bus name is /dev/i2c-1
+    #                     the integer id to be used here is 1.
+    #    i2c_addr    -    i2c address
+    #                     valid type: int | hex string
+    #    reg_addr    -    the address of the register to be read
+    #                     valid type: int | hex string
+    #    length      -    integer, number of byte to be read out
+    # Output:
+    #    ["ok", data] | ["error", reason]
+    #    data: list of integer
+    #    reason: string
+    # ===========================================================================
+    def read_i2c_block_data(self, i2c_bus, i2c_addr, reg_addr, length):
+        data = []
+        lengthInt = 0
+        if is_intstring(length):
+            lengthInt = int(length)
+        elif is_integer(length):
+            lengthInt = length
+        else:
+            return [RES_CODE_ERROR, "Invalid length value, " + str(length)]
+
+        # Set the register address
+        [resCode, resText] = self.set_register_address_for_read(i2c_bus, i2c_addr, reg_addr)
+        if resCode == RES_CODE_ERROR:
+            return [resCode, resText]
+
+        for _i in range(lengthInt):
+            [resCode, resText] = self.read_byte(i2c_bus, i2c_addr)
+            if resCode == RES_CODE_ERROR:
+                return [resCode, resText]
+            else:
+                # Append the byte into the data
+                data.append(resText)
+
+        return [RES_CODE_OK, data]
+
+    # ===========================================================================
     # Write a single register.
     #
     # Input:
