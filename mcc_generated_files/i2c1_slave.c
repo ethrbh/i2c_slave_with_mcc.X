@@ -166,55 +166,58 @@ static void I2C1_Isr()
 { 
     I2C1_SlaveClearIrq();
 
-    if(I2C1_SlaveIsAddr())
-    {
-        if(I2C1_SlaveIsRead())
+    // A new transaction has been started
+    if (SSP1STATbits.S) {
+        if(I2C1_SlaveIsAddr())
         {
-            i2c1SlaveState = I2C1_ADDR_TX;
+            if(I2C1_SlaveIsRead())
+            {
+                i2c1SlaveState = I2C1_ADDR_TX;
+            }
+            else
+            {
+                i2c1SlaveState = I2C1_ADDR_RX;
+            }
         }
         else
         {
-            i2c1SlaveState = I2C1_ADDR_RX;
+            if(I2C1_SlaveIsRead())
+            {
+                i2c1SlaveState = I2C1_DATA_TX;
+            }
+            else
+            {
+                i2c1SlaveState = I2C1_DATA_RX;
+            }
         }
-    }
-    else
-    {
-        if(I2C1_SlaveIsRead())
-        {
-            i2c1SlaveState = I2C1_DATA_TX;
-        }
-        else
-        {
-            i2c1SlaveState = I2C1_DATA_RX;
-        }
-    }
 
-    switch(i2c1SlaveState)
-    {
-        case I2C1_ADDR_TX:
-            I2C1_SlaveAddrCallBack();
-            if(I2C1_SlaveIsTxBufEmpty())
-            {
-                I2C1_SlaveWrCallBack();
-            }
-            break;
-        case I2C1_ADDR_RX:
-            I2C1_SlaveAddrCallBack();
-            break;
-        case I2C1_DATA_TX:
-            if(I2C1_SlaveIsTxBufEmpty())
-            {
-                I2C1_SlaveWrCallBack();
-            }
-            break;
-        case I2C1_DATA_RX:
-            if(I2C1_SlaveIsRxBufFull())
-            {
-                I2C1_SlaveRdCallBack();
-            }
-            break;
-        default:
-            break;
+        switch(i2c1SlaveState)
+        {
+            case I2C1_ADDR_TX:
+                I2C1_SlaveAddrCallBack();
+                if(I2C1_SlaveIsTxBufEmpty())
+                {
+                    I2C1_SlaveWrCallBack();
+                }
+                break;
+            case I2C1_ADDR_RX:
+                I2C1_SlaveAddrCallBack();
+                break;
+            case I2C1_DATA_TX:
+                if(I2C1_SlaveIsTxBufEmpty())
+                {
+                    I2C1_SlaveWrCallBack();
+                }
+                break;
+            case I2C1_DATA_RX:
+                if(I2C1_SlaveIsRxBufFull())
+                {
+                    I2C1_SlaveRdCallBack();
+                }
+                break;
+            default:
+                break;
+        }
     }
     I2C1_SlaveReleaseClock();
 }
