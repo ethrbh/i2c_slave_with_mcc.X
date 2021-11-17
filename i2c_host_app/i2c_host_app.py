@@ -202,11 +202,61 @@ def main(argv=None):  # IGNORE:C0111
   I did not find the root-cause of this :-( 
   
   Because I still want use Python for my "Host app" in the future, 
-  I made a wrapper script  around i2cget and i2cset programs, 
+  I made a wrapper script around i2cget and i2cset programs, 
   because using these, accessing to the emulated EEPROM in the PIC,
   is working well.
   
 USAGE
+    Read one byte without specify the register address
+        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -i2c_operation read
+        
+        result:
+            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -i2c_operation read
+            2021-11-17 18:57:36,645 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
+            ['ok', 27]
+        
+    Read the specified register address
+        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -i2c_operation read
+        
+        result:
+            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -i2c_operation read
+            2021-11-17 19:00:33,452 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
+            ['ok', 12]
+    
+    Read N byte started from a specified register address
+        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -length 6 -i2c_operation read
+        
+        result:
+            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -length 6 -i2c_operation read
+            2021-11-17 19:02:24,678 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
+            ['ok', [12, 13, 14, 15, 16, 17]]
+    
+    Write byte into a specified register address
+        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 33 -i2c_operation write
+        
+        result:
+            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 33 -i2c_operation write
+            2021-11-17 19:04:13,173 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
+            ['ok', '']
+    
+    Write N byte from a specified register address
+        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 33,34,35,36 -i2c_operation write
+        
+        result:
+            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 33,34,35,36 -i2c_operation write
+            2021-11-17 19:08:20,014 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
+            ['ok', '']
+            pi@raspberrypi:~/projects/github/i2c_host_app>
+    
+    Example when invalid register address is used for a write operation
+        In any failure cases the result will be a list, like this:
+            ["error", ErrorText]
+        
+        pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 333 -i2c_operation write
+        2021-11-17 19:09:41,503 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
+        ['error', "b'Error: Data value out of range!\\nUsage: i2cset [-f] [-y] [-m MASK] [-r] [-a] I2CBUS CHIP-ADDRESS DATA-ADDRESS [VALUE] ... [MODE]\\n  I2CBUS is an integer or an I2C bus name\\n  ADDRESS is an integer (0x03 - 0x77, or 0x00 - 0x7f if -a is given)\\n  MODE is one of:\\n    c (byte, no value)\\n    b (byte data, default)\\n    w (word data)\\n    i (I2C block data)\\n    s (SMBus block data)\\n    Append p for SMBus PEC\\n'"]
+        pi@raspberrypi:~/projects/github/i2c_host_app> 
+    
 ''' % (program_shortdesc, str(__date__))
 
     try:
