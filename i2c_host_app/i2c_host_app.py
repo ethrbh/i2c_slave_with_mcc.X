@@ -292,17 +292,17 @@ USAGE
         logfile = toolname + ".log"
 
         # Setup log level
-        if args.loglevel == "INFO":
+        if args.loglevel.upper() == "INFO":
             loglevel = logging.INFO;
-        elif args.loglevel == "WARNING":
+        elif args.loglevel.upper() == "WARNING":
             loglevel = logging.WARNING
-        elif args.loglevel == "ERROR":
+        elif args.loglevel.upper() == "ERROR":
             loglevel = logging.ERROR
-        elif args.loglevel == "CRITICAL":
+        elif args.loglevel.upper() == "CRITICAL":
             loglevel = logging.CRITICAL
-        elif args.loglevel == "DEBUG":
+        elif args.loglevel.upper() == "DEBUG":
             loglevel = logging.DEBUG
-        elif args.loglevel == "FATAL":
+        elif args.loglevel.upper() == "FATAL":
             loglevel = logging.FATAL
 
         # Create the logger object to be used for logging
