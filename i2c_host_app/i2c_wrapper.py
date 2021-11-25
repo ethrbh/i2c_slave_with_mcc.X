@@ -69,7 +69,10 @@ def is_hex(theString):
 #    boolean
 # ===========================================================================
 def is_integer(data):
-    return isinstance(data, int)
+    try:
+        return isinstance(data, int)
+    except ValueError:
+        return False
 
 
 # ===========================================================================
@@ -79,7 +82,7 @@ def is_integer(data):
 # Input:
 #    data    : int | hex string
 # Output:
-#    ["ok", hexStr] | ["error", reason]
+#    hexStr | ["error", reason]
 # ===========================================================================
 def int_to_hex(data):
     # Check the given data is an integer number but in string format.
@@ -88,7 +91,7 @@ def int_to_hex(data):
         data = int(data)
 
     if (is_integer(data)):
-        return ["ok", hex(data)]
+        return hex(data)
     else:
         if (is_hex(data)):
             return [RES_CODE_OK, data]
@@ -99,12 +102,37 @@ def int_to_hex(data):
 # ===========================================================================
 # Converts hex number to integer
 # Input:
-#    hexNUmber    :    string, hex number in string format. e.g. "0x02"
+#    hexNumber    :    string, hex number in string format. e.g. "0x02"
 # Output:
-#    intNumber    :    integer
+#    intNumber | ["error", reason]
+#    intNumber: integer
+#    reason: string
 # ===========================================================================
 def hex_to_int(hexNumberInString):
-    return int(hexNumberInString, 16)
+    try:
+        return int(hexNumberInString, 16)
+    except ValueError:
+        return [RES_CODE_ERROR, "Failed to convert " + str(hexNumberInString) + " to integer"]
+
+
+# ===========================================================================
+# Converts hex number or integer number which is in string to integer
+# Input:
+#    strNumber    :    string, hex number or integer in string format. e.g. "0x02", "123"
+# Output:
+#    intNumber | ["error", reason]
+#    intNumber: integer
+#    reason: string
+# ===========================================================================
+def str_to_int(strNumber):
+    if (is_integer(strNumber)):
+        return strNumber
+    elif (is_hex(strNumber)):
+        return hex_to_int(strNumber)
+    elif (is_intstring(strNumber)):
+        return int(strNumber)
+    else:
+        return [RES_CODE_ERROR, "Invalid string for integer conversation, " + str(strNumber)]
 
 
 # ===========================================================================
@@ -160,6 +188,12 @@ class I2CBus(object):
         self.close()
 
     # ===========================================================================
+    # Test to convert given string to integer
+    # ===========================================================================
+    def test_conv_string_data_to_in(self, stringData):
+        return str_to_int(stringData)
+
+    # ===========================================================================
     # Set the register address to be read
     #
     # Input:
@@ -171,32 +205,38 @@ class I2CBus(object):
     #    reg_addr    -    the address of the register to be read
     #                     valid type: int | hex string
     # Output:
-    #    ["ok", data] | ["error", reason]
+    #    data | ["error", reason]
     #    data: integer
     #    reason: string
     # ===========================================================================
     def set_register_address_for_read(self, i2c_bus, i2c_addr, reg_addr):
-        [i2c_addr_hex_res_code, i2c_addr_hex_value] = int_to_hex(i2c_addr)
+        result = int_to_hex(i2c_addr)
+        if isinstance(result, list):
+            [_, reason] = result
+            return [RES_CODE_ERROR, "Invalid i2c_addr " + str(i2c_addr) + " " + reason]
+        else:
+            # Save the hex value of the I2C address
+            i2c_addr_hex_value = result
 
-        if i2c_addr_hex_res_code == RES_CODE_OK:
-            [reg_addr_hex_res_code, reg_addr_hex_value] = int_to_hex(reg_addr)
+            result = int_to_hex(reg_addr)
+            if isinstance(result, list):
+                [_, reason] = result
+                return [RES_CODE_ERROR, "Invalid reg_addr " + str(reg_addr) + " " + reason]
+            else:
+                # Save the hex value of the register address
+                reg_addr_hex_value = result
 
-            if reg_addr_hex_res_code == RES_CODE_OK:
                 # I2C cmd part 1 - setup the register address to be read out
                 i2cCmd = I2C_PROGRAM_SET + " " + "-y " + str(i2c_bus) + " " + i2c_addr_hex_value + " " + reg_addr_hex_value
                 [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
 
                 if returnCode == RETURN_CODE_SUCCESS:
-                    return [RES_CODE_OK, stdOut]
+                    return str_to_int(stdOut)
                 else:
                     if errorText is None:
                         return [RES_CODE_ERROR, str(stdOut)]
                     else:
                         return [RES_CODE_ERROR, str(errorText)]
-            else:
-                return [RES_CODE_ERROR, "invalid reg_addr " + str(reg_addr)]
-        else:
-            return [RES_CODE_ERROR, "invalid i2c_addr " + str(i2c_addr)]
 
     # ===========================================================================
     # Read a single byte from a device. In EEPROM terminology, this is the
@@ -208,27 +248,30 @@ class I2CBus(object):
     #                     the integer id to be used here is 1.
     #    i2c_addr    -    int | hex string, i2c address
     # Output:
-    #    ["ok", data] | ["error", reason]
+    #    data | ["error", reason]
     #    data: integer
     #    reason: string
     # ===========================================================================
     def read_byte(self, i2c_bus, i2c_addr):
-        [i2c_addr_hex_res_code, i2c_addr_hex_value] = int_to_hex(i2c_addr)
+        result = int_to_hex(i2c_addr)
 
-        if i2c_addr_hex_res_code == RES_CODE_OK:
+        if isinstance(result, list):
+            [_, reason] = result
+            return [RES_CODE_ERROR, "Invalid i2c_addr, " + str(i2c_addr) + " " + reason]
+        else:
+            # Save the hex value of the I2C address
+            i2c_addr_hex_value = result
 
             i2cCmd = I2C_PROGRAM_GET + " " + "-y " + str(i2c_bus) + " " + i2c_addr_hex_value
             [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
 
             if returnCode == 0:
-                return [RES_CODE_OK, hex_to_int(stdOut)]
+                return str_to_int(stdOut)
             else:
                 if errorText is None:
                     return [RES_CODE_ERROR, str(stdOut)]
                 else:
                     return [RES_CODE_ERROR, str(errorText)]
-        else:
-            return [RES_CODE_ERROR, "Invalid i2c_addr, " + str(i2c_addr)]
 
     # ===========================================================================
     # Read a single byte from a device by specify the register address to be read out.
@@ -243,30 +286,37 @@ class I2CBus(object):
     #    reg_addr    -    the address of the register to be read
     #                     valid type: int | hex string
     # Output:
-    #    ["ok", data] | ["error", reason]
+    #    data | ["error", reason]
     #    data: integer
     #    reason: string
     # ===========================================================================
     def read_byte_data(self, i2c_bus, i2c_addr, reg_addr):
         # Mark the register to be read out
-        [resCode, resText] = self.set_register_address_for_read(i2c_bus, i2c_addr, reg_addr)
+        result = self.set_register_address_for_read(i2c_bus, i2c_addr, reg_addr)
 
-        if resCode == RES_CODE_OK:
-            # I2C cmd part - read the previously set register
-            [_i2c_addr_hex_res_code, i2c_addr_hex_value] = int_to_hex(i2c_addr)
-
-            i2cCmd = I2C_PROGRAM_GET + " " + "-y " + str(i2c_bus) + " " + i2c_addr_hex_value
-            [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
-
-            if returnCode == 0:
-                return [RES_CODE_OK, hex_to_int(stdOut)]
-            else:
-                if errorText is None:
-                    return [RES_CODE_ERROR, str(stdOut)]
-                else:
-                    return [RES_CODE_ERROR, str(errorText)]
+        if isinstance(result, list):
+            return result
         else:
-            return [resCode, resText]
+            # I2C cmd part - read the previously set register
+            result = int_to_hex(i2c_addr)
+
+            if isinstance(result, list):
+                [_, reason] = result
+                return [RES_CODE_ERROR, "Invalid i2c_addr, " + str(i2c_addr) + " " + reason]
+            else:
+                # Save the hex value of the I2C address
+                i2c_addr_hex_value = result
+
+                i2cCmd = I2C_PROGRAM_GET + " " + "-y " + str(i2c_bus) + " " + i2c_addr_hex_value
+                [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
+
+                if returnCode == 0:
+                    return str_to_int(stdOut)
+                else:
+                    if errorText is None:
+                        return [RES_CODE_ERROR, str(stdOut)]
+                    else:
+                        return [RES_CODE_ERROR, str(errorText)]
 
     # ===========================================================================
     # Read a block of byte data from a given register
@@ -281,7 +331,7 @@ class I2CBus(object):
     #                     valid type: int | hex string
     #    length      -    integer, number of byte to be read out
     # Output:
-    #    ["ok", data] | ["error", reason]
+    #    data | ["error", reason]
     #    data: list of integer
     #    reason: string
     # ===========================================================================
@@ -296,19 +346,25 @@ class I2CBus(object):
             return [RES_CODE_ERROR, "Invalid length value, " + str(length)]
 
         # Set the register address
-        [resCode, resText] = self.set_register_address_for_read(i2c_bus, i2c_addr, reg_addr)
-        if resCode == RES_CODE_ERROR:
-            return [resCode, resText]
+        result = self.set_register_address_for_read(i2c_bus, i2c_addr, reg_addr)
+        if isinstance(result, list):
+            return result
 
         for _i in range(lengthInt):
-            [resCode, resText] = self.read_byte(i2c_bus, i2c_addr)
-            if resCode == RES_CODE_ERROR:
-                return [resCode, resText]
+            result = self.read_byte(i2c_bus, i2c_addr)
+            if isinstance(result, list):
+                return result
             else:
-                # Append the byte into the data
-                data.append(resText)
+                # Convert the given string data to integer. Exit, if it failed.
+                conv_to_int_result = str_to_int(result)
+                if isinstance(conv_to_int_result, list):
+                    # Invalid data gave from the I2C slave.
+                    return conv_to_int_result
+                else:
+                    # Append the byte into the data
+                    data.append(conv_to_int_result)
 
-        return [RES_CODE_OK, data]
+        return data
 
     # ===========================================================================
     # Write a single register.
@@ -324,21 +380,37 @@ class I2CBus(object):
     #    reg_value   -    the value of the register to be write
     #                     valid type: int | hex string
     # Output:
-    #    ["ok", data] | ["error", reason]
+    #    data | ["error", reason]
     #    data: integer
     #    reason: string
     # ===========================================================================
     def write_byte_data(self, i2c_bus, i2c_addr, reg_addr, reg_value):
-        [i2c_addr_hex_res_code, i2c_addr_hex_value] = int_to_hex(i2c_addr)
+        result = int_to_hex(i2c_addr)
 
-        if i2c_addr_hex_res_code == RES_CODE_OK:
-            [reg_addr_hex_res_code, reg_addr_hex_value] = int_to_hex(reg_addr)
+        if isinstance(result, list):
+            [_, reason] = result
+            return [RES_CODE_ERROR, "Invalid i2c_addr " + str(i2c_addr) + " " + reason]
 
-            if reg_addr_hex_res_code == RES_CODE_OK:
+        else:
+            # Save the hex value of the I2C address
+            i2c_addr_hex_value = result
+
+            result = int_to_hex(reg_addr)
+            if isinstance(result, list):
+                [_, reason] = result
+                return [RES_CODE_ERROR, "Invalid reg_addr " + str(reg_addr) + " " + reason]
+            else:
+                # Save the hex value of the register address
+                reg_addr_hex_value = result
+
                 # I2C cmd- setup the register address to be read out
-                [reg_value_hex_res_code, reg_value_hex_value] = int_to_hex(reg_value)
-
-                if reg_value_hex_res_code == RES_CODE_OK:
+                result = int_to_hex(reg_value)
+                if isinstance(result, list):
+                    [_, reason] = result
+                    return [RES_CODE_ERROR, "Invalid reg_value " + str(reg_value) + " " + reason]
+                else:
+                    # Save the hex value of the register value
+                    reg_value_hex_value = result
 
                     i2cCmd = (I2C_PROGRAM_SET + " " + "-y " + str(i2c_bus) + " " +
                               i2c_addr_hex_value + " " + reg_addr_hex_value + " " +
@@ -346,18 +418,12 @@ class I2CBus(object):
                     [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
 
                     if returnCode == RETURN_CODE_SUCCESS:
-                        return [RES_CODE_OK, stdOut]
+                        return str_to_int(stdOut)
                     else:
                         if errorText is None:
                             return [RES_CODE_ERROR, str(stdOut)]
                         else:
                             return [RES_CODE_ERROR, str(errorText)]
-                else:
-                    return [RES_CODE_ERROR, "invalid reg_value " + str(reg_value)]
-            else:
-                return [RES_CODE_ERROR, "invalid reg_addr " + str(reg_addr)]
-        else:
-            return [RES_CODE_ERROR, "invalid i2c_addr " + str(i2c_addr)]
 
     # ===========================================================================
     # Write a block of byte data to a given register
@@ -373,8 +439,7 @@ class I2CBus(object):
     #    reg_value   -    list of byte to be write
     #                     valid type: list of int | list of hex string
     # Output:
-    #    ["ok", data] | ["error", reason]
-    #    data: integer
+    #    "ok" | ["error", reason]
     #    reason: string
     # ===========================================================================
     def write_i2c_block_data(self, i2c_bus, i2c_addr, reg_addr, reg_value):
@@ -393,13 +458,12 @@ class I2CBus(object):
 
         reg_addr_runtime = reg_addr
         for theByte in reg_value:
-            [resCode, resText] = self.write_byte_data(i2c_bus, i2c_addr, reg_addr_runtime, theByte)
+            result = self.write_byte_data(i2c_bus, i2c_addr, reg_addr_runtime, theByte)
+            if isinstance(result, list):
+                return result
+            else:
+                # Increment reg_addr_runtime
+                reg_addr_runtime = reg_addr_runtime + 1
 
-            if resCode == RES_CODE_ERROR:
-                return [resCode, resText]
-
-            # Increment reg_addr_runtime
-            reg_addr_runtime = reg_addr_runtime + 1
-
-        return [RES_CODE_OK, ""]
+        return RES_CODE_OK
 
