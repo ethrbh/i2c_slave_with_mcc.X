@@ -380,7 +380,7 @@ class I2CBus(object):
     #    reg_value   -    the value of the register to be write
     #                     valid type: int | hex string
     # Output:
-    #    data | ["error", reason]
+    #    "ok" | ["error", reason]
     #    data: integer
     #    reason: string
     # ===========================================================================
@@ -418,7 +418,7 @@ class I2CBus(object):
                     [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
 
                     if returnCode == RETURN_CODE_SUCCESS:
-                        return str_to_int(stdOut)
+                        return RES_CODE_OK
                     else:
                         if errorText is None:
                             return [RES_CODE_ERROR, str(stdOut)]
@@ -466,4 +466,3 @@ class I2CBus(object):
                 reg_addr_runtime = reg_addr_runtime + 1
 
         return RES_CODE_OK
-
