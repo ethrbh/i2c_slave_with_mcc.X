@@ -194,6 +194,13 @@ class I2CBus(object):
         return str_to_int(stringData)
 
     # ===========================================================================
+    # Remove all new line char from the given string
+    # ===========================================================================
+    def remove_new_line_from_string(self, theString):
+        s1 = theString.replace("\\n", "")
+        return s1.replace("\n", "")
+
+    # ===========================================================================
     # Set the register address to be read
     #
     # Input:
@@ -205,7 +212,7 @@ class I2CBus(object):
     #    reg_addr    -    the address of the register to be read
     #                     valid type: int | hex string
     # Output:
-    #    data | ["error", reason]
+    #    "ok" | ["error", reason]
     #    data: integer
     #    reason: string
     # ===========================================================================
@@ -231,12 +238,16 @@ class I2CBus(object):
                 [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
 
                 if returnCode == RETURN_CODE_SUCCESS:
-                    return str_to_int(stdOut)
+                    return RES_CODE_OK
                 else:
                     if errorText is None:
-                        return [RES_CODE_ERROR, str(stdOut)]
+                        # Convert binary string stdOut to normal string
+                        stdOutStr = stdOut.decode('ascii')
+                        return [RES_CODE_ERROR, self.remove_new_line_from_string(stdOutStr)]
                     else:
-                        return [RES_CODE_ERROR, str(errorText)]
+                        # Convert binary string errorText to normal string
+                        errorTextStr = errorText.decode('ascii')
+                        return [RES_CODE_ERROR, self.remove_new_line_from_string(errorTextStr)]
 
     # ===========================================================================
     # Read a single byte from a device. In EEPROM terminology, this is the
@@ -266,12 +277,18 @@ class I2CBus(object):
             [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
 
             if returnCode == 0:
-                return str_to_int(stdOut)
+                # Convert binary string stdOut to normal string
+                stdOutStr = stdOut.decode('ascii')
+                return str_to_int(self.remove_new_line_from_string(stdOutStr))
             else:
                 if errorText is None:
-                    return [RES_CODE_ERROR, str(stdOut)]
+                    # Convert binary string stdOut to normal string
+                    stdOutStr = stdOut.decode('ascii')
+                    return [RES_CODE_ERROR, self.remove_new_line_from_string(stdOutStr)]
                 else:
-                    return [RES_CODE_ERROR, str(errorText)]
+                    # Convert binary string errorText to normal string
+                    errorTextStr = errorText.decode('ascii')
+                    return [RES_CODE_ERROR, self.remove_new_line_from_string(errorTextStr)]
 
     # ===========================================================================
     # Read a single byte from a device by specify the register address to be read out.
@@ -311,12 +328,18 @@ class I2CBus(object):
                 [returnCode, stdOut, errorText] = execute_bash_cmd(i2cCmd, self.logger_obj)
 
                 if returnCode == 0:
-                    return str_to_int(stdOut)
+                    # Convert binary string stdOut to normal string
+                    stdOutStr = stdOut.decode('ascii')
+                    return str_to_int(self.remove_new_line_from_string(stdOutStr))
                 else:
                     if errorText is None:
-                        return [RES_CODE_ERROR, str(stdOut)]
+                        # Convert binary string stdOut to normal string
+                        stdOutStr = stdOut.decode('ascii')
+                        return [RES_CODE_ERROR, self.remove_new_line_from_string(stdOutStr)]
                     else:
-                        return [RES_CODE_ERROR, str(errorText)]
+                        # Convert binary string errorText to normal string
+                        errorTextStr = errorText.decode('ascii')
+                        return [RES_CODE_ERROR, self.remove_new_line_from_string(errorTextStr)]
 
     # ===========================================================================
     # Read a block of byte data from a given register
@@ -356,6 +379,7 @@ class I2CBus(object):
                 return result
             else:
                 # Convert the given string data to integer. Exit, if it failed.
+                print()
                 conv_to_int_result = str_to_int(result)
                 if isinstance(conv_to_int_result, list):
                     # Invalid data gave from the I2C slave.
@@ -421,9 +445,13 @@ class I2CBus(object):
                         return RES_CODE_OK
                     else:
                         if errorText is None:
-                            return [RES_CODE_ERROR, str(stdOut)]
+                            # Convert binary string stdOut to normal string
+                            stdOutStr = stdOut.decode('ascii')
+                            return [RES_CODE_ERROR, self.remove_new_line_from_string(stdOutStr)]
                         else:
-                            return [RES_CODE_ERROR, str(errorText)]
+                            # Convert binary string errorText to normal string
+                            errorTextStr = errorText.decode('ascii')
+                            return [RES_CODE_ERROR, self.remove_new_line_from_string(errorTextStr)]
 
     # ===========================================================================
     # Write a block of byte data to a given register
