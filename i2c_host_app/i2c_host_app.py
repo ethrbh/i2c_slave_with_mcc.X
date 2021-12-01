@@ -74,7 +74,7 @@ USAGE
         
         pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 333 -i2c_operation write
         2021-11-17 19:09:41,503 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
-        ['error', "b'Error: Data value out of range!\\nUsage: i2cset [-f] [-y] [-m MASK] [-r] [-a] I2CBUS CHIP-ADDRESS DATA-ADDRESS [VALUE] ... [MODE]\\n  I2CBUS is an integer or an I2C bus name\\n  ADDRESS is an integer (0x03 - 0x77, or 0x00 - 0x7f if -a is given)\\n  MODE is one of:\\n    c (byte, no value)\\n    b (byte data, default)\\n    w (word data)\\n    i (I2C block data)\\n    s (SMBus block data)\\n    Append p for SMBus PEC\\n'"]
+        ['error', 'Error: Data value out of range!Usage: i2cset [-f] [-y] [-m MASK] [-r] [-a] I2CBUS CHIP-ADDRESS DATA-ADDRESS [VALUE] ... [MODE]  I2CBUS is an integer or an I2C bus name  ADDRESS is an integer (0x03 - 0x77, or 0x00 - 0x7f if -a is given)  MODE is one of:    c (byte, no value)    b (byte data, default)    w (word data)    i (I2C block data)    s (SMBus block data)    Append p for SMBus PEC']
         pi@raspberrypi:~/projects/github/i2c_host_app> 
 
 @author:     Robert Balogh
@@ -303,7 +303,7 @@ USAGE
 
         pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 333 -i2c_operation write
         2021-11-17 19:09:41,503 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
-        ['error', "b'Error: Data value out of range!\\nUsage: i2cset [-f] [-y] [-m MASK] [-r] [-a] I2CBUS CHIP-ADDRESS DATA-ADDRESS [VALUE] ... [MODE]\\n  I2CBUS is an integer or an I2C bus name\\n  ADDRESS is an integer (0x03 - 0x77, or 0x00 - 0x7f if -a is given)\\n  MODE is one of:\\n    c (byte, no value)\\n    b (byte data, default)\\n    w (word data)\\n    i (I2C block data)\\n    s (SMBus block data)\\n    Append p for SMBus PEC\\n'"]
+        ['error', 'Error: Data value out of range!Usage: i2cset [-f] [-y] [-m MASK] [-r] [-a] I2CBUS CHIP-ADDRESS DATA-ADDRESS [VALUE] ... [MODE]  I2CBUS is an integer or an I2C bus name  ADDRESS is an integer (0x03 - 0x77, or 0x00 - 0x7f if -a is given)  MODE is one of:    c (byte, no value)    b (byte data, default)    w (word data)    i (I2C block data)    s (SMBus block data)    Append p for SMBus PEC']
         pi@raspberrypi:~/projects/github/i2c_host_app>
 
 '''
