@@ -165,7 +165,7 @@ void I2C1_SendNack()
 static void I2C1_Isr() 
 { 
     I2C1_SlaveClearIrq();
-
+    
     // A new transaction has been started
     if (SSP1STATbits.S) {
         if(I2C1_SlaveIsAddr())
