@@ -103,6 +103,11 @@ PROFILE = 0
 I2C_OPERATION_READ = "read"
 I2C_OPERATION_WRITE = "write"
 
+RES_CODE_OK = 0
+RES_CODE_ERROR = 1
+RES_CODE_OK_TEXT = "ok"
+RES_CODE_ERROR_TEXT = "error"
+
 
 # ===========================================================================
 # Read a single byte from a device. In EEPROM terminology, this is the
@@ -217,6 +222,8 @@ def write_i2c_block_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, reg_value):
 # ===========================================================================
 def main(argv=None):
     global I2C_OPERATION_READ, I2C_OPERATION_WRITE
+    global RES_CODE_OK, RES_CODE_ERROR
+    global RES_CODE_OK_TEXT, RES_CODE_ERROR_TEXT
 
     '''Command line options.'''
 
@@ -366,30 +373,75 @@ USAGE
         # Perform the I2C operation
         if args.i2c_operation == I2C_OPERATION_READ:
             if args.reg_addr is None:
-                return read_byte(i2c_obj, args.i2c_bus, args.i2c_addr)
+                result = read_byte(i2c_obj, args.i2c_bus, args.i2c_addr)
+                if isinstance(result, list):
+                    # Error case
+                    print(str(result))
+                    return RES_CODE_ERROR
+                else:
+                    # Ok case
+                    print(str(result))
+                    return RES_CODE_OK
             else:
                 if args.length is None:
-                    return read_byte_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr)
+                    result = read_byte_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr)
+                    if isinstance(result, list):
+                        # Error case
+                        print(str(result))
+                        return RES_CODE_ERROR
+                    else:
+                        # Ok case
+                        print(str(result))
+                        return RES_CODE_OK
                 else:
-                    return read_i2c_block_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr, args.length)
+                    result = read_i2c_block_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr, args.length)
+
+                    if isinstance(result, list):
+
+                        if result[0] == RES_CODE_ERROR_TEXT:
+                            # Error case
+                            print(str(result))
+                            return RES_CODE_ERROR
+                        else:
+                            # Ok case
+                            print(str(result))
+                            return RES_CODE_OK
+                    else:
+                        # Error case. The read_i2c_block_data should returns with list always
+                        print(str(result))
+                        return RES_CODE_ERROR
 
         elif args.i2c_operation == I2C_OPERATION_WRITE:
             if args.reg_addr is None or args.reg_value is None:
                 logger_obj.fatal("Register address (-reg_addr) and/or register value (-reg_val) CLI parameter(s) missing.")
             else:
                 # Convert the given reg_value to list, and pass that to the write_i2c_block_data function
-                return write_i2c_block_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr, args.reg_value.split(","))
+                result = write_i2c_block_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr, args.reg_value.split(","))
 
-        return 0
+                if isinstance(result, list):
+                    # Error case
+                    print(str(result))
+                    return RES_CODE_ERROR
+                else:
+                    # Ok case
+                    print(str(result))
+                    return RES_CODE_OK
+
+        else:
+            print("Unexpected i2c_operation " + str(args.i2c_operation) + ". "
+                  "Valid i2c_operation: " + I2C_OPERATION_WRITE + ", " + I2C_OPERATION_READ)
+            return RES_CODE_ERROR
+
     except KeyboardInterrupt:
         ### handle keyboard interrupt ###
-        return 0
+        return RES_CODE_OK
+
     except Exception as e:
         raise(e)
         indent = len(program_name) * " "
         sys.stderr.write(program_name + ": " + repr(e) + "\n")
         sys.stderr.write(indent + "  for help use --help")
-        return 2
+        return RES_CODE_ERROR
 
 
 if __name__ == "__main__":
