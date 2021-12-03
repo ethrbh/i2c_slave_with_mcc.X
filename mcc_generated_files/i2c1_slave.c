@@ -46,6 +46,7 @@
 
 #include "i2c1_slave.h"
 #include <xc.h>
+#include "mcc.h"
 
 #define I2C1_SLAVE_ADDRESS      103
 #define I2C1_SLAVE_MASK         127
@@ -66,6 +67,10 @@ volatile uint8_t i2c1WrData;
 volatile uint8_t i2c1RdData;
 volatile uint8_t i2c1SlaveAddr;
 static volatile i2c1_slave_state_t i2c1SlaveState = I2C1_IDLE;
+
+volatile uint8_t byteCnt=0;
+volatile uint8_t dataIn;
+volatile uint8_t regAddr;
 
 /**
  Section: Functions declaration
@@ -165,6 +170,80 @@ void I2C1_SendNack()
 static void I2C1_Isr() 
 { 
     I2C1_SlaveClearIrq();
+    
+//    if(I2C1_SlaveIsRxBufFull()) {
+//        dataIn = I2C1_Read();
+//    }
+//
+//    /*
+//     * This is a fast, small example what handles "random read" operation 
+//     * from the MASTER, and replies with a value, what is computed by
+//     * adding +1 to the register address to be read out (specified by the MASTER).
+//     * 
+//     * Note: Unfortunately PIC SLAVE still does not handles correctly the
+//     *       "random read" operation. Gives always back 0xFF :-(
+//     * 
+//     *  pi@raspberrypi:~/projects/github/i2c_slave_with_mcc.X/i2c_host_app(main)> python3
+//        Python 3.7.3 (default, Jan 22 2021, 20:04:44) 
+//        [GCC 8.3.0] on linux
+//        Type "help", "copyright", "credits" or "license" for more information.
+//        >>> import smbus2
+//        >>> s=smbus2.SMBus(1)
+//        >>> s.read_byte_data(103,2)
+//        255
+//     * 
+//     *      But, If I "split" the "random-read" to 2 sub-operations
+//     *      like the 1st "write+register address" and 2nd "read"
+//     *      SLAVE works
+//     * 
+//     *  pi@raspberrypi:~/projects/github/i2c_slave_with_mcc.X/i2c_host_app(main)> sudo i2cset -y 1 0x67 0x4
+//        pi@raspberrypi:~/projects/github/i2c_slave_with_mcc.X/i2c_host_app(main)> sudo i2cget -y 1 0x67
+//        0x05
+//        pi@raspberrypi:~/projects/github/i2c_slave_with_mcc.X/i2c_host_app(main)> 
+//    */
+//    if (SSP1STATbits.S) {
+//        
+//        if(I2C1_SlaveIsAddr()){
+//            if(I2C1_SlaveIsRead()){
+//                i2c1SlaveState = I2C1_ADDR_TX;
+//            } else {
+//                i2c1SlaveState = I2C1_ADDR_RX;
+//            }
+//        } else {
+//            if(I2C1_SlaveIsRead()){
+//                i2c1SlaveState = I2C1_DATA_TX;
+//            } else {
+//                i2c1SlaveState = I2C1_DATA_RX;
+//            }
+//        }
+//        
+//        switch(i2c1SlaveState) {
+//            case I2C1_ADDR_TX:
+//                I2C1_Write(regAddr+1);
+//                break;
+//            case I2C1_ADDR_RX:
+//                break;
+//            case I2C1_DATA_TX:
+//                break;
+//            case I2C1_DATA_RX:
+//                regAddr = dataIn;
+//                switch(regAddr){
+//                    case 1:
+//                        //IO_RA2_SetHigh();
+//                        IO_RA2_SetLow();
+//                        break;
+//                    default:
+//                        //IO_RA2_SetLow();
+//                        IO_RA2_SetHigh();
+//                        break;
+//                }
+//                break;
+//        }
+//        
+//        byteCnt = byteCnt+1;
+//    }
+//    
+//    I2C1_SlaveReleaseClock();
     
     // A new transaction has been started
     if (SSP1STATbits.S) {
