@@ -1,97 +1,20 @@
 '''
-  Created by Robert Balogh
-      ethrbh@gmail.com
-      www.github.com/ethrbh
-  
-  Copyright 2021 organization_name. All rights reserved.
-
-  Licensed under the Apache License 2.0
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Distributed on an "AS IS" basis without warranties
-  or conditions of any kind, either express or implied.
-
-  This program demonstrates how to read/write I2C EEPROM via
-  ordinary i2c-tools on Ubuntu OS using Python language.
-  
-  In my case the I2C EEPROM is emulated by a PIC MCU,
-  and unfortunately ordinary SMBUS2 Python lib does not work
-  properly. The "Random Read" I2C operation, where 2 control-byte
-  has been used within the full operation, wont work.
-  
-  I did not find the root-cause of this :-( 
-  
-  Because I still want use Python for my "Host app" in the future, 
-  I made a wrapper script around i2cget and i2cset programs, 
-  because using these, accessing to the emulated EEPROM in the PIC,
-  is working well.
-  
-USAGE
-    Read one byte without specify the register address
-        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -i2c_operation read
-        
-        result:
-            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -i2c_operation read
-            2021-11-17 18:57:36,645 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
-            27
-        
-    Read the specified register address
-        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -i2c_operation read
-        
-        result:
-            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -i2c_operation read
-            2021-11-17 19:00:33,452 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
-            12
-    
-    Read N byte started from a specified register address
-        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -length 6 -i2c_operation read
-        
-        result:
-            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -length 6 -i2c_operation read
-            2021-11-17 19:02:24,678 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
-            [12, 13, 14, 15, 16, 17]
-    
-    Write byte into a specified register address
-        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 33 -i2c_operation write
-        
-        result:
-            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 33 -i2c_operation write
-            2021-11-17 19:04:13,173 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
-            'ok'
-    
-    Write N byte from a specified register address
-        python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 33,34,35,36 -i2c_operation write
-        
-        result:
-            pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 33,34,35,36 -i2c_operation write
-            2021-11-17 19:08:20,014 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
-            'ok'
-            pi@raspberrypi:~/projects/github/i2c_host_app>
-    
-    Example when invalid register address is used for a write operation
-        In any failure cases the result will be a list, like this:
-            ["error", ErrorText]
-        
-        pi@raspberrypi:~/projects/github/i2c_host_app> python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -reg_addr 12 -reg_value 333 -i2c_operation write
-        2021-11-17 19:09:41,503 - i2c_wrapper-i2c_host_app.py - INFO - Logger log file is: i2c_wrapper.log
-        ['error', 'Error: Data value out of range!Usage: i2cset [-f] [-y] [-m MASK] [-r] [-a] I2CBUS CHIP-ADDRESS DATA-ADDRESS [VALUE] ... [MODE]  I2CBUS is an integer or an I2C bus name  ADDRESS is an integer (0x03 - 0x77, or 0x00 - 0x7f if -a is given)  MODE is one of:    c (byte, no value)    b (byte data, default)    w (word data)    i (I2C block data)    s (SMBus block data)    Append p for SMBus PEC']
-        pi@raspberrypi:~/projects/github/i2c_host_app> 
-
 @author:     Robert Balogh
 @copyright:  2021. All rights reserved.
 @license:    license
 @contact:    ethrbh@gmail.com
+
+For more info please refer to HELP
 '''
 
 import sys
 import os
-import i2c_wrapper
+import importlib.util
 import logging
-import host_logger
+# import logger
 
 from argparse import ArgumentParser
 from argparse import RawDescriptionHelpFormatter
-from _curses import OK
 
 __version__ = 0.1
 __date__ = '2021-11-15'
@@ -107,6 +30,19 @@ RES_CODE_OK = 0
 RES_CODE_ERROR = 1
 RES_CODE_OK_TEXT = "ok"
 RES_CODE_ERROR_TEXT = "error"
+
+# Compute the current working dir name
+SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+# These modules are NOT part of the source of I2C host application, but can be
+# get from Github, and stored into the same folder where i2c_host_app.py is.
+#
+# logger: wget https://raw.githubusercontent.com/ethrbh/python_logger/master/logger.py?token=AAN7QWGQ7CQ7N4ZMCV32YJTBW37Z6
+#         mv logger.py?token=AAN7QWDQNCTC74M3SQUOPW3BW37SM logger.py
+#
+# i2c_wrapper: wget https://raw.githubusercontent.com/ethrbh/i2c_tools_wrapper/master/i2c_wrapper.py?token=AAN7QWGRO5NXYB2ZPDQK4SLBW3762
+#              mv i2c_wrapper.py?token=AAN7QWGRO5NXYB2ZPDQK4SLBW3762 i2c_wrapper.py
+MODULE_LIST_TO_BE_LOADED_RUNTIME = ["logger", "i2c_wrapper"]
 
 
 # ===========================================================================
@@ -218,12 +154,57 @@ def write_i2c_block_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, reg_value):
 
 
 # ===========================================================================
+# Load the specified Python modules from source file
+# Input:
+#    currentWorkingDir    : string
+#    moduleName           : string, the name of the module to be loaded at runtime
+#                           without ".py" extension
+#                           e.g.: "i2c_wrapper"
+# Output:
+#    RES_CODE_ERROR | <module name>
+# ===========================================================================
+def dynamic_module_load(currentWorkingDir, moduleName):
+    # Assumes the moduleName is located in the same folder where
+    # the i2c_host_app.py is.
+    #
+    # Build the full path of the moduleName
+    #
+    sourceFile = currentWorkingDir + "/" + moduleName + ".py"
+
+    # Build error text
+    errorText = "Error: The module " + str(sourceFile) + " does not exists. Get this from Github. For more info consult with help."
+
+    # Check if given file exists
+    if os.path.isfile(sourceFile) is True:
+        # Import the module.
+        try:
+            spec = importlib.util.spec_from_file_location(moduleName, sourceFile)
+            moduleNameFromSpec = importlib.util.module_from_spec(spec)
+
+            if moduleNameFromSpec is not None:
+                spec.loader.exec_module(moduleNameFromSpec)
+                return moduleNameFromSpec
+            else:
+                print(errorText)
+                return RES_CODE_ERROR
+
+        except ImportError:
+            print(errorText)
+            return RES_CODE_ERROR
+    else:
+        print(errorText)
+        return RES_CODE_ERROR
+
+
+# ===========================================================================
 # The main section
 # ===========================================================================
 def main(argv=None):
     global I2C_OPERATION_READ, I2C_OPERATION_WRITE
     global RES_CODE_OK, RES_CODE_ERROR
     global RES_CODE_OK_TEXT, RES_CODE_ERROR_TEXT
+    global MODULE_LIST_TO_BE_LOADED_RUNTIME
+    global SCRIPT_DIR
 
     '''Command line options.'''
 
@@ -263,6 +244,18 @@ def main(argv=None):
   is working well.
 
 USAGE
+    Before use the tool: 
+        There are 3rd party Python scripts used by the tool. These are: logger, i2c_wrapper
+        Get these from Github and save into the folder where i2c_host_app.py script is
+        located.
+        getting logger:
+            wget https://raw.githubusercontent.com/ethrbh/python_logger/master/logger.py?token=AAN7QWGQ7CQ7N4ZMCV32YJTBW37Z6
+            mv logger.py?token=AAN7QWDQNCTC74M3SQUOPW3BW37SM logger.py
+        
+        getting i2c_wrapper:
+            wget https://raw.githubusercontent.com/ethrbh/i2c_tools_wrapper/master/i2c_wrapper.py?token=AAN7QWGRO5NXYB2ZPDQK4SLBW3762
+            mv i2c_wrapper.py?token=AAN7QWGRO5NXYB2ZPDQK4SLBW3762 i2c_wrapper.py
+                         
     Read one byte without specify the register address
         python3 i2c_host_app.py -i2c_bus 1 -i2c_addr 103 -i2c_operation read
 
@@ -341,8 +334,25 @@ USAGE
         # Process arguments
         args = parser.parse_args()
 
+        for moduleName in MODULE_LIST_TO_BE_LOADED_RUNTIME:
+            resultCode = dynamic_module_load(SCRIPT_DIR, moduleName)
+
+            if resultCode == RES_CODE_ERROR:
+                return RES_CODE_ERROR
+            else:
+                infoText = "The " + str(moduleName) + " module successfully loaded (aka imported)"
+                if moduleName == "i2c_wrapper":
+                    print(infoText)
+                    i2c_wrapper = resultCode
+                elif moduleName == "logger":
+                    print(infoText)
+                    logger = resultCode
+                else:
+                    print("ERROR: Unexpected module loaded dynamically. Module: " + str(resultCode))
+                    return RES_CODE_ERROR
+
         # Setup logger's parameters
-        toolname = "i2c_wrapper"
+        toolname = "i2c_host_app"
         caller_module = os.path.basename(__file__)
         logfile = toolname + ".log"
 
@@ -361,7 +371,7 @@ USAGE
             loglevel = logging.FATAL
 
         # Create the logger object to be used for logging
-        logger_obj = host_logger.setup(toolname, caller_module, loglevel, logfile)
+        logger_obj = logger.setup(toolname, caller_module, loglevel, logfile)
 
         # Validate I2C mandatory CLI parameters
         if args.i2c_addr is None:
