@@ -50,17 +50,14 @@ MODULE_LIST_TO_BE_LOADED_RUNTIME = ["logger", "i2c_wrapper"]
 #
 # Input:
 #    i2c_obj     -    object of the I2C wrapper
-#    i2c_bus     -    int, the integer id of the I2C bus to be used
-#                     For example if the I2C bus name is /dev/i2c-1
-#                     the integer id to be used here is 1.
 #    i2c_addr    -    int, i2c address
 # Output:
 #    data | ["error", reason]
 #    data: integer
 #    reason: string
 # ===========================================================================
-def read_byte(i2c_obj, i2c_bus, i2c_addr):
-    return i2c_obj.read_byte(i2c_bus, i2c_addr)
+def read_byte(i2c_obj, i2c_addr):
+    return i2c_obj.read_byte(i2c_addr)
 
 
 # ===========================================================================
@@ -69,9 +66,6 @@ def read_byte(i2c_obj, i2c_bus, i2c_addr):
 #
 # Input:
 #    i2c_obj     -    object of the I2C wrapper
-#    i2c_bus     -    int, the integer id of the I2C bus to be used
-#                     For example if the I2C bus name is /dev/i2c-1
-#                     the integer id to be used here is 1.
 #    i2c_addr    -    i2c address
 #                     valid type: int | hex string
 #    reg_addr    -    the address of the register to be read
@@ -81,8 +75,8 @@ def read_byte(i2c_obj, i2c_bus, i2c_addr):
 #    data: integer
 #    reason: string
 # ===========================================================================
-def read_byte_data(i2c_obj, i2c_bus, i2c_addr, reg_addr):
-    return i2c_obj.read_byte_data(i2c_bus, i2c_addr, reg_addr)
+def read_byte_data(i2c_obj, i2c_addr, reg_addr):
+    return i2c_obj.read_byte_data(i2c_addr, reg_addr)
 
 
 # ===========================================================================
@@ -90,9 +84,6 @@ def read_byte_data(i2c_obj, i2c_bus, i2c_addr, reg_addr):
 #
 # Input:
 #    i2c_obj     -    object of the I2C wrapper
-#    i2c_bus     -    int, the integer id of the I2C bus to be used
-#                     For example if the I2C bus name is /dev/i2c-1
-#                     the integer id to be used here is 1.
 #    i2c_addr    -    i2c address
 #                     valid type: int | hex string
 #    reg_addr    -    the address of the register to be read
@@ -103,17 +94,14 @@ def read_byte_data(i2c_obj, i2c_bus, i2c_addr, reg_addr):
 #    data: list of integer
 #    reason: string
 # ===========================================================================
-def read_i2c_block_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, length):
-    return i2c_obj.read_i2c_block_data(i2c_bus, i2c_addr, reg_addr, length)
+def read_i2c_block_data(i2c_obj, i2c_addr, reg_addr, length):
+    return i2c_obj.read_i2c_block_data(i2c_addr, reg_addr, length)
 
 # # ===========================================================================
 # # Write a single register.
 # #
 # # Input:
 # #    i2c_obj     -    object of the I2C wrapper
-# #    i2c_bus     -    int, the integer id of the I2C bus to be used
-# #                     For example if the I2C bus name is /dev/i2c-1
-# #                     the integer id to be used here is 1.
 # #    i2c_addr    -    i2c address
 # #                     valid type: int | hex string
 # #    reg_addr    -    the address of the register to be write
@@ -125,8 +113,8 @@ def read_i2c_block_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, length):
 # #    data: integer
 # #    reason: string
 # # ===========================================================================
-# def write_byte_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, reg_value):
-#     return i2c_obj.write_byte_data(i2c_bus, i2c_addr, reg_addr, reg_value)
+# def write_byte_data(i2c_obj, i2c_addr, reg_addr, reg_value):
+#     return i2c_obj.write_byte_data(i2c_addr, reg_addr, reg_value)
 
 
 # ===========================================================================
@@ -134,9 +122,6 @@ def read_i2c_block_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, length):
 #
 # Input:
 #    i2c_obj     -    object of the I2C wrapper
-#    i2c_bus     -    int, the integer id of the I2C bus to be used
-#                     For example if the I2C bus name is /dev/i2c-1
-#                     the integer id to be used here is 1.
 #    i2c_addr    -    i2c address
 #                     valid type: int | hex string
 #    reg_addr    -    the address of the register to be write
@@ -148,8 +133,8 @@ def read_i2c_block_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, length):
 #    data: integer
 #    reason: string
 # ===========================================================================
-def write_i2c_block_data(i2c_obj, i2c_bus, i2c_addr, reg_addr, reg_value):
-    return i2c_obj.write_i2c_block_data(i2c_bus, i2c_addr, reg_addr, reg_value)
+def write_i2c_block_data(i2c_obj, i2c_addr, reg_addr, reg_value):
+    return i2c_obj.write_i2c_block_data(i2c_addr, reg_addr, reg_value)
 
 
 # ===========================================================================
@@ -382,7 +367,7 @@ USAGE
         # Perform the I2C operation
         if args.i2c_operation == I2C_OPERATION_READ:
             if args.reg_addr is None:
-                result = read_byte(i2c_obj, args.i2c_bus, args.i2c_addr)
+                result = read_byte(i2c_obj, args.i2c_addr)
                 if isinstance(result, list):
                     # Error case
                     print(str(result))
@@ -393,7 +378,7 @@ USAGE
                     return RES_CODE_OK
             else:
                 if args.length is None:
-                    result = read_byte_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr)
+                    result = read_byte_data(i2c_obj, args.i2c_addr, args.reg_addr)
                     if isinstance(result, list):
                         # Error case
                         print(str(result))
@@ -403,7 +388,7 @@ USAGE
                         print(str(result))
                         return RES_CODE_OK
                 else:
-                    result = read_i2c_block_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr, args.length)
+                    result = read_i2c_block_data(i2c_obj, args.i2c_addr, args.reg_addr, args.length)
 
                     if isinstance(result, list):
 
@@ -425,7 +410,7 @@ USAGE
                 logger_obj.fatal("Register address (-reg_addr) and/or register value (-reg_val) CLI parameter(s) missing.")
             else:
                 # Convert the given reg_value to list, and pass that to the write_i2c_block_data function
-                result = write_i2c_block_data(i2c_obj, args.i2c_bus, args.i2c_addr, args.reg_addr, args.reg_value.split(","))
+                result = write_i2c_block_data(i2c_obj, args.i2c_addr, args.reg_addr, args.reg_value.split(","))
 
                 if isinstance(result, list):
                     # Error case
